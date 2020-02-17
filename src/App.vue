@@ -1,18 +1,34 @@
 <template>
-    <div class="container">
-        <InstructorApp/>
+    <div>
+        <button
+                v-for="tab in tabs"
+                :key="tab"
+                @click="selected = tab;"
+                :class="['tab-btn', { active: selected === tab }]"
+        >
+            {{ tab }}
+        </button>
+
+        <component :is="selected" class="tab"></component>
     </div>
 </template>
 
 <script>
-    import InstructorApp from './components/InstructorApp.vue'
+    import Home from "./components/Home";
+    import Contact from "./components/Contact";
 
     export default {
-        name: 'Project - X',
+        data: function() {
+            return {
+                tabs: ["Home", "Contact"],
+                selected: "Home"
+            };
+        },
         components: {
-            InstructorApp
+            Home,
+            Contact
         }
-    }
+    };
 </script>
 
 <style>
