@@ -16,21 +16,25 @@
 <script>
     import Home from "./components/Home";
     import Contact from "./components/Contact";
+    import Register from "./components/Register";
+    import FilterList from "./components/List";
 
     export default {
         data: function() {
             return {
-                tabs: ["Home", "Contact"],
+                tabs: ["Home", "Contact","Register", "FilterList"],
                 selected: "Home"
             };
         },
         components: {
             Home,
-            Contact
+            Contact,
+            Register,
+            FilterList
         }
     };
 </script>
 
 <style>
-    @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css)
+    @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css);
 </style>
