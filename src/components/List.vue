@@ -3,10 +3,6 @@
         <vue-good-table
                 mode="remote"
                 @on-column-filter="methods.onColumnFilter($event.columnFilters)"
-                :totalRows="totalRecords"
-                :pagination-options="{
-                    enabled: true,
-                  }"
                 :rows="rows"
                 :columns="columns"
                 :line-numbers="true"/>
@@ -19,6 +15,7 @@
     export default {
         name: 'my-component',
         data() {
+            let self = this;
             return {
                 totalRecords: 0,
                 columns: [
@@ -110,15 +107,13 @@
 
                     onColumnFilter(params) {
                         this.updateParams(params);
-                        console.log(params);
                         this.loadItems(params);
                     },
 
                     // load items is what brings back the rows from server
                     loadItems(params) {
                         CourseDataService.listCourses(params).then(response => {
-                            this.rows = response.data;
-                            console.log("buradaaaaa")
+                            self.rows = response.data;
                         });
                     }
                 }
