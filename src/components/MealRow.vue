@@ -25,8 +25,8 @@
     </div>
 </template>
 <script>
+    // eslint-disable-next-line no-unused-vars
     const request = require("superagent");
-    import { APIURL } from "../main";
     export default {
         name: "meal-row",
         props: ["meal"],

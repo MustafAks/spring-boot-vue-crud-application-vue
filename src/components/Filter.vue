@@ -17,7 +17,6 @@
 <script>
     const request = require("superagent");
     import { APIURL } from "../main";
-    import MealRow from "./MealRow";
     export default {
         name: "search",
         data() {

@@ -11,6 +11,8 @@ import MealRow from './components/MealRow.vue'
 import NavBar from './components/Navbar'
 import Filter from './components/Filter'
 import FilterRow from './components/FilterRow'
+import ListCoursesComponent from "./components/ListCoursesComponent";
+import Register from "./components/Register";
 
 Vue.component('meal-row', MealRow);
 Vue.component('nav-bar', NavBar);
@@ -49,6 +51,18 @@ export default new Router({
             name: 'filter-keyword',
             component: Filter,
             meta: { title: 'Filter' }
+        },
+        {
+            path: '/coursesList',
+            name: 'CoursesList',
+            component: ListCoursesComponent,
+            meta: { title: 'List Course' }
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: Register,
+            meta: { title: 'Register' }
         }
     ]
 })
