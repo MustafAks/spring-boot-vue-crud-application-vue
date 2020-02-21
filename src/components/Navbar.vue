@@ -8,6 +8,7 @@
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'latest'}" :active="$route.name == 'latest'">Anasayfa</b-nav-item>
                 <b-nav-item :to="{ name: 'CoursesList'}" :active="$route.name == 'CoursesList'">Üyelerimiz</b-nav-item>
+                <b-nav-item :to="{ name: 'Filter'}" :active="$route.name == 'CoursesList'">Filter</b-nav-item>
 <!--
                 <b-nav-item :to="{ name: 'random'}" :active="$route.name.includes('random')">Random</b-nav-item>
 -->
