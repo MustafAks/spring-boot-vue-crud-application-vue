@@ -4,9 +4,12 @@
         <div id='router-view'>
             <router-view/>
         </div>
+        <v-footer></v-footer>
     </div>
+
 </template>
 <script>
+
     export default {
         name: "app"
     };

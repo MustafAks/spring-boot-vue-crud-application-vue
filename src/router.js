@@ -9,6 +9,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VeeValidate from 'vee-validate';
 import MealRow from './components/MealRow.vue'
 import NavBar from './components/Navbar'
+import Footer from './components/footer'
 import Filter from './components/Filter'
 import FilterRow from './components/FilterRow'
 import ListCoursesComponent from "./components/ListCoursesComponent";
@@ -16,6 +17,7 @@ import Register from "./components/Register";
 
 Vue.component('meal-row', MealRow);
 Vue.component('nav-bar', NavBar);
+Vue.component('v-footer', Footer);
 Vue.component('filter-row', FilterRow);
 Vue.use(Router);
 Vue.use(BootstrapVue);
@@ -26,7 +28,7 @@ export default new Router({
             path: '/',
             name: 'latest',
             component: Latest,
-            meta: { title: 'Home' }
+            meta: { title: 'Hasret Gazetesi - Kemaliye' }
         },
         {
             path: '/random',
@@ -56,13 +58,13 @@ export default new Router({
             path: '/coursesList',
             name: 'CoursesList',
             component: ListCoursesComponent,
-            meta: { title: 'List Course' }
+            meta: { title: 'Üyelerimiz' }
         },
         {
             path: '/register',
             name: 'Register',
             component: Register,
-            meta: { title: 'Register' }
+            meta: { title: 'Kayıt Ol' }
         }
     ]
 })
