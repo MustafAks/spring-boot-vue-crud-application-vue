@@ -3,7 +3,7 @@ import App from './App'
 import router from './router'
 import VueGoodTablePlugin from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css'
-
+import "vuetify/dist/vuetify.css";
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
   next()

@@ -6,13 +6,11 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VeeValidate from 'vee-validate';
 import NavBar from './components/Navbar'
-import Footer from './components/footer'
 import Filter from './components/List'
 import ListCoursesComponent from "./components/ListCoursesComponent";
 import Register from "./components/Register";
 
 Vue.component('nav-bar', NavBar);
-Vue.component('v-footer', Footer);
 Vue.use(Router);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
