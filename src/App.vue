@@ -1,20 +1,24 @@
 <template>
-    <div class="container">
-        <InstructorApp/>
+    <div id="app">
+        <nav-bar></nav-bar>
+        <div id='router-view'>
+            <router-view/>
+        </div>
     </div>
 </template>
-
 <script>
-    import InstructorApp from './components/InstructorApp.vue'
-
     export default {
-        name: 'Project - X',
-        components: {
-            InstructorApp
-        }
-    }
+        name: "app"
+    };
 </script>
-
 <style>
-    @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css)
+    #app {
+        font-family: "Avenir", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #router-view {
+        padding: 20px 0px;
+        margin: 0 auto;
+    }
 </style>
