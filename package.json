@@ -20,6 +20,7 @@
     "vue": "^2.6.11",
     "vue-good-table": "^2.18.1",
     "vue-router": "^3.1.5",
+    "vue-social-sharing": "^2.4.7",
     "vuetify": "^2.2.14"
   },
   "devDependencies": {

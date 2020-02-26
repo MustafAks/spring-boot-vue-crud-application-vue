@@ -25,10 +25,7 @@
                 <!-- Footer Elements -->
                 <!-- Copyright -->
                 <div class="container">
-                    <p class="text-center text-white">©{{ new Date().getFullYear() }} Copyright — Kemaliye <i class="fab fa-facebook-f"></i></p>
-                    <a class="btn btn-social-icon btn-twitter">
-                        <span class="fa fa-twitter"></span>
-                    </a>
+                    <p class="text-center text-white">©{{ new Date().getFullYear() }} Copyright — Kemaliye</p>
                 </div>
                 <!-- Copyright -->
             </footer>
