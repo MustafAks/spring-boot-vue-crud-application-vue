@@ -1,19 +1,88 @@
 <template>
-  <div class="row">
-
-    <div class="container">
-      <h2>Kayıt</h2>
-      <label><b>Username</b></label>
-      <input type="text" v-model="user.username">
-      <br>
-      <label><b>Description</b></label>
-      <input type="text" v-model="user.description">
+  <div class="container">
+    <div class="center">
+      <b-container fluid>
+        <b-row>
+          <b-col sm="4">
+            <label>Adı:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.adi"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>Soyadı:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.soyadi"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>Başlangıç Tarihi:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.baslangicTarihi"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>Bitiş Tarihi:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.bitisTarihi"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>İl:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.il"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>İlçe:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.ilce"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>Adres:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.adres"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>Notlar:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-input v-model="user.notlar"></b-form-input>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col sm="4">
+            <label>Para Alındı:</label>
+          </b-col>
+          <b-col sm="7">
+            <b-form-checkbox id="checkbox-1" name="checkbox-1" v-model="user.paraAlindi" value=true unchecked-value=false></b-form-checkbox>
+          </b-col>
+        </b-row>
+        <b-container class="bv-example-row">
+          <b-row align-h="end">
+            <b-col cols="3">
+              <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="create">Kaydet</b-button>
+            </b-col>
+          </b-row>
+        </b-container>
+      </b-container>
     </div>
-
-    <div class="col-12">
-      <b-button type="submit" variant="primary" v-on:click.prevent="create">Kaydet</b-button>
-    </div>
-
   </div>
 </template>
 
@@ -24,8 +93,15 @@
     data() {
       return {
         user: {
-          username: "",
-          description: ""
+          adi: '',
+          soyadi: '',
+          baslangicTarihi: '',
+          bitisTarihi: '',
+          il: '',
+          ilce: '',
+          adres: '',
+          notlar: '',
+          paraAlindi: ''
         }
       };
     },
@@ -40,4 +116,7 @@
   };
 </script>
 <style>
+  img {
+    max-width: 100%;
+  }
 </style>
