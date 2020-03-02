@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "dev": "npm run serve"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -21,7 +22,10 @@
     "vue-good-table": "^2.18.1",
     "vue-router": "^3.1.5",
     "vue-social-sharing": "^2.4.7",
-    "vuetify": "^2.2.14"
+    "vuelidate": "^0.7.5",
+    "vuelidate-error-extractor": "^2.4.1",
+    "vuetify": "^2.2.14",
+    "vue-notifyjs": "^0.3.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",

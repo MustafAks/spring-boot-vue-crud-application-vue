@@ -7,7 +7,7 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'latest'}" :active="$route.name == 'latest'">Anasayfa</b-nav-item>
-                <b-nav-item :to="{ name: 'AbonelerList'}" :active="$route.name == 'AbonelerList'">Üyelerimiz</b-nav-item>
+                <b-nav-item :to="{ name: 'SubscriberList'}" :active="$route.name == 'SubscriberList'">Aboneler</b-nav-item>
                 <b-nav-item :to="{ name: 'Filter'}" :active="$route.name == 'Filter'">Filter</b-nav-item>
 <!--
                 <b-nav-item :to="{ name: 'random'}" :active="$route.name.includes('random')">Random</b-nav-item>

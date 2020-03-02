@@ -6,14 +6,28 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VeeValidate from 'vee-validate';
 import NavBar from './components/Navbar'
-import Filter from './components/List'
-import AbonelerList from "./components/ListCoursesComponent";
-import Register from "./components/Register";
+import Register from "./views/subscriber/Register";
+import axios from './utils/AxiosUtils';
+import errorHandler from './utils/ExceptionHandler';
+import Notify from 'vue-notifyjs';
+import 'vue-notifyjs/themes/default.css';
+// eslint-disable-next-line no-unused-vars
+import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
+
+import notificationUtils from './utils/NotificationUtils';
+import SubscriberList from "./views/subscriber/SubscriberList";
+import SubscriberFilterList from "./views/subscriber/SubscriberFilterList";
+
 
 Vue.component('nav-bar', NavBar);
 Vue.use(Router);
 Vue.use(BootstrapVue);
 Vue.use(VeeValidate);
+Vue.use(Notify);
+Vue.use(axios);
+Vue.use(errorHandler);
+Vue.use(notificationUtils);
+
 export default new Router({
     routes: [
         {
@@ -24,20 +38,20 @@ export default new Router({
         },
         {
             path: '/abonelerList',
-            name: 'AbonelerList',
-            component: AbonelerList,
-            meta: { title: 'Üyelerimiz' }
+            name: 'SubscriberList',
+            component: SubscriberList,
+            meta: { title: 'Aboneler' }
         },
         {
             path: '/register',
             name: 'Register',
             component: Register,
-            meta: { title: 'Kayıt Ol' }
+            meta: { title: 'Yeni Abone' }
         },
         {
             path: '/filter',
             name: 'Filter',
-            component: Filter,
+            component: SubscriberFilterList,
             meta: { title: 'Filter' }
         }
     ]

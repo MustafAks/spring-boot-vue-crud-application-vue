@@ -1,22 +1,15 @@
-import axios from "axios";
+import Vue from 'vue';
 
-const ABONE_URL = "http://localhost:8085";
-const SAVE_ABONE_URL = `${ABONE_URL}/abone/`;
-const LIST = `${ABONE_URL}/abone/list`;
+const SAVE_ABONE_URL = '/abone/';
+const LIST = '/abone/list';
 
 class AboneDataService {
-    list(course) {
-        // const qs = require('querystring')
-        // const config = {
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // }
-        // return axios.post(`${LIST}`, qs.stringify(course), config);
-        return axios.post(`${LIST}`, course);
+    async list(subscriber) {
+        return await Vue.prototype.$axios.post(LIST, subscriber);
     }
-    saveAbone(course) {
-        return axios.post(`${SAVE_ABONE_URL}`, course);
+
+    async saveAbone(subscriber) {
+        return await Vue.prototype.$axios.post(SAVE_ABONE_URL, subscriber);
     }
 }
 

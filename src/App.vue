@@ -2,6 +2,7 @@
     <div id="app">
         <nav-bar></nav-bar>
         <div id='router-view'>
+            <notifications></notifications>
             <router-view/>
         </div>
         <div id='footer-view'>
