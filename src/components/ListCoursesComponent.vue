@@ -5,14 +5,22 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Description</th>
+                    <th>Adı</th>
+                    <th>Soyadı</th>
+                    <th>İl</th>
+                    <th>İlçe</th>
+                    <th>Adres</th>
+                    <th>Notlar</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="course in courses" v-bind:key="course.id">
-                    <td>{{course.id}}</td>
-                    <td>{{course.description}}</td>
+                <tr v-for="abone in aboneler" v-bind:key="abone.id">
+                    <td>{{abone.adi}}</td>
+                    <td>{{abone.soyadi}}</td>
+                    <td>{{abone.il}}</td>
+                    <td>{{abone.ilce}}</td>
+                    <td>{{abone.adres}}</td>
+                    <td>{{abone.notlar}}</td>
                 </tr>
                 </tbody>
             </table>
@@ -20,21 +28,21 @@
     </div>
 </template>
 <script>
-    import CourseDataService from '../service/CourseDataService';
+    import AboneDataService from '../service/AboneDataService';
     export default {
-        name: "CoursesList",
+        name: "AbonelerList",
         data() {
             return {
-                courses: [],
+                aboneler: [],
                 message: null,
                 INSTRUCTOR: "Project - X"
             };
         },
         methods: {
             refreshCourses() {
-                CourseDataService.retrieveAllCourses(this.INSTRUCTOR) //HARDCODED
+                AboneDataService.list({})
                     .then(response => {
-                        this.courses = response.data;
+                        this.aboneler = response.data;
                     });
             }
         },

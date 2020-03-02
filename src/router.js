@@ -7,7 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VeeValidate from 'vee-validate';
 import NavBar from './components/Navbar'
 import Filter from './components/List'
-import ListCoursesComponent from "./components/ListCoursesComponent";
+import AbonelerList from "./components/ListCoursesComponent";
 import Register from "./components/Register";
 
 Vue.component('nav-bar', NavBar);
@@ -23,9 +23,9 @@ export default new Router({
             meta: { title: 'Hasret Gazetesi - Kemaliye' }
         },
         {
-            path: '/coursesList',
-            name: 'CoursesList',
-            component: ListCoursesComponent,
+            path: '/abonelerList',
+            name: 'AbonelerList',
+            component: AbonelerList,
             meta: { title: 'Üyelerimiz' }
         },
         {

@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    import CourseDataService from '../service/CourseDataService';
+    import AboneDataService from '../service/AboneDataService';
     export default {
         name: "Register",
         data() {
@@ -24,7 +24,7 @@
         },
         methods: {
             create() {
-                CourseDataService.createCourse({
+                AboneDataService.saveAbone({
                     username: this.username,
                     description: this.description
                 }) //HARDCODED

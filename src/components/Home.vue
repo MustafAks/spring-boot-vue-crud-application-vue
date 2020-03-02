@@ -6,11 +6,11 @@
 </template>
 
 <script>
-    import ListCoursesComponent from "./ListCoursesComponent";
+    import AbonelerList from "./ListCoursesComponent";
     export default {
         name: "InstructorApp",
         components: {
-            ListCoursesComponent
+            AbonelerList
         }
     };
 </script>
