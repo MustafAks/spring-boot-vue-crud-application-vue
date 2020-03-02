@@ -17,6 +17,7 @@ import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
 import notificationUtils from './utils/NotificationUtils';
 import SubscriberList from "./views/subscriber/SubscriberList";
 import SubscriberFilterList from "./views/subscriber/SubscriberFilterList";
+import About from "./views/About";
 
 
 Vue.component('nav-bar', NavBar);
@@ -53,6 +54,12 @@ export default new Router({
             name: 'Filter',
             component: SubscriberFilterList,
             meta: { title: 'Filter' }
+        },
+        {
+            path: '/about',
+            name: 'About',
+            component: About,
+            meta: { title: 'Hakkımızda' }
         }
     ]
 })
