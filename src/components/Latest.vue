@@ -5,14 +5,15 @@
 </template>
 
 <script>
-    import image from "../assets/hasret.jpg"
+    // import image from "../assets/hasret.jpg"
 
 
     export default {
         data: function () {
             return {
                 mainProps: { blank: true, blankColor: '#777', width: 75, height: 75, class: 'm1' },
-                image: image
+                //image: image
+                image: null
             }
         }
     }
