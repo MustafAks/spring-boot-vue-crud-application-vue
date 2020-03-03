@@ -11,8 +11,20 @@ const notificationInstance = function (vmi, message) {
   });
 };
 
+const errorNotificationInstance = function (vmi, message) {
+  vmi.$notify({
+    message,
+    icon: 'ti-info',
+    horizontalAlign: 'right',
+    verticalAlign: 'top',
+    type: 'danger',
+    timeout: 5000,
+  });
+};
+
 export default {
   install() {
     Vue.prototype.$notification = notificationInstance;
+    Vue.prototype.$errorNotification = errorNotificationInstance;
   },
 };

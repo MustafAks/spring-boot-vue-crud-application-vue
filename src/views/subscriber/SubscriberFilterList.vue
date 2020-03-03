@@ -10,7 +10,17 @@
               @on-column-filter="onColumnFilter($event.columnFilters)"
               :rows="rows"
               :columns="columns"
-              :line-numbers="true"/>
+              :line-numbers="true">
+        <template slot="table-row" slot-scope="props">
+        <span v-if="props.column.field == 'actions'">
+          <b-button variant="success">Güncelle</b-button>
+          <b-button variant="danger" v-on:click.prevent="deleteRecord(props.formattedRow.id)">Sil</b-button>
+        </span>
+          <span v-else>
+          {{props.formattedRow[props.column.field]}}
+        </span>
+        </template>
+      </vue-good-table>
     </div>
 
   </div>
@@ -24,6 +34,10 @@
       return {
         totalRecords: 0,
         columns: [
+          {
+            field: 'id',
+            hidden: true
+          },
           {
             label: 'Adı',
             field: 'adi',
@@ -100,6 +114,8 @@
               // filterFn: this.columnFilterFn, //custom filter function that
               trigger: 'enter', //only trigger on enter not on keyup
             }
+          },{
+            field: 'actions'
           }/*,
                     {
                         label: 'Created On',
@@ -159,11 +175,23 @@
 
       // load items is what brings back the rows from server
       async loadItems(params) {
+        console.log(params);
         this.rows = await AboneDataService.list(params);
       },
 
       redirectToNewRegisterFormPage() {
         this.$router.push({ name: 'Register' });
+      },
+
+      async deleteRecord(id) {
+        await AboneDataService.deleteAbone(id);
+        const index = this.rows.findIndex(post => post.id === id);
+        if (~index) { // if the post exists in array
+          this.rows.splice(index, 1);
+          this.$notification(this, 'Abone başarılı bir şekilde silindi.');
+        } else {
+          this.$errorNotification(this, 'Abone silinirken hata oluştu.');
+        }
       },
     },
     beforeMount() {
