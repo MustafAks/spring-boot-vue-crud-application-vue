@@ -7,6 +7,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import * as VeeValidate from 'vee-validate';
 import NavBar from './components/Navbar'
 import Register from "./views/subscriber/Register";
+import Update from "./views/subscriber/Update";
 import axios from './utils/AxiosUtils';
 import errorHandler from './utils/ExceptionHandler';
 import Notify from 'vue-notifyjs';
@@ -60,6 +61,12 @@ export default new Router({
             name: 'About',
             component: About,
             meta: { title: 'Hakkımızda' }
+        },
+        {
+            path: '/update',
+            name: 'Update',
+            component: Update,
+            meta: { title: 'Güncelle' }
         }
     ]
 })

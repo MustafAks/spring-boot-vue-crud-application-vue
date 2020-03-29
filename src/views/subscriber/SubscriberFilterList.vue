@@ -11,15 +11,26 @@
               :rows="rows"
               :columns="columns"
               :line-numbers="true">
+
         <template slot="table-row" slot-scope="props">
-        <span v-if="props.column.field == 'actions'">
-          <b-button variant="success">Güncelle</b-button>
-          <b-button variant="danger" v-on:click.prevent="deleteRecord(props.formattedRow.id)">Sil</b-button>
+        <span v-if="props.column.field === 'actions'">
+          <b-row>
+            <b-button variant="success" class="w-100" v-on:click.prevent="updateRecord(props.formattedRow)">Güncelle</b-button>
+            <b-button variant="danger"  class="w-100" v-on:click.prevent="deleteRecord(props.formattedRow.id)">Sil</b-button>
+          </b-row>
         </span>
+
+          <span v-if="props.column.field === 'paraAlindi'">
+          <b-row>
+            <b-form-checkbox id="checkbox-1" v-model="props.formattedRow.paraAlindi" name="paraAlindi"></b-form-checkbox>
+          </b-row>
+        </span>
+
           <span v-else>
           {{props.formattedRow[props.column.field]}}
         </span>
         </template>
+
       </vue-good-table>
     </div>
 
@@ -72,6 +83,17 @@
             }
           },
           {
+            label: 'Bitiş Tarihi',
+            field: 'bitisTarihi',
+            filterOptions: {
+              enabled: true, // enable filter for this column
+              placeholder: 'Filter This Thing', // placeholder for filter input
+              filterDropdownItems: [], // dropdown (with selected values) instead of text input
+              // filterFn: this.loadItems(), //custom filter function that
+              trigger: 'enter', //only trigger on enter not on keyup
+            }
+          },
+          {
             label: 'İl',
             field: 'il',
             filterOptions: {
@@ -107,6 +129,17 @@
           {
             label: 'Notlar',
             field: 'notlar',
+            filterOptions: {
+              enabled: true, // enable filter for this column
+              placeholder: 'Filter This Thing', // placeholder for filter input
+              filterDropdownItems: [], // dropdown (with selected values) instead of text input
+              // filterFn: this.columnFilterFn, //custom filter function that
+              trigger: 'enter', //only trigger on enter not on keyup
+            }
+          },
+          {
+            label: 'Para Alındı',
+            field: 'paraAlindi',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -181,6 +214,11 @@
 
       redirectToNewRegisterFormPage() {
         this.$router.push({ name: 'Register' });
+      },
+
+      updateRecord(params) {
+        console.log(params);
+        this.$router.push({ name: 'Update', params : params });
       },
 
       async deleteRecord(id) {
