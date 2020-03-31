@@ -17,7 +17,7 @@ import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
 
 import notificationUtils from './utils/NotificationUtils';
 import SubscriberList from "./views/subscriber/SubscriberList";
-import SubscriberFilterList from "./views/subscriber/SubscriberFilterList";
+import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
 
 
@@ -52,9 +52,9 @@ export default new Router({
         },
         {
             path: '/filter',
-            name: 'Filter',
-            component: SubscriberFilterList,
-            meta: { title: 'Filter' }
+            name: 'FilterList',
+            component: FilterList,
+            meta: { title: 'Filtrele' }
         },
         {
             path: '/about',

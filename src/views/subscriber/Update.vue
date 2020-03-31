@@ -93,13 +93,14 @@
     data() {
       return {
         user: {
+          id: this.$route.params.id,
           adi: this.$route.params.adi,
           soyadi: this.$route.params.soyadi,
           baslangicTarihi: this.$route.params.baslangicTarihi,
           bitisTarihi: this.$route.params.bitisTarihi,
           il: this.$route.params.il,
           ilce: this.$route.params.ilce,
-          adres: this.$route.params.v,
+          adres: this.$route.params.adres,
           notlar: this.$route.params.notlar,
           paraAlindi: this.$route.params.paraAlindi
         }
@@ -110,7 +111,7 @@
         this.user = await AboneDataService.saveAbone(this.user);
         this.$notification(this, 'Abone başarılı bir şekilde güncellendi.');
         // if success
-        this.$router.push({ name: 'SubscriberList' });
+        this.$router.push({ name: 'FilterList' });
       }
     }
   };

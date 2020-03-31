@@ -3,6 +3,9 @@
     <div class="col-12">
       <b-button type="submit" variant="primary" v-on:click.prevent="redirectToNewRegisterFormPage">Abone Ekle</b-button>
     </div>
+    <div class="col-12">
+      <b-button type="submit" variant="primary" v-on:click.prevent="downloadPdf">Çıktı Al</b-button>
+    </div>
 
     <div class="container">
       <vue-good-table
@@ -22,7 +25,9 @@
 
           <span v-if="props.column.field === 'paraAlindi'">
           <b-row>
-            <b-form-checkbox id="checkbox-1" v-model="props.formattedRow.paraAlindi" name="paraAlindi"></b-form-checkbox>
+            <div class="center">
+              <b-form-checkbox id="checkbox-1" v-model="props.formattedRow.paraAlindi" name="paraAlindi"></b-form-checkbox>
+            </div>
           </b-row>
         </span>
 
@@ -39,6 +44,8 @@
 
 <script>
   import AboneDataService from '../../service/AboneDataService';
+  import GeneratePdfUtils from '../../utils/GeneratePdfUtils';
+
   export default {
     name: 'subscriber-filter-list',
     data() {
@@ -214,6 +221,41 @@
 
       redirectToNewRegisterFormPage() {
         this.$router.push({ name: 'Register' });
+      },
+
+      downloadPdf () {
+        var columns = ['adi', 'soyadi', 'bitisTarihi', 'il', 'ilce', 'adres'];
+        var content = {
+          content: [
+            { text: 'Dynamic parts', style: 'header' },
+            this.prepareBody(this.rows, columns)
+          ]
+        };
+        GeneratePdfUtils.download(content);
+      },
+
+      prepareBody(rows, columns) {
+        return {
+          table: {
+            headerRows: 1,
+            body: this.buildTableBody(rows, columns)
+          }
+        };
+      },
+
+      buildTableBody(rows, columns) {
+        var body = [];
+        body.push(columns);
+
+        rows.forEach(function (row) {
+          var dataRow = [];
+          columns.forEach(function (column) {
+            dataRow.push(row[column].toString());
+          });
+          body.push(dataRow);
+        });
+
+        return body;
       },
 
       updateRecord(params) {

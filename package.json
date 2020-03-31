@@ -25,7 +25,8 @@
     "vuelidate": "^0.7.5",
     "vuelidate-error-extractor": "^2.4.1",
     "vuetify": "^2.2.14",
-    "vue-notifyjs": "^0.3.0"
+    "vue-notifyjs": "^0.3.0",
+    "pdfmake": "^0.1.65"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
