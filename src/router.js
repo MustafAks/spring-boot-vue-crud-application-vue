@@ -19,6 +19,7 @@ import notificationUtils from './utils/NotificationUtils';
 import SubscriberList from "./views/subscriber/SubscriberList";
 import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
+import AboneEndDateControl from "./views/subscriber/AboneEndDateControl";
 
 
 Vue.component('nav-bar', NavBar);
@@ -67,6 +68,12 @@ export default new Router({
             name: 'Update',
             component: Update,
             meta: { title: 'Güncelle' }
+        },
+        {
+            path: '/aboneEndDateControl',
+            name: 'AboneEndDateControl',
+            component: AboneEndDateControl,
+            meta: {title: 'Abone Bitis'}
         }
     ]
 })
