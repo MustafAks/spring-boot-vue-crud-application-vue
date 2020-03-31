@@ -3,8 +3,12 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 class GeneratePdfUtils {
-    async download(content) {
+    download(content) {
         pdfMake.createPdf(content).download();
+    }
+
+    open(content) {
+        pdfMake.createPdf(content).open();
     }
 }
 
