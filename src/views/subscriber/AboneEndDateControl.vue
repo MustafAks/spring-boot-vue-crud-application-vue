@@ -33,7 +33,7 @@
             <b-button align="center" type="submit" variant="primary" v-on:click.prevent="loadItems">Ara</b-button>
         </div>
         <div class="container">
-            <h3>Get All</h3>
+            <h3>Aboneler</h3>
             <div class="container">
                 <table class="table">
                     <thead>
@@ -87,7 +87,7 @@
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
                 }
                 this.aboneler = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
-            },
+            }
         }
     };
 
