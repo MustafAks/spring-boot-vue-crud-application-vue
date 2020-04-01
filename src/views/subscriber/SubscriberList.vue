@@ -5,7 +5,7 @@
     </div>
 
     <div class="container">
-      <h3>Get All</h3>
+      <h3>Aboneler</h3>
       <div class="container">
         <table class="table">
           <thead>
