@@ -7,8 +7,6 @@
                 <label>Başlangıç Tarihi:</label>
             </b-col>
             <b-col sm="7">
-                <!--<b-form-datepicker id="startDate" v-model="abone.startDate"-->
-                <!--class="mb-2"></b-form-datepicker>-->
                 <b-form-datepicker
                         id="startDate" v-model="abone.startDate"
                         placeholder="MM/DD/YYYY"
@@ -23,7 +21,6 @@
                 <label>Bitiş Tarihi:</label>
             </b-col>
             <b-col sm="7">
-                <!--<b-form-datepicker id="endDate" v-model="abone.endDate" class="mb-2"></b-form-datepicker>-->
                 <b-form-datepicker
                         id="endDate" v-model="abone.endDate"
                         placeholder="MM/DD/YYYY"
@@ -75,8 +72,6 @@
         data() {
             return {
                 aboneler: [],
-                message: null,
-                INSTRUCTOR: "Project - X",
                 abone: {
                     startDate: '',
                     endDate: ''
@@ -91,11 +86,8 @@
                 if (startDate == null && endDate == null) {
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
                 }
-                this.rows = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
+                this.aboneler = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
             },
-        },
-        beforeMount() {
-            this.loadItems({});
         }
     };
 
