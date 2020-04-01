@@ -68,10 +68,14 @@
         </b-row>
         <b-row>
           <b-col sm="4">
-            <label>Para Alındı:</label>
+            <label>Ödeme Bilgisi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-checkbox id="checkbox-1" name="checkbox-1" v-model="user.paraAlindi" value=true unchecked-value=false></b-form-checkbox>
+            <b-form-select v-model="user.odeme" class="mb-3">
+              <b-form-select-option :value="null">Ödeme Bilgisi Seçiniz</b-form-select-option>
+              <b-form-select-option value="Alınmadı">Alınmadı</b-form-select-option>
+              <b-form-select-option value="Alındı">Alındı</b-form-select-option>
+            </b-form-select>
           </b-col>
         </b-row>
         <b-container class="bv-example-row">
@@ -102,7 +106,7 @@
           ilce: this.$route.params.ilce,
           adres: this.$route.params.adres,
           notlar: this.$route.params.notlar,
-          paraAlindi: this.$route.params.paraAlindi
+          odeme: this.$route.params.odeme
         }
       };
     },

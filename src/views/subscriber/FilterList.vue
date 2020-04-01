@@ -22,15 +22,6 @@
             <b-button variant="danger"  class="w-100" v-on:click.prevent="deleteRecord(props.formattedRow.id)">Sil</b-button>
           </b-row>
         </span>
-
-          <span v-if="props.column.field === 'paraAlindi'">
-          <b-row>
-            <div class="center">
-              <b-form-checkbox id="checkbox-1" v-model="props.formattedRow.paraAlindi" name="paraAlindi"></b-form-checkbox>
-            </div>
-          </b-row>
-        </span>
-
           <span v-else>
           {{props.formattedRow[props.column.field]}}
         </span>
@@ -145,12 +136,12 @@
             }
           },
           {
-            label: 'Para Alındı',
-            field: 'paraAlindi',
+            label: 'Ödeme Bilgisi',
+            field: 'odeme',
             filterOptions: {
               enabled: true, // enable filter for this column
-              placeholder: 'Filter This Thing', // placeholder for filter input
-              filterDropdownItems: [], // dropdown (with selected values) instead of text input
+              placeholder: 'Seçiniz', // placeholder for filter input
+              filterDropdownItems: ["Alınmadı","Alındı"], // dropdown (with selected values) instead of text input
               // filterFn: this.columnFilterFn, //custom filter function that
               trigger: 'enter', //only trigger on enter not on keyup
             }
@@ -224,38 +215,38 @@
       },
 
       downloadPdf () {
-        var columns = ['adi', 'soyadi', 'bitisTarihi', 'il', 'ilce', 'adres'];
+        var headers = ['','Adı', 'Soyadı', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'İl', 'İlçe', 'Adres', 'Notlar', 'Ödeme'];
+        var columns = ['adi', 'soyadi', 'baslangicTarihi','bitisTarihi', 'il', 'ilce', 'adres', 'notlar', 'odeme'];
         var content = {
+          pageOrientation: 'landscape',
           content: [
-            { text: 'Dynamic parts', style: 'header' },
-            this.prepareBody(this.rows, columns)
+            this.prepareBody(this.rows, columns, headers)
           ]
         };
         GeneratePdfUtils.download(content);
       },
 
-      prepareBody(rows, columns) {
-        return {
-          table: {
-            headerRows: 1,
-            body: this.buildTableBody(rows, columns)
-          }
-        };
-      },
-
-      buildTableBody(rows, columns) {
+      prepareBody(rows, columns, headers) {
         var body = [];
-        body.push(columns);
+        var index = 1;
+        body.push(headers);
 
         rows.forEach(function (row) {
           var dataRow = [];
           columns.forEach(function (column) {
             dataRow.push(row[column].toString());
           });
+          dataRow.splice(0, 0, index);
           body.push(dataRow);
+          index++;
         });
 
-        return body;
+        return {
+          table: {
+            headerRows: 1,
+            body: body
+          }
+        };
       },
 
       updateRecord(params) {
