@@ -28,7 +28,7 @@
             </b-col>
         </b-row>
         <div class="col-12" align="right">
-            <b-button align="center" type="submit" variant="primary" v-on:click.prevent="loadItems">Ara</b-button>
+            <b-button type="submit" variant="primary" v-on:click.prevent="loadItems">Ara</b-button>
         </div>
         <div class="container">
             <h3>Aboneler</h3>
