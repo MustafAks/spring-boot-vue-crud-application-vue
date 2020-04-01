@@ -11,7 +11,7 @@
                         id="startDate" v-model="abone.startDate"
                         dark
                         :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                        locale="en"></b-form-datepicker>
+                        locale="tr"></b-form-datepicker>
             </b-col>
         </b-row>
 
@@ -27,7 +27,7 @@
                         locale="tr"></b-form-datepicker>
             </b-col>
         </b-row>
-        <div class="col-12">
+        <div class="col-12" align="right">
             <b-button align="center" type="submit" variant="primary" v-on:click.prevent="loadItems">Ara</b-button>
         </div>
         <div class="container">
@@ -42,6 +42,9 @@
                         <th>İlçe</th>
                         <th>Adres</th>
                         <th>Notlar</th>
+                        <th>Başlangıç Tarihi</th>
+                        <th>Bitiş Tarihi</th>
+                        <th>Ödeme Bilgisi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -52,6 +55,9 @@
                         <td>{{abone.ilce}}</td>
                         <td>{{abone.adres}}</td>
                         <td>{{abone.notlar}}</td>
+                        <td>{{abone.baslangicTarihi}}</td>
+                        <td>{{abone.bitisTarihi}}</td>
+                        <td>{{abone.odeme}}</td>
                     </tr>
                     </tbody>
                 </table>
