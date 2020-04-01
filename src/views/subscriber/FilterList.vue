@@ -223,7 +223,7 @@
             this.prepareBody(this.rows, columns, headers)
           ]
         };
-        GeneratePdfUtils.download(content);
+        GeneratePdfUtils.download(content, "filtrelenmisAboneler");
       },
 
       prepareBody(rows, columns, headers) {
