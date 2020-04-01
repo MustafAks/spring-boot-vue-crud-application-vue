@@ -1,6 +1,6 @@
 <template>
 
-    <div class="form-row">
+    <div class="center">
         <b-container fluid></b-container>
         <b-row>
             <b-col sm="4">
@@ -25,20 +25,40 @@
                 <b-form-datepicker
                         id="endDate" v-model="abone.endDate"
                         :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                        locale="en"></b-form-datepicker>
+                        locale="tr"></b-form-datepicker>
             </b-col>
         </b-row>
-
         <div class="col-12">
-            <b-button type="submit" variant="primary" v-on:click.prevent="loadItems">Ara</b-button>
+            <b-button align="center" type="submit" variant="primary" v-on:click.prevent="loadItems">Ara</b-button>
         </div>
         <div class="container">
-            <vue-good-table
-                    mode="remote"
-                    :rows="rows"
-                    :columns="columns"
-                    :line-numbers="true"/>
+            <h3>Get All</h3>
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        <th>İl</th>
+                        <th>İlçe</th>
+                        <th>Adres</th>
+                        <th>Notlar</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr v-for="abone in aboneler" v-bind:key="abone.id">
+                        <td>{{abone.adi}}</td>
+                        <td>{{abone.soyadi}}</td>
+                        <td>{{abone.il}}</td>
+                        <td>{{abone.ilce}}</td>
+                        <td>{{abone.adres}}</td>
+                        <td>{{abone.notlar}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+
 
     </div>
 </template>
@@ -50,96 +70,9 @@
         name: 'abone-endDate-Control',
         data() {
             return {
-                totalRecords: 0,
-                columns: [
-                    {
-                        label: 'Adı',
-                        field: 'adi',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.columnFilterFn, //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    },
-                    {
-                        label: 'Soyadı',
-                        field: 'soyadi',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.loadItems(), //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    },
-                    {
-                        label: 'Başlangıç Tarihi',
-                        field: 'baslangicTarihi',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.loadItems(), //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    },
-                    {
-                        label: 'İl',
-                        field: 'il',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.columnFilterFn, //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    },
-                    {
-                        label: 'İlçe',
-                        field: 'ilce',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.columnFilterFn, //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    },
-                    {
-                        label: 'Adres',
-                        field: 'adres',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.columnFilterFn, //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    },
-                    {
-                        label: 'Notlar',
-                        field: 'notlar',
-                        filterOptions: {
-                            enabled: true, // enable filter for this column
-                            placeholder: 'Filter This Thing', // placeholder for filter input
-                            filterDropdownItems: [], // dropdown (with selected values) instead of text input
-                            // filterFn: this.columnFilterFn, //custom filter function that
-                            trigger: 'enter', //only trigger on enter not on keyup
-                        }
-                    }
-                ],
-                serverParams: {
-                    columnFilters: {},
-                    sort: {
-                        field: '',
-                        type: '',
-                    },
-                    page: 1,
-                    perPage: 10
-                },
-                rows: [],
+                aboneler: [],
+                message: null,
+                INSTRUCTOR: "Project - X",
                 abone: {
                     startDate: '',
                     endDate: ''
@@ -148,8 +81,9 @@
         },
         methods: {
             async loadItems() {
-                const startDate = this.abone.startDate;
-                const endDate = this.abone.endDate;
+                var startDate = this.abone.startDate;
+                var endDate = this.abone.endDate;
+
                 if (startDate == null && endDate == null) {
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
                 }
