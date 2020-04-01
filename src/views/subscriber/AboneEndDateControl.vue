@@ -83,7 +83,7 @@
                 var startDate = this.abone.startDate;
                 var endDate = this.abone.endDate;
 
-                if (startDate == null && endDate == null) {
+                if (startDate === "" && endDate === "") {
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
                 }
                 this.aboneler = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
