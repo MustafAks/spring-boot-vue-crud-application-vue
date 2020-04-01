@@ -85,8 +85,9 @@
 
                 if (startDate === "" && endDate === "") {
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
+                } else {
+                    this.aboneler = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
                 }
-                this.aboneler = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
             }
         }
     };
