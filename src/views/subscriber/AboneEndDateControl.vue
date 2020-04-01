@@ -9,7 +9,6 @@
             <b-col sm="7">
                 <b-form-datepicker
                         id="startDate" v-model="abone.startDate"
-                        placeholder="MM/DD/YYYY"
                         dark
                         :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                         locale="en"></b-form-datepicker>
@@ -23,7 +22,6 @@
             <b-col sm="7">
                 <b-form-datepicker
                         id="endDate" v-model="abone.endDate"
-                        placeholder="MM/DD/YYYY"
                         dark
                         :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                         locale="tr"></b-form-datepicker>
