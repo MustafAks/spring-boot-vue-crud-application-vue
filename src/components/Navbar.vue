@@ -2,7 +2,7 @@
     <b-navbar toggleable="md" type="dark" variant="dark">
       <!--  <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>-->
         <b-navbar-brand>
-          <!--  <img :src="require('../assets/hasret.jpeg')" id='logo'>-->
+            <img :src="require('../assets/hasret.jpeg')" id='logo'>
         </b-navbar-brand>
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
