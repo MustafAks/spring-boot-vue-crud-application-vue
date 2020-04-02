@@ -8,17 +8,18 @@
         </div>
         <div id='footer-view' class="text-center">
             <b-img-lazy
-                    :src="require('../src/assets/fb.png')" width="20" height="20"
+                    :src="require('../src/assets/twit.png')" width="30" height="30"
+                    onclick="window.open('https://twitter.com/HasretKemaliye','twitter','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+            <b-img-lazy
+                    :src="require('../src/assets/whats.png')" width="30" height="30"
+                    onclick="window.open('https://www.whatsapp.com/?lang=tr','whatsapp','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+            <b-img-lazy
+                    :src="require('../src/assets/fb.png')" width="30" height="30"
                     onclick="window.open('https://www.facebook.com/hasret.kemaliye','facebook','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+
             <b-img-lazy
-                    :src="require('../src/assets/twitter.png')" width="20" height="20"
-                    onclick="window.open('https://twitter.com/HasretKemaliye','twitter','width=500,height=500')" ></b-img-lazy>
-            <b-img-lazy
-                    :src="require('../src/assets/w.png')" width="20" height="20"
-                    onclick="window.open('https://www.whatsapp.com/?lang=tr','whatsapp','width=500,height=500')" ></b-img-lazy>
-            <b-img-lazy
-                    :src="require('../src/assets/instagram.png')" width="20" height="20"
-                    onclick="window.open('https://www.instagram.com/hasretgazetesi/','instagram','width=500,height=500')" ></b-img-lazy>
+                    :src="require('./assets/insta.png')" width="30" height="30"
+                    onclick="window.open('https://www.instagram.com/hasretgazetesi/','instagram','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
             <div class="container">
 
                 <p class="text-center text-white">©{{ new Date().getFullYear() }} Copyright — Kemaliye</p>
