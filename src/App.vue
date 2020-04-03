@@ -7,21 +7,16 @@
             <router-view/>
         </div>
         <div id='footer-view' class="text-center">
-            <b-img-lazy
-                    :src="require('../src/assets/twit.png')" width="30" height="30"
-                    onclick="window.open('https://twitter.com/HasretKemaliye','twitter','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
-            <b-img-lazy
-                    :src="require('../src/assets/whats.png')" width="30" height="30"
-                    onclick="window.open('https://www.whatsapp.com/?lang=tr','whatsapp','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
-            <b-img-lazy
-                    :src="require('../src/assets/fb.png')" width="30" height="30"
+            <b-img-lazy v-bind="mainProps"
+                    :src="require('./assets/images/FooterImages/facebook.png')"
                     onclick="window.open('https://www.facebook.com/hasret.kemaliye','facebook','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
-
-            <b-img-lazy
-                    :src="require('./assets/insta.png')" width="30" height="30"
+            <b-img-lazy v-bind="mainProps"
+                    :src="require('./assets/images/FooterImages/twitter.png')"
+                    onclick="window.open('https://twitter.com/HasretKemaliye','twitter','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+            <b-img-lazy v-bind="mainProps"
+                    :src="require('./assets/images/FooterImages/instagram.png')"
                     onclick="window.open('https://www.instagram.com/hasretgazetesi/','instagram','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
-            <div class="container">
-
+          <div class="container">
                 <p class="text-center text-white">©{{ new Date().getFullYear() }} Copyright — Kemaliye</p>
             </div>
 
@@ -32,7 +27,16 @@
 
 <script>
     export default {
-        name: "app"
+        name: "app",
+        data() {
+            return {
+                mainProps: {
+                    blank: true,
+                    width:30,
+                    height:30
+                }
+            }
+        }
     };
 </script>
 <style>

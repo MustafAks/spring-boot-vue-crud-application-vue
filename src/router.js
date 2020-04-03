@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Latest from './components/Latest'
+import MainPage from './components/MainPage'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -42,9 +42,9 @@ export default new Router({
             meta: { title: 'Giriş Yap' }
         },
         {
-            path: '/latest',
-            name: 'latest',
-            component: Latest,
+            path: '/mainPage',
+            name: 'mainPage',
+            component: MainPage,
             meta: { title: 'Hasret Gazetesi - Kemaliye' }
         },
         {

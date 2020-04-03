@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import image from "../assets/hasret.jpg"
+    import image from "../assets/images/MainPageImages/hasretMainPage.jpg"
 
 
     export default {
