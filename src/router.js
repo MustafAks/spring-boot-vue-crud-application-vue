@@ -20,6 +20,7 @@ import SubscriberList from "./views/subscriber/SubscriberList";
 import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
 import AboneEndDateControl from "./views/subscriber/AboneEndDateControl";
+import Login from "./views/user/Login";
 
 
 Vue.component('nav-bar', NavBar);
@@ -35,6 +36,12 @@ export default new Router({
     routes: [
         {
             path: '/',
+            name: 'login',
+            component: Login,
+            meta: { title: 'Giriş Yap' }
+        },
+        {
+            path: '/latest',
             name: 'latest',
             component: Latest,
             meta: { title: 'Hasret Gazetesi - Kemaliye' }
