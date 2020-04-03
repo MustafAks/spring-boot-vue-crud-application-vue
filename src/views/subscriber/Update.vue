@@ -23,7 +23,11 @@
             <label>Başlangıç Tarihi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.startDate"></b-form-input>
+            <b-form-datepicker
+                    id="startDate" v-model="user.startDate"
+                    dark
+                    :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                    locale="tr"></b-form-datepicker>
           </b-col>
         </b-row>
         <b-row>
@@ -31,7 +35,11 @@
             <label>Bitiş Tarihi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.endDate"></b-form-input>
+            <b-form-datepicker
+                    id="endDate" v-model="user.endDate"
+                    dark
+                    :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                    locale="tr"></b-form-datepicker>
           </b-col>
         </b-row>
         <b-row>
