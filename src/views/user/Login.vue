@@ -47,16 +47,12 @@
         },
         methods: {
             async login() {
-                console.log(JSON.stringify(this.user));
                 localStorage.setItem('user', JSON.stringify(this.user));
-                console.log(localStorage.getItem('user'));
-
-
                 const result = await UserService.login(this.user);
                 if(result.authorities !== undefined){
                     this.user.role = result.authorities[0].authority;
                 }
-                localStorage.setItem('user', this.user);
+                localStorage.setItem('user', JSON.stringify(this.user));
 
                 this.$router.push({name: 'latest'});
             }
