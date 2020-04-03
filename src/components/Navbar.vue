@@ -7,7 +7,6 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'latest'}" :active="$route.name == 'latest'">Anasayfa</b-nav-item>
-                <b-nav-item :to="{ name: 'SubscriberList'}" :active="$route.name == 'SubscriberList'">Aboneler</b-nav-item>
                 <b-nav-item :to="{ name: 'FilterList'}" :active="$route.name == 'FilterList'">Filtrele</b-nav-item>
                 <b-nav-item :to="{ name: 'AboneEndDateControl'}" :active="$route.name == 'AboneEndDateControl'">Abonelik Bitiş Sorgulama</b-nav-item>
 <!--

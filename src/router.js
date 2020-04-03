@@ -16,7 +16,6 @@ import 'vue-notifyjs/themes/default.css';
 import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
 
 import notificationUtils from './utils/NotificationUtils';
-import SubscriberList from "./views/subscriber/SubscriberList";
 import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
 import AboneEndDateControl from "./views/subscriber/AboneEndDateControl";
@@ -38,12 +37,6 @@ export default new Router({
             name: 'latest',
             component: Latest,
             meta: { title: 'Hasret Gazetesi - Kemaliye' }
-        },
-        {
-            path: '/abonelerList',
-            name: 'SubscriberList',
-            component: SubscriberList,
-            meta: { title: 'Aboneler' }
         },
         {
             path: '/register',
