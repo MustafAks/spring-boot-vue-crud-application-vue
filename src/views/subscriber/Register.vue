@@ -24,7 +24,7 @@
           </b-col>
           <b-col sm="7">
             <b-form-datepicker
-                    id="endDate" v-model="user.startDate"
+                    id="startDate" v-model="user.startDate"
                     dark
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                     locale="tr"></b-form-datepicker>
