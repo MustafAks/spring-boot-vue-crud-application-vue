@@ -16,6 +16,21 @@ axiosInstance.interceptors.response.use(
   },
 );
 
+const axiosFileInstance = axios.create({
+  baseURL: 'http://localhost:8085',
+  timeout: 30000,
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  },
+});
+
+axiosFileInstance.interceptors.response.use(
+    (response) => response.data,
+    (error) => {
+      throw error;
+    },
+);
+
 axiosInstance.interceptors.request.use(
   (config) => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -33,5 +48,6 @@ axiosInstance.interceptors.request.use(
 export default {
   install() {
     Vue.prototype.$axios = axiosInstance;
+    Vue.prototype.$axiosFile = axiosFileInstance;
   },
 };

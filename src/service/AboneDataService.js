@@ -5,7 +5,6 @@ const DELETE_ABONE_URL = '/abone/';
 const LIST = '/abone/list';
 const LISTEXPIRE = '/abone/listSubscriptionExpiresViaDates';
 
-
 class AboneDataService {
     async list(subscriber) {
         return await Vue.prototype.$axios.post(LIST, subscriber);

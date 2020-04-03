@@ -7,7 +7,6 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'latest'}" :active="$route.name == 'latest'">Anasayfa</b-nav-item>
-                <b-nav-item :to="{ name: 'SubscriberList'}" :active="$route.name == 'SubscriberList'">Aboneler</b-nav-item>
                 <b-nav-item :to="{ name: 'FilterList'}" :active="$route.name == 'FilterList'">Filtrele</b-nav-item>
                 <b-nav-item :to="{ name: 'AboneEndDateControl'}" :active="$route.name == 'AboneEndDateControl'">Abonelik Bitiş Sorgulama</b-nav-item>
 <!--
@@ -35,7 +34,8 @@
                 </b-nav-form>
             </b-navbar-nav>-->
             <b-navbar-nav class="ml-auto">
-                <b-nav-item :to="{ name: 'Register'}" :active="$route.name == 'Register'">Kayıt Ol</b-nav-item>
+                <b-nav-item :to="{ name: 'Register'}" :active="$route.name == 'Register'">Abone Ekle</b-nav-item>
+                <b-nav-item :to="{ name: 'AddNewspaper'}" :active="$route.name == 'AddNewspaper'">Gazete Ekle</b-nav-item>
                 <b-nav-item :to="{ name: 'AboutUs'}" :active="$route.name == 'Register'">Hakkımızda</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
