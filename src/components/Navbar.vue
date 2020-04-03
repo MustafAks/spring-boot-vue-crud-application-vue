@@ -7,7 +7,7 @@
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'mainPage'}" :active="$route.name == 'mainPage'">Anasayfa</b-nav-item>
                 <b-nav-item :to="{ name: 'FilterList'}" :active="$route.name == 'FilterList'">Filtrele</b-nav-item>
-                <b-nav-item :to="{ name: 'AboneEndDateControl'}" :active="$route.name == 'AboneEndDateControl'">Abonelik Bitiş Sorgulama</b-nav-item>
+                <b-nav-item :to="{ name: 'SubscriberEndDateControl'}" :active="$route.name == 'SubscriberEndDateControl'">Abonelik Bitiş Sorgulama</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item :to="{ name: 'Register'}" :active="$route.name == 'Register'">Abone Ekle</b-nav-item>

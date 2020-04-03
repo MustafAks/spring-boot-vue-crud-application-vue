@@ -10,7 +10,7 @@
                 <label>Başlık:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="gazete.baslik"></b-form-input>
+                <b-form-input v-model="newspaper.title"></b-form-input>
               </b-col>
             </b-row>
             <b-row>
@@ -18,7 +18,7 @@
                 <label>Sayı:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="gazete.sayi" type = 'number'></b-form-input>
+                <b-form-input v-model="newspaper.issue" type = 'number'></b-form-input>
               </b-col>
             </b-row>
             <b-row>
@@ -26,14 +26,14 @@
                 <label>Yıl:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="gazete.yil" type = 'number'></b-form-input>
+                <b-form-input v-model="newspaper.year" type = 'number'></b-form-input>
               </b-col>
             </b-row>
 
             <b-container class="bv-example-row">
               <b-row align-h="end">
                 <b-col cols="3">
-                  <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="createGazete">Kaydet</b-button>
+                  <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="createNewspaper">Kaydet</b-button>
                 </b-col>
               </b-row>
             </b-container>
@@ -50,11 +50,11 @@
             <h3>Gazeteler</h3>
             <div class="container">
               <div>
-                <b-table :fields="gazetelerFields" :items="gazetelerItems">
-                  <template v-slot:cell(islemler)="row">
+                <b-table :fields="newspapersFields" :items="newspapersItems">
+                  <template v-slot:cell(operation)="row">
                     <b-row>
-                      <b-button variant="success" v-on:click.prevent="redirectSayfalar(row.item)">Sayfa Ekle/Çıkar</b-button>
-                      <b-button variant="danger"  v-on:click.prevent="deleteGazete(row.item.id)">Sil</b-button>
+                      <b-button variant="success" v-on:click.prevent="redirectPages(row.item)">Sayfa Ekle/Çıkar</b-button>
+                      <b-button variant="danger"  v-on:click.prevent="deleteNewspaper(row.item.id)">Sil</b-button>
                     </b-row>
                   </template>
                 </b-table>
@@ -68,52 +68,51 @@
 </template>
 
 <script>
-  import GazeteService from "../../service/GazeteService";
+  import NewspaperService from "../../service/NewspaperService";
   export default {
     data(){
       return {
-        gazete: {
-          baslik: '',
-          sayi: '',
-          yil: '',
+        newspaper: {
+          title: '',
+          issue: '',
+          year: '',
         },
-        gazeteler: [],
-        gazetelerItems: [],
-        gazetelerFields: [
-          { key: 'baslik', label: 'Başlık' },
-          { key: 'sayi', label: 'Sayı' },
-          { key: 'yil', label: 'Yıl' },
-          { key: 'islemler', label: 'İşlemler' }
+        newspapers: [],
+        newspapersItems: [],
+        newspapersFields: [
+          { key: 'title', label: 'Başlık' },
+          { key: 'issue', label: 'Sayı' },
+          { key: 'year', label: 'Yıl' },
+          { key: 'operation', label: 'İşlemler' }
         ]
       }
     },
 
     methods: {
-      async createGazete() {
-        this.gazete = await GazeteService.saveGazete(this.gazete);
+      async createNewspaper() {
+        this.newspaper = await NewspaperService.saveNewspaper(this.newspaper);
         this.$notification(this, 'Gazete başarılı bir şekilde kayıt edildi.');
         // if success
-        this.loadGazeteler();
+        this.loadNewspapers();
       },
 
-      async deleteGazete(gazeteId) {
-        console.log(gazeteId);
-        await GazeteService.deleteGazete(gazeteId);
+      async deleteNewspaper(newspaperId) {
+        await NewspaperService.deleteNewspaper(newspaperId);
         this.$notification(this, 'Gazete başarılı bir şekilde silindi.');
         // if success
-        this.loadGazeteler();
+        this.loadNewspapers();
       },
 
-      async loadGazeteler() {
-        this.gazetelerItems = await GazeteService.list();
+      async loadNewspapers() {
+        this.newspapersItems = await NewspaperService.list();
       },
 
-      redirectSayfalar(params) {
+      redirectPages(params) {
         this.$router.push({ name: 'AddPages', params : params});
       },
     },
     beforeMount() {
-      this.loadGazeteler();
+      this.loadNewspapers();
     }
   }
 </script>

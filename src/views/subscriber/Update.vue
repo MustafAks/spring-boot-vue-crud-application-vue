@@ -7,7 +7,7 @@
             <label>Adı:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.adi"></b-form-input>
+            <b-form-input v-model="user.name"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -15,7 +15,7 @@
             <label>Soyadı:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.soyadi"></b-form-input>
+            <b-form-input v-model="user.lastname"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -23,7 +23,7 @@
             <label>Başlangıç Tarihi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.baslangicTarihi"></b-form-input>
+            <b-form-input v-model="user.startDate"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -31,7 +31,7 @@
             <label>Bitiş Tarihi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.bitisTarihi"></b-form-input>
+            <b-form-input v-model="user.endDate"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -39,7 +39,7 @@
             <label>İl:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.il"></b-form-input>
+            <b-form-input v-model="user.city"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -47,7 +47,7 @@
             <label>İlçe:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.ilce"></b-form-input>
+            <b-form-input v-model="user.district"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -55,7 +55,7 @@
             <label>Adres:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.adres"></b-form-input>
+            <b-form-input v-model="user.address"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -63,7 +63,7 @@
             <label>Notlar:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.notlar"></b-form-input>
+            <b-form-input v-model="user.notes"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -71,17 +71,17 @@
             <label>Ödeme Bilgisi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-select v-model="user.odeme" class="mb-3">
+            <b-form-select v-model="user.payment" class="mb-3">
               <b-form-select-option :value="null">Ödeme Bilgisi Seçiniz</b-form-select-option>
-              <b-form-select-option value="Alınmadı">Alınmadı</b-form-select-option>
-              <b-form-select-option value="Alındı">Alındı</b-form-select-option>
+              <b-form-select-option value="Not Paid">Alınmadı</b-form-select-option>
+              <b-form-select-option value="Paid">Alındı</b-form-select-option>
             </b-form-select>
           </b-col>
         </b-row>
         <b-container class="bv-example-row">
           <b-row align-h="end">
             <b-col cols="3">
-              <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="create">Güncelle</b-button>
+              <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="updateSubscriber">Güncelle</b-button>
             </b-col>
           </b-row>
         </b-container>
@@ -91,28 +91,28 @@
 </template>
 
 <script>
-  import AboneDataService from '../../service/AboneDataService';
+  import SubscriptionService from '../../service/SubscriptionService';
   export default {
     name: "update",
     data() {
       return {
         user: {
           id: this.$route.params.id,
-          adi: this.$route.params.adi,
-          soyadi: this.$route.params.soyadi,
-          baslangicTarihi: this.$route.params.baslangicTarihi,
-          bitisTarihi: this.$route.params.bitisTarihi,
-          il: this.$route.params.il,
-          ilce: this.$route.params.ilce,
-          adres: this.$route.params.adres,
-          notlar: this.$route.params.notlar,
-          odeme: this.$route.params.odeme
+          name: this.$route.params.name,
+          lastname: this.$route.params.lastname,
+          startDate: this.$route.params.startDate,
+          endDate: this.$route.params.endDate,
+          city: this.$route.params.city,
+          district: this.$route.params.district,
+          address: this.$route.params.address,
+          notes: this.$route.params.notes,
+          payment: this.$route.params.payment
         }
       };
     },
     methods: {
-      async create() {
-        this.user = await AboneDataService.saveAbone(this.user);
+      async updateSubscriber() {
+        this.user = await SubscriptionService.saveSubscriber(this.user);
         this.$notification(this, 'Abone başarılı bir şekilde güncellendi.');
         // if success
         this.$router.push({ name: 'FilterList' });

@@ -8,7 +8,7 @@
             </b-col>
             <b-col sm="7">
                 <b-form-datepicker
-                        id="startDate" v-model="abone.startDate"
+                        id="startDate" v-model="subscriber.startDate"
                         dark
                         :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                         locale="tr"></b-form-datepicker>
@@ -21,7 +21,7 @@
             </b-col>
             <b-col sm="7">
                 <b-form-datepicker
-                        id="endDate" v-model="abone.endDate"
+                        id="endDate" v-model="subscriber.endDate"
                         dark
                         :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                         locale="tr"></b-form-datepicker>
@@ -48,16 +48,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="abone in aboneler" v-bind:key="abone.id">
-                        <td>{{abone.adi}}</td>
-                        <td>{{abone.soyadi}}</td>
-                        <td>{{abone.il}}</td>
-                        <td>{{abone.ilce}}</td>
-                        <td>{{abone.adres}}</td>
-                        <td>{{abone.notlar}}</td>
-                        <td>{{abone.baslangicTarihi}}</td>
-                        <td>{{abone.bitisTarihi}}</td>
-                        <td>{{abone.odeme}}</td>
+                    <tr v-for="subscriber in subscriptions" v-bind:key="subscriber.id">
+                        <td>{{subscriber.name}}</td>
+                        <td>{{subscriber.lastname}}</td>
+                        <td>{{subscriber.city}}</td>
+                        <td>{{subscriber.district}}</td>
+                        <td>{{subscriber.address}}</td>
+                        <td>{{subscriber.notes}}</td>
+                        <td>{{subscriber.startDate}}</td>
+                        <td>{{subscriber.endDate}}</td>
+                        <td>{{subscriber.payment}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -69,14 +69,14 @@
 </template>
 
 <script>
-    import AboneDataService from '../../service/AboneDataService';
+    import SubscriptionService from '../../service/SubscriptionService';
 
     export default {
-        name: 'abone-endDate-Control',
+        name: 'subscriber-endDate-Control',
         data() {
             return {
-                aboneler: [],
-                abone: {
+                subscriptions: [],
+                subscriber: {
                     startDate: '',
                     endDate: ''
                 }
@@ -84,13 +84,13 @@
         },
         methods: {
             async loadItems() {
-                var startDate = this.abone.startDate;
-                var endDate = this.abone.endDate;
+                var startDate = this.subscriber.startDate;
+                var endDate = this.subscriber.endDate;
 
                 if (startDate === "" && endDate === "") {
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
                 } else {
-                    this.aboneler = await AboneDataService.listSubscriptionExpiresViaDates(this.abone);
+                    this.subscriptions = await SubscriptionService.listSubscriptionExpiresViaDates(this.subscriber);
                 }
             }
         }

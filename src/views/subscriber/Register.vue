@@ -7,7 +7,7 @@
             <label>Adı:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.adi"></b-form-input>
+            <b-form-input v-model="user.name"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -15,7 +15,7 @@
             <label>Soyadı:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.soyadi"></b-form-input>
+            <b-form-input v-model="user.lastname"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -24,7 +24,7 @@
           </b-col>
           <b-col sm="7">
             <b-form-datepicker
-                    id="endDate" v-model="user.baslangicTarihi"
+                    id="endDate" v-model="user.startDate"
                     dark
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                     locale="tr"></b-form-datepicker>
@@ -36,7 +36,7 @@
           </b-col>
           <b-col sm="7">
             <b-form-datepicker
-                    id="endDate" v-model="user.bitisTarihi"
+                    id="endDate" v-model="user.endDate"
                     dark
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                     locale="tr"></b-form-datepicker>
@@ -47,7 +47,7 @@
             <label>İl:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.il"></b-form-input>
+            <b-form-input v-model="user.city"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -55,7 +55,7 @@
             <label>İlçe:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.ilce"></b-form-input>
+            <b-form-input v-model="user.district"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -63,7 +63,7 @@
             <label>Adres:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.adres"></b-form-input>
+            <b-form-input v-model="user.address"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -71,7 +71,7 @@
             <label>Notlar:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.notlar"></b-form-input>
+            <b-form-input v-model="user.notes"></b-form-input>
           </b-col>
         </b-row>
         <b-row>
@@ -80,10 +80,10 @@
           </b-col>
           <b-col sm="7">
             <div>
-              <b-form-select v-model="user.odeme" class="mb-3">
+              <b-form-select v-model="user.payment" class="mb-3">
                 <b-form-select-option :value="null">Ödeme Bilgisi Seçiniz</b-form-select-option>
-                <b-form-select-option value="Alınmadı">Alınmadı</b-form-select-option>
-                <b-form-select-option value="Alındı">Alındı</b-form-select-option>
+                <b-form-select-option value="Not Paid">Alınmadı</b-form-select-option>
+                <b-form-select-option value="Paid">Alındı</b-form-select-option>
               </b-form-select>
             </div>
           </b-col>
@@ -91,7 +91,7 @@
         <b-container class="bv-example-row">
           <b-row align-h="end">
             <b-col cols="3">
-              <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="create">Kaydet</b-button>
+              <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="createSubscriber">Kaydet</b-button>
             </b-col>
           </b-row>
         </b-container>
@@ -101,27 +101,27 @@
 </template>
 
 <script>
-  import AboneDataService from '../../service/AboneDataService';
+  import SubscriptionService from '../../service/SubscriptionService';
   export default {
     name: "register",
     data() {
       return {
         user: {
-          adi: '',
-          soyadi: '',
-          baslangicTarihi: '',
-          bitisTarihi: '',
-          il: '',
-          ilce: '',
-          adres: '',
-          notlar: '',
-          odeme: ''
+          name: '',
+          lastname: '',
+          startDate: '',
+          endDate: '',
+          city: '',
+          district: '',
+          address: '',
+          notes: '',
+          payment: ''
         }
       };
     },
     methods: {
-      async create() {
-        this.user = await AboneDataService.saveAbone(this.user);
+      async createSubscriber() {
+        this.user = await SubscriptionService.saveSubscriber(this.user);
         this.$notification(this, 'Abone başarılı bir şekilde kayıt edildi.');
         // if success
         this.$router.push({ name: 'SubscriberList' });

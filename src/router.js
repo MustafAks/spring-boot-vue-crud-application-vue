@@ -18,7 +18,7 @@ import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
 import notificationUtils from './utils/NotificationUtils';
 import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
-import AboneEndDateControl from "./views/subscriber/AboneEndDateControl";
+import SubscriberEndDateControl from "./views/subscriber/SubscriberEndDateControl";
 import Login from "./views/user/Login";
 import AddNewspaper from "./views/subscriber/AddNewspaper";
 import AddPages from "./views/subscriber/AddPages";
@@ -84,9 +84,9 @@ export default new Router({
             meta: { title: 'Güncelle' }
         },
         {
-            path: '/aboneEndDateControl',
-            name: 'AboneEndDateControl',
-            component: AboneEndDateControl,
+            path: '/subscriberEndDateControl',
+            name: 'SubscriberEndDateControl',
+            component: SubscriberEndDateControl,
             meta: {title: 'Abone Bitis'}
         }
     ]

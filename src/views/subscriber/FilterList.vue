@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import AboneDataService from '../../service/AboneDataService';
+  import SubscriptionService from '../../service/SubscriptionService';
   import GeneratePdfUtils from '../../utils/GeneratePdfUtils';
 
   export default {
@@ -46,7 +46,7 @@
           },
           {
             label: 'Adı',
-            field: 'adi',
+            field: 'name',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -57,7 +57,7 @@
           },
           {
             label: 'Soyadı',
-            field: 'soyadi',
+            field: 'lastname',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -68,7 +68,7 @@
           },
           {
             label: 'Başlangıç Tarihi',
-            field: 'baslangicTarihi',
+            field: 'startDate',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -79,7 +79,7 @@
           },
           {
             label: 'Bitiş Tarihi',
-            field: 'bitisTarihi',
+            field: 'endDate',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -90,7 +90,7 @@
           },
           {
             label: 'İl',
-            field: 'il',
+            field: 'city',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -101,7 +101,7 @@
           },
           {
             label: 'İlçe',
-            field: 'ilce',
+            field: 'district',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -112,7 +112,7 @@
           },
           {
             label: 'Adres',
-            field: 'adres',
+            field: 'address',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -123,7 +123,7 @@
           },
           {
             label: 'Notlar',
-            field: 'notlar',
+            field: 'notes',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Filter This Thing', // placeholder for filter input
@@ -134,11 +134,14 @@
           },
           {
             label: 'Ödeme Bilgisi',
-            field: 'odeme',
+            field: 'payment',
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Seçiniz', // placeholder for filter input
-              filterDropdownItems: ["Alınmadı","Alındı"], // dropdown (with selected values) instead of text input
+              filterDropdownItems: [
+                      { value: 'Not Paid', text: 'Alınmadı' },
+                      { value: 'Paid', text: 'Alındı' }
+              ], // dropdown (with selected values) instead of text input
               // filterFn: this.columnFilterFn, //custom filter function that
               trigger: 'enter', //only trigger on enter not on keyup
             }
@@ -204,12 +207,12 @@
       // load items is what brings back the rows from server
       async loadItems(params) {
         console.log(params);
-        this.rows = await AboneDataService.list(params);
+        this.rows = await SubscriptionService.list(params);
       },
 
       downloadPdf () {
         var headers = ['','Adı', 'Soyadı', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'İl', 'İlçe', 'Adres', 'Notlar', 'Ödeme'];
-        var columns = ['adi', 'soyadi', 'baslangicTarihi','bitisTarihi', 'il', 'ilce', 'adres', 'notlar', 'odeme'];
+        var columns = ['name', 'lastname', 'startDate','endDate', 'city', 'district', 'address', 'notes', 'payment'];
         var content = {
           pageOrientation: 'landscape',
           content: [
@@ -248,7 +251,7 @@
       },
 
       async deleteRecord(id) {
-        await AboneDataService.deleteAbone(id);
+        await SubscriptionService.deleteSubscriber(id);
         const index = this.rows.findIndex(post => post.id === id);
         if (~index) { // if the post exists in array
           this.rows.splice(index, 1);
