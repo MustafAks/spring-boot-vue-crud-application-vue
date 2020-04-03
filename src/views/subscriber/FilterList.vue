@@ -1,9 +1,6 @@
 <template>
   <div class="row">
     <div class="col-12">
-      <b-button type="submit" variant="primary" v-on:click.prevent="redirectToNewRegisterFormPage">Abone Ekle</b-button>
-    </div>
-    <div class="col-12">
       <b-button type="submit" variant="primary" v-on:click.prevent="downloadPdf">Çıktı Al</b-button>
     </div>
 
@@ -208,10 +205,6 @@
       async loadItems(params) {
         console.log(params);
         this.rows = await AboneDataService.list(params);
-      },
-
-      redirectToNewRegisterFormPage() {
-        this.$router.push({ name: 'Register' });
       },
 
       downloadPdf () {
