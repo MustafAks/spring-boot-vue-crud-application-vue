@@ -16,10 +16,11 @@ import 'vue-notifyjs/themes/default.css';
 import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
 
 import notificationUtils from './utils/NotificationUtils';
-import SubscriberList from "./views/subscriber/SubscriberList";
 import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
 import AboneEndDateControl from "./views/subscriber/AboneEndDateControl";
+import AddNewspaper from "./views/subscriber/AddNewspaper";
+import AddPages from "./views/subscriber/AddPages";
 
 
 Vue.component('nav-bar', NavBar);
@@ -40,16 +41,22 @@ export default new Router({
             meta: { title: 'Hasret Gazetesi - Kemaliye' }
         },
         {
-            path: '/abonelerList',
-            name: 'SubscriberList',
-            component: SubscriberList,
-            meta: { title: 'Aboneler' }
-        },
-        {
             path: '/register',
             name: 'Register',
             component: Register,
             meta: { title: 'Yeni Abone' }
+        },
+        {
+            path: '/addNewspaper',
+            name: 'AddNewspaper',
+            component: AddNewspaper,
+            meta: { title: 'Yeni Gazete Ekle' }
+        },
+        {
+            path: '/addPages',
+            name: 'AddPages',
+            component: AddPages,
+            meta: { title: 'Yeni Sayfa Ekle' }
         },
         {
             path: '/filter',
