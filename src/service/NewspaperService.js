@@ -6,6 +6,7 @@ const LIST_NEWSPAPER_URL = '/newspaper/list';
 const SAVE_PAGE_URL = '/newspaper/pages/';
 const GET_PAGES_URL = '/newspaper/pages/';
 const DELETE_PAGE_URL = '/newspaper/pages/';
+const GET_FILE_URL = '/newspaper/pages/getFile';
 
 class NewspaperService {
     async saveNewspaper(data) {
@@ -30,6 +31,10 @@ class NewspaperService {
 
     async getPages(newspaperId) {
         return await Vue.prototype.$axios.get(GET_PAGES_URL, { params: { newspaperId: newspaperId } });
+    }
+
+    async getFile(pageId) {
+        return await Vue.prototype.$axios.get(GET_FILE_URL, { params: { pageId: pageId } });
     }
 }
 

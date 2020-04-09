@@ -1,9 +1,5 @@
 <template>
   <div class="row">
-    <div class="col-12" align="right" >
-      <b-button type="submit" variant="primary" v-on:click.prevent="downloadPdf">Çıktı Al</b-button>
-    </div>
-
     <div class="container">
       <vue-good-table
               mode="remote"
@@ -11,7 +7,9 @@
               :rows="rows"
               :columns="columns"
               :line-numbers="true">
-
+        <div slot="table-actions">
+          <b-button type="submit" variant="primary" v-on:click.prevent="downloadPdf">Çıktı Al</b-button>
+        </div>
         <template slot="table-row" slot-scope="props">
         <span v-if="props.column.field === 'actions'">
           <b-row>
@@ -69,24 +67,16 @@
           {
             label: 'Başlangıç Tarihi',
             field: 'startDate',
-            filterOptions: {
-              enabled: true, // enable filter for this column
-              placeholder: 'Filter This Thing', // placeholder for filter input
-              filterDropdownItems: [], // dropdown (with selected values) instead of text input
-              // filterFn: this.loadItems(), //custom filter function that
-              trigger: 'enter', //only trigger on enter not on keyup
-            }
+            type: 'date',
+            dateInputFormat: 'yyyy-MM-dd',
+            dateOutputFormat: 'dd/MM/yyyy'
           },
           {
             label: 'Bitiş Tarihi',
             field: 'endDate',
-            filterOptions: {
-              enabled: true, // enable filter for this column
-              placeholder: 'Filter This Thing', // placeholder for filter input
-              filterDropdownItems: [], // dropdown (with selected values) instead of text input
-              // filterFn: this.loadItems(), //custom filter function that
-              trigger: 'enter', //only trigger on enter not on keyup
-            }
+            type: 'date',
+            dateInputFormat: 'yyyy-MM-dd',
+            dateOutputFormat: 'dd/MM/yyyy'
           },
           {
             label: 'İl',
@@ -206,7 +196,6 @@
 
       // load items is what brings back the rows from server
       async loadItems(params) {
-        console.log(params);
         this.rows = await SubscriptionService.list(params);
       },
 
@@ -230,7 +219,12 @@
         rows.forEach(function (row) {
           var dataRow = [];
           columns.forEach(function (column) {
-            dataRow.push(row[column].toString());
+            let rowElement = row[column];
+            if (rowElement === undefined || rowElement === null) {
+              dataRow.push("");
+            } else {
+              dataRow.push(rowElement.toString());
+            }
           });
           dataRow.splice(0, 0, index);
           body.push(dataRow);

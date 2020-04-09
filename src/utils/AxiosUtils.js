@@ -21,7 +21,7 @@ const axiosFileInstance = axios.create({
   timeout: 30000,
   headers: {
     'Content-Type': 'multipart/form-data'
-  },
+  }
 });
 
 axiosFileInstance.interceptors.response.use(
