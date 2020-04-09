@@ -18,7 +18,7 @@
                 <label>Sayı:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="newspaper.issue" type = 'number'></b-form-input>
+                <b-form-input v-model="newspaper.issue" type = 'number' :min="1"></b-form-input>
               </b-col>
             </b-row>
             <b-row>
@@ -26,7 +26,7 @@
                 <label>Yıl:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="newspaper.year" type = 'number'></b-form-input>
+                <b-form-input v-model="newspaper.year" type = 'number' :min="2010"></b-form-input>
               </b-col>
             </b-row>
 
