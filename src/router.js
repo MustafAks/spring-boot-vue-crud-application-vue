@@ -94,7 +94,7 @@ const router = new Router({
           path: '/401',
           name: '401',
           component: Page401,
-          meta: {title: 'Yetki PRoblemi', isPublic: true }
+          meta: {title: 'Yetkisiz Erişim', isPublic: true }
         }
     ]
 });
