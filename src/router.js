@@ -24,6 +24,7 @@ import AddNewspaper from "./views/subscriber/AddNewspaper";
 import AddPages from "./views/subscriber/AddPages";
 import Page401 from "./views/Page401";
 import Newspapers from "./views/subscriber/Newspapers";
+import EmbeddedFile from "./views/subscriber/EmbeddedFile";
 
 
 Vue.component('nav-bar', NavBar);
@@ -90,6 +91,12 @@ const router = new Router({
             name: 'Update',
             component: Update,
             meta: { title: 'Güncelle', roles: ["ROLE_ADMIN"]  }
+        },
+        {
+            path: '/embeddedFile',
+            name: 'EmbeddedFile',
+            component: EmbeddedFile,
+            meta: { title: 'Gazete Oku', roles: ["ROLE_USER", "ROLE_ADMIN"]  }
         },
         {
             path: '/subscriberEndDateControl',
