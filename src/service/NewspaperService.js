@@ -7,6 +7,8 @@ const SAVE_PAGE_URL = '/newspaper/pages/';
 const GET_PAGES_URL = '/newspaper/pages/';
 const DELETE_PAGE_URL = '/newspaper/pages/';
 const GET_FILE_URL = '/newspaper/pages/getFile';
+const GET_YEARS_URL = '/newspaper/getYears';
+const GET_NEWSPAPER_BY_YEAR_URL = '/newspaper/getNewspapersByYear';
 
 class NewspaperService {
     async saveNewspaper(data) {
@@ -35,6 +37,14 @@ class NewspaperService {
 
     async getFile(pageId) {
         return await Vue.prototype.$axios.get(GET_FILE_URL, { params: { pageId: pageId } });
+    }
+
+    async getYears() {
+        return await Vue.prototype.$axios.get(GET_YEARS_URL);
+    }
+
+    async getNewspapersByYear(year) {
+        return await Vue.prototype.$axios.get(GET_NEWSPAPER_BY_YEAR_URL, { params: { year: year } });
     }
 }
 

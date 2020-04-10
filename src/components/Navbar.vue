@@ -6,6 +6,7 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'mainPage'}" :active="$route.name == 'mainPage'">Anasayfa</b-nav-item>
+                <b-nav-item :to="{ name: 'Newspapers'}" :active="$route.name == 'Newspapers'">Gazeteler</b-nav-item>
                 <b-nav-item :to="{ name: 'FilterList'}" :active="$route.name == 'FilterList'">Filtrele</b-nav-item>
                 <b-nav-item :to="{ name: 'SubscriberEndDateControl'}" :active="$route.name == 'SubscriberEndDateControl'">Abonelik Bitiş Sorgulama</b-nav-item>
             </b-navbar-nav>

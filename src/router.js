@@ -23,6 +23,7 @@ import Login from "./views/user/Login";
 import AddNewspaper from "./views/subscriber/AddNewspaper";
 import AddPages from "./views/subscriber/AddPages";
 import Page401 from "./views/Page401";
+import Newspapers from "./views/subscriber/Newspapers";
 
 
 Vue.component('nav-bar', NavBar);
@@ -47,6 +48,12 @@ const router = new Router({
             name: 'mainPage',
             component: MainPage,
             meta: { title: 'Hasret Gazetesi - Kemaliye', roles: ["ROLE_USER", "ROLE_ADMIN"] }
+        },
+        {
+            path: '/newspapers',
+            name: 'Newspapers',
+            component: Newspapers,
+            meta: { title: 'Gazeteler', roles: ["ROLE_USER", "ROLE_ADMIN"] }
         },
         {
             path: '/register',
