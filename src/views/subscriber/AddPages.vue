@@ -45,6 +45,15 @@
                     </template>
                   </b-table>
                 </div>
+                <div>
+                  <b-table :fields="operationFields" :items="operations">
+
+                      <b-row>
+                        <b-button variant="success" v-on:click.prevent="deletePage(page.pageNumber)">Sayfa Sil</b-button>
+                      </b-row>
+
+                  </b-table>
+                </div>
               </div>
             </div>
           </b-col>
@@ -77,7 +86,8 @@
         pagesItems: [],
         pagesFields: [
           { key: 'pageNumber', label: 'Sayfa No' },
-          { key: 'dosya', label: 'Dosya' }
+          { key: 'dosya', label: 'Dosya' },
+          {key:'operations',label:'İşlemler'}
         ]
       }
     },
@@ -116,7 +126,11 @@
           bytes[i] = ascii;
         }
         return bytes;
-      }
+      },
+      async deletePage(pageId) {
+        await NewspaperService.deletePage(pageId);
+        this.$notification(this, 'Sayfa başarılı bir şekilde silindi.');
+      },
     },
     beforeMount() {
       if (this.newspaper.id === undefined || this.newspaper.id === null) {
