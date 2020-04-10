@@ -25,7 +25,7 @@ class NewspaperService {
         return await Vue.prototype.$axiosFile.post(SAVE_PAGE_URL, data, { headers: { 'Content-Type': 'multipart/form-data' } });
     }
 
-    async deletePage(pageId) {
+    async deletePage(id) {
         return await Vue.prototype.$axios.delete(DELETE_PAGE_URL, { params: { id: id } });
     }
 
