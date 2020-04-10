@@ -11,7 +11,7 @@
               <label>Sayfa No:</label>
             </b-col>
             <b-col sm="7">
-              <b-form-input v-model="page.pageNumber" type = 'number'></b-form-input>
+              <b-form-input v-model="page.pageNumber" type = 'number' :min="0"></b-form-input>
             </b-col>
           </b-row>
 
@@ -38,12 +38,20 @@
               <div class="container">
                 <div>
                   <b-table :fields="pagesFields" :items="pagesItems">
-                    <template v-slot:cell(dosya)="row">
+                    <template v-slot:cell(file)="row">
                       <b-row>
                         <b-button variant="success" v-on:click.prevent="previewPage(row.item.id)">Sayfa Önizleme</b-button>
                       </b-row>
                     </template>
+
+                      <template v-slot:cell(operations)="row">
+                      <b-row>
+                        <b-button variant="danger" v-on:click.prevent="deletePage(row.item.id)">Sayfa Sil</b-button>
+                      </b-row>
+                    </template>
                   </b-table>
+                </div>
+                <div>
                 </div>
               </div>
             </div>
@@ -78,7 +86,8 @@
         pagesItems: [],
         pagesFields: [
           { key: 'pageNumber', label: 'Sayfa No' },
-          { key: 'dosya', label: 'Dosya' }
+          { key: 'file', label: 'Dosya' },
+          {key:'operations',label:'İşlemler'}
         ]
       }
     },
@@ -101,7 +110,12 @@
 
       async previewPage(pageId) {
         await GeneratePdfUtils.openWithPageId(pageId);
-      }
+      },
+      async deletePage(pageId) {
+        await NewspaperService.deletePage(pageId);
+        this.$notification(this, 'Sayfa başarılı bir şekilde silindi.');
+        this.loadPages(this.newspaper.id);
+      },
     },
     beforeMount() {
       if (this.newspaper.id === undefined || this.newspaper.id === null) {
