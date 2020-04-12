@@ -52,11 +52,9 @@ axiosFileInstance.interceptors.request.use(
 );
 
 function addBasicAuthenticationToHeader(config) {
-  console.log("Axios Request Prepare.");
   const user = JSON.parse(localStorage.getItem('user'));
   const auth = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
   config.headers['Authorization'] = auth;
-  console.log(JSON.stringify(config));
 }
 
 export default {

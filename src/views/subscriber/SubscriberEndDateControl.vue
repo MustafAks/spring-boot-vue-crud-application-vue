@@ -47,6 +47,7 @@
 
 <script>
     import SubscriptionService from '../../service/SubscriptionService';
+    import DateConverterUtils from '../../utils/DateConverterUtils';
 
     export default {
         name: 'subscriber-endDate-Control',
@@ -54,8 +55,8 @@
             return {
                 subscriptions: [],
                 subscriber: {
-                    startDate: '',
-                    endDate: ''
+                    startDate: null,
+                    endDate: null
                 },
                 subscriberFields: [
                     {key: 'name', label: 'Adı'},
@@ -75,10 +76,21 @@
                 var startDate = this.subscriber.startDate;
                 var endDate = this.subscriber.endDate;
 
-                if (startDate === "" && endDate === "") {
+                if ((startDate === undefined || startDate === null) && (endDate === undefined || endDate === null)) {
                     this.$errorNotification(this, 'Başlangıç veya Bitiş tarihlerinden en az birini girmelisiniz !');
                 } else {
-                    this.subscriptions = await SubscriptionService.listSubscriptionExpiresViaDates(this.subscriber);
+                    startDate != null ? DateConverterUtils.convertDateToTimestamp(this.subscriber.startDate) : null;
+                    endDate != null ? DateConverterUtils.convertDateToTimestamp(this.subscriber.endDate) : null;
+                    var data = {
+                        startDate: startDate,
+                        endDate: endDate
+                    };
+                    let subscriptions = await SubscriptionService.listSubscriptionExpiresViaDates(data);
+                    subscriptions.forEach(function (subscription) {
+                        subscription.startDate = new Date(subscription.startDate).toLocaleDateString();
+                        subscription.endDate = new Date(subscription.endDate).toLocaleDateString();
+                    });
+                    this.subscriptions = subscriptions;
                 }
             }
         }

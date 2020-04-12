@@ -102,29 +102,33 @@
 
 <script>
   import SubscriptionService from '../../service/SubscriptionService';
+  import DateConverterUtils from "../../utils/DateConverterUtils";
   export default {
     name: "register",
     data() {
       return {
         user: {
-          name: '',
-          lastname: '',
-          startDate: '',
-          endDate: '',
-          city: '',
-          district: '',
-          address: '',
-          notes: '',
-          payment: ''
+          name: null,
+          lastname: null,
+          startDate: null,
+          endDate: null,
+          city: null,
+          district: null,
+          address: null,
+          notes: null,
+          payment: null
         }
       };
     },
     methods: {
       async createSubscriber() {
-        this.user = await SubscriptionService.saveSubscriber(this.user);
+        const data = JSON.parse(JSON.stringify(this.user));
+        data.startDate = DateConverterUtils.convertDateToTimestamp(this.user.startDate);
+        data.endDate = DateConverterUtils.convertDateToTimestamp(this.user.endDate);
+        await SubscriptionService.saveSubscriber(data);
         this.$notification(this, 'Abone başarılı bir şekilde kayıt edildi.');
         // if success
-        this.$router.push({ name: 'SubscriberList' });
+        this.$router.push({ name: 'FilterList' });
       }
     }
   };

@@ -66,16 +66,16 @@
           },
           {
             label: 'Başlangıç Tarihi',
-            field: 'startDate',
+            field: 'startDateString',
             type: 'date',
-            dateInputFormat: 'yyyy-MM-dd',
+            dateInputFormat: 'dd.MM.yyyy',
             dateOutputFormat: 'dd/MM/yyyy'
           },
           {
             label: 'Bitiş Tarihi',
-            field: 'endDate',
+            field: 'endDateString',
             type: 'date',
-            dateInputFormat: 'yyyy-MM-dd',
+            dateInputFormat: 'dd.MM.yyyy',
             dateOutputFormat: 'dd/MM/yyyy'
           },
           {
@@ -137,6 +137,12 @@
             }
           },{
             field: 'actions'
+          },{
+            field: 'startDate',
+            hidden: true
+          },{
+            field: 'endDate',
+            hidden: true
           }/*,
                     {
                         label: 'Created On',
@@ -196,12 +202,19 @@
 
       // load items is what brings back the rows from server
       async loadItems(params) {
-        this.rows = await SubscriptionService.list(params);
+        let result = await SubscriptionService.list(params);
+        result.forEach(function (item) {
+          item.startDate = new Date(item.startDate);
+          item.startDateString = new Date(item.startDate).toLocaleDateString();
+          item.endDate = new Date(item.endDate);
+          item.endDateString = new Date(item.endDate).toLocaleDateString();
+        });
+        this.rows = result;
       },
 
       downloadPdf () {
         var headers = ['','Adı', 'Soyadı', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'İl', 'İlçe', 'Adres', 'Notlar', 'Ödeme'];
-        var columns = ['name', 'lastname', 'startDate','endDate', 'city', 'district', 'address', 'notes', 'payment'];
+        var columns = ['name', 'lastname', 'startDateString','endDateString', 'city', 'district', 'address', 'notes', 'payment'];
         var content = {
           pageOrientation: 'landscape',
           content: [
@@ -240,7 +253,6 @@
       },
 
       updateRecord(params) {
-        console.log(params);
         this.$router.push({ name: 'Update', params : params });
       },
 
