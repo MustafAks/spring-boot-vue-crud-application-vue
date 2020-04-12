@@ -81,7 +81,6 @@
           <b-col sm="7">
             <div>
               <b-form-select v-model="user.payment" class="mb-3">
-                <b-form-select-option :value="null">Ödeme Bilgisi Seçiniz</b-form-select-option>
                 <b-form-select-option value="Not Paid">Alınmadı</b-form-select-option>
                 <b-form-select-option value="Paid">Alındı</b-form-select-option>
               </b-form-select>
@@ -116,7 +115,7 @@
           district: null,
           address: null,
           notes: null,
-          payment: null
+          payment: "Not Paid"
         }
       };
     },
