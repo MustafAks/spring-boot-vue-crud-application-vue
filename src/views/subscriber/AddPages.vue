@@ -79,7 +79,7 @@
           year: this.$route.params.year
         },
         page: {
-          pageNumber: '',
+          pageNumber: null,
           file: null,
           newspapers: this.newspaper
         },
@@ -95,10 +95,26 @@
     methods: {
       async createPage() {
         let formData = new FormData();
-        formData.append('file', this.page.file);
-        formData.append('pageNumber',this.page.pageNumber);
-        formData.append('newspaperId',this.newspaper.id);
+        const fileFromPage = this.page.file;
+        const pageId = this.page.pageNumber;
+        const newspaperId = this.newspaper.id;
 
+        if (fileFromPage===null || fileFromPage===undefined){
+          this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
+          return ;
+        }
+        if (pageId===null || pageId===undefined){
+          this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
+          return ;
+        }
+        if (newspaperId===null || newspaperId===undefined){
+          this.$errorNotification(this, 'Gazete bulunamadı !');
+          return ;
+        }
+
+        formData.append('file', fileFromPage);
+        formData.append('pageNumber',pageId);
+        formData.append('newspaperId',newspaperId);
         await NewspaperService.savePage(formData);
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
         this.loadPages(this.newspaper.id);
