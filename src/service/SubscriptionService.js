@@ -11,7 +11,16 @@ class SubscriptionService {
     }
 
     async saveSubscriber(subscriber) {
-        return await Vue.prototype.$axios.post(SAVE_SUBSCRIBER_URL, subscriber);
+        return await Vue.prototype.$axios.post(SAVE_SUBSCRIBER_URL, subscriber).catch(function (error) {
+            if (error.response) {
+                console.log(error.response.status);
+            } else {
+                console.log('Error', error.message);
+            }
+        })
+            .then(response => {
+                console.log(response)
+            });
     }
 
     async deleteSubscriber(id) {
