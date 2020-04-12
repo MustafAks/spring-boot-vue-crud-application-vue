@@ -31,10 +31,12 @@
 <script>
   import SubscriptionService from '../../service/SubscriptionService';
   import GeneratePdfUtils from '../../utils/GeneratePdfUtils';
+  import EnumService from "../../service/EnumService";
 
   export default {
     name: 'subscriber-filter-list',
     data() {
+      // this.paymentArray = [{text: "Alınmadı", value: "Not Paid"}, {text: "Alındı", value: "Paid"}];
       return {
         totalRecords: 0,
         columns: [
@@ -128,10 +130,7 @@
             filterOptions: {
               enabled: true, // enable filter for this column
               placeholder: 'Seçiniz', // placeholder for filter input
-              filterDropdownItems: [
-                      { value: 'Not Paid', text: 'Alınmadı' },
-                      { value: 'Paid', text: 'Alındı' }
-              ], // dropdown (with selected values) instead of text input
+              filterDropdownItems: this.paymentArray, // dropdown (with selected values) instead of text input
               // filterFn: this.columnFilterFn, //custom filter function that
               trigger: 'enter', //only trigger on enter not on keyup
             }
@@ -168,6 +167,7 @@
         },
         rows: [
         ],
+        paymentArray : []
       };
     },
     methods: {
@@ -202,12 +202,19 @@
 
       // load items is what brings back the rows from server
       async loadItems(params) {
+        await this.prepare();
+        const paymentArray = this.paymentArray;
         let result = await SubscriptionService.list(params);
         result.forEach(function (item) {
           item.startDate = new Date(item.startDate);
           item.startDateString = new Date(item.startDate).toLocaleDateString();
           item.endDate = new Date(item.endDate);
           item.endDateString = new Date(item.endDate).toLocaleDateString();
+          paymentArray.forEach(function (element) {
+            if (item.payment === element.value) {
+              item.payment = element.text;
+            }
+          })
         });
         this.rows = result;
       },
@@ -266,6 +273,10 @@
           this.$errorNotification(this, 'Abone silinirken hata oluştu.');
         }
       },
+
+      async prepare() {
+        this.paymentArray = await EnumService.getPaymentArrayForFilterList();
+      }
     },
     beforeMount() {
       this.loadItems({});

@@ -48,6 +48,7 @@
 <script>
     import SubscriptionService from '../../service/SubscriptionService';
     import DateConverterUtils from '../../utils/DateConverterUtils';
+    import EnumService from "../../service/EnumService";
 
     export default {
         name: 'subscriber-endDate-Control',
@@ -68,7 +69,8 @@
                     {key: 'startDate', label: 'Başlangıç Tarihi'},
                     {key: 'endDate', label: 'Bitiş Tarihi'},
                     {key: 'payment', label: 'Ödeme Bilgisi'}
-                ]
+                ],
+                paymentArray : []
             };
         },
         methods: {
@@ -85,14 +87,27 @@
                         startDate: startDate,
                         endDate: endDate
                     };
+                    const paymentArray = this.paymentArray;
                     let subscriptions = await SubscriptionService.listSubscriptionExpiresViaDates(data);
                     subscriptions.forEach(function (subscription) {
                         subscription.startDate = new Date(subscription.startDate).toLocaleDateString();
                         subscription.endDate = new Date(subscription.endDate).toLocaleDateString();
+                        paymentArray.forEach(function (element) {
+                            if (subscription.payment === element.value) {
+                                subscription.payment = element.key;
+                            }
+                        })
                     });
                     this.subscriptions = subscriptions;
                 }
+            },
+
+            async prepare() {
+                this.paymentArray = await EnumService.getPaymentArray();
             }
+        },
+        beforeMount() {
+            this.prepare();
         }
     };
 

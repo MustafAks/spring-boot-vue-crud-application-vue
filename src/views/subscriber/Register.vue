@@ -80,9 +80,7 @@
           </b-col>
           <b-col sm="7">
             <div>
-              <b-form-select v-model="user.payment" class="mb-3">
-                <b-form-select-option value="Not Paid">Alınmadı</b-form-select-option>
-                <b-form-select-option value="Paid">Alındı</b-form-select-option>
+              <b-form-select v-model="user.payment" class="mb-3" :options=paymentArray value-field="value" text-field="key">
               </b-form-select>
             </div>
           </b-col>
@@ -101,6 +99,7 @@
 
 <script>
   import SubscriptionService from '../../service/SubscriptionService';
+  import EnumService from '../../service/EnumService';
   import DateConverterUtils from "../../utils/DateConverterUtils";
   export default {
     name: "register",
@@ -116,7 +115,8 @@
           address: null,
           notes: null,
           payment: "Not Paid"
-        }
+        },
+        paymentArray : []
       };
     },
     methods: {
@@ -128,7 +128,14 @@
         this.$notification(this, 'Abone başarılı bir şekilde kayıt edildi.');
         // if success
         this.$router.push({ name: 'FilterList' });
+      },
+
+      async prepare() {
+        this.paymentArray = await EnumService.getPaymentArray();
       }
+    },
+    beforeMount() {
+      this.prepare();
     }
   };
 </script>

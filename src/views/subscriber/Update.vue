@@ -79,9 +79,7 @@
             <label>Ödeme Bilgisi:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-select v-model="user.payment" class="mb-3">
-              <b-form-select-option value="Not Paid">Alınmadı</b-form-select-option>
-              <b-form-select-option value="Paid">Alındı</b-form-select-option>
+            <b-form-select v-model="user.payment" class="mb-3" :options=paymentArray value-field="value" text-field="key">
             </b-form-select>
           </b-col>
         </b-row>
@@ -99,6 +97,7 @@
 
 <script>
   import SubscriptionService from '../../service/SubscriptionService';
+  import EnumService from "../../service/EnumService";
   export default {
     name: "update",
     data() {
@@ -114,7 +113,8 @@
           address: this.$route.params.address,
           notes: this.$route.params.notes,
           payment: this.$route.params.payment
-        }
+        },
+        paymentArray : []
       };
     },
     methods: {
@@ -123,7 +123,14 @@
         this.$notification(this, 'Abone başarılı bir şekilde güncellendi.');
         // if success
         this.$router.push({ name: 'FilterList' });
+      },
+
+      async prepare() {
+        this.paymentArray = await EnumService.getPaymentArray();
       }
+    },
+    beforeMount() {
+      this.prepare();
     }
   };
 </script>
