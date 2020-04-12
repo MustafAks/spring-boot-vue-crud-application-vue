@@ -96,24 +96,24 @@
       async createPage() {
         let formData = new FormData();
         const fileFromPage = this.page.file;
-        const pageId = this.page.pageNumber;
+        const pageNumber = this.page.pageNumber;
         const newspaperId = this.newspaper.id;
 
-        if (fileFromPage===null || fileFromPage===undefined){
+        if (fileFromPage === undefined || fileFromPage === null) {
           this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
-          return ;
+          return;
         }
-        if (pageId===null || pageId===undefined){
+        if (pageNumber === undefined || pageNumber === null) {
           this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
-          return ;
+          return;
         }
-        if (newspaperId===null || newspaperId===undefined){
+        if (newspaperId === undefined || newspaperId === null) {
           this.$errorNotification(this, 'Gazete bulunamadı !');
-          return ;
+          return;
         }
 
         formData.append('file', fileFromPage);
-        formData.append('pageNumber',pageId);
+        formData.append('pageNumber',pageNumber);
         formData.append('newspaperId',newspaperId);
         await NewspaperService.savePage(formData);
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
