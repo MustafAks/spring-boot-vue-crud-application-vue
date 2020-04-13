@@ -33,7 +33,14 @@
         </div>
         <b-container class="bv-example-row">
             <div class="container">
-                <h3>Aboneler</h3>
+                <b-row>
+                    <b-col sm="8">
+                        <h3>Aboneler</h3>
+                    </b-col>
+                    <b-col sm="4" align="right">
+                        <b-button type="submit" variant="primary" v-on:click.prevent="downloadPdf">Çıktı Al</b-button>
+                    </b-col>
+                </b-row>
                 <div class="container">
                     <div>
                         <b-table :fields="subscriberFields" :items="subscriptions">
@@ -49,6 +56,7 @@
     import SubscriptionService from '../../service/SubscriptionService';
     import DateConverterUtils from '../../utils/DateConverterUtils';
     import EnumService from "../../service/EnumService";
+    import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
 
     export default {
         name: 'subscriber-endDate-Control',
@@ -61,7 +69,7 @@
                 },
                 subscriberFields: [
                     {key: 'name', label: 'Adı'},
-                    {key: 'lastname', label: 'Soyadi'},
+                    {key: 'lastname', label: 'Soyadı'},
                     {key: 'city', label: 'İl'},
                     {key: 'district', label: 'İlçe'},
                     {key: 'address', label: 'Adres'},
@@ -100,6 +108,46 @@
                     });
                     this.subscriptions = subscriptions;
                 }
+            },
+
+            downloadPdf () {
+                var headers = ['','Adı', 'Soyadı', 'İl', 'İlçe', 'Adres', 'Notlar', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'Ödeme'];
+                var columns = ['name', 'lastname', 'city', 'district', 'address', 'notes', 'startDate','endDate', 'payment'];
+                var content = {
+                    pageOrientation: 'landscape',
+                    content: [
+                        this.prepareBody(this.subscriptions, columns, headers)
+                    ]
+                };
+                GeneratePdfUtils.download(content, "aboneligiBitenler");
+            },
+
+            prepareBody(rows, columns, headers) {
+                var body = [];
+                var index = 1;
+                body.push(headers);
+
+                rows.forEach(function (row) {
+                    var dataRow = [];
+                    columns.forEach(function (column) {
+                        let rowElement = row[column];
+                        if (rowElement === undefined || rowElement === null) {
+                            dataRow.push("");
+                        } else {
+                            dataRow.push(rowElement.toString());
+                        }
+                    });
+                    dataRow.splice(0, 0, index);
+                    body.push(dataRow);
+                    index++;
+                });
+
+                return {
+                    table: {
+                        headerRows: 1,
+                        body: body
+                    }
+                };
             },
 
             async prepare() {

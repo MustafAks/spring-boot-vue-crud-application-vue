@@ -67,20 +67,6 @@
             }
           },
           {
-            label: 'Başlangıç Tarihi',
-            field: 'startDateString',
-            type: 'date',
-            dateInputFormat: 'dd.MM.yyyy',
-            dateOutputFormat: 'dd/MM/yyyy'
-          },
-          {
-            label: 'Bitiş Tarihi',
-            field: 'endDateString',
-            type: 'date',
-            dateInputFormat: 'dd.MM.yyyy',
-            dateOutputFormat: 'dd/MM/yyyy'
-          },
-          {
             label: 'İl',
             field: 'city',
             filterOptions: {
@@ -123,6 +109,20 @@
               // filterFn: this.columnFilterFn, //custom filter function that
               trigger: 'enter', //only trigger on enter not on keyup
             }
+          },
+          {
+            label: 'Başlangıç Tarihi',
+            field: 'startDateString',
+            type: 'date',
+            dateInputFormat: 'dd.MM.yyyy',
+            dateOutputFormat: 'dd/MM/yyyy'
+          },
+          {
+            label: 'Bitiş Tarihi',
+            field: 'endDateString',
+            type: 'date',
+            dateInputFormat: 'dd.MM.yyyy',
+            dateOutputFormat: 'dd/MM/yyyy'
           },
           {
             label: 'Ödeme Bilgisi',
@@ -220,8 +220,8 @@
       },
 
       downloadPdf () {
-        var headers = ['','Adı', 'Soyadı', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'İl', 'İlçe', 'Adres', 'Notlar', 'Ödeme'];
-        var columns = ['name', 'lastname', 'startDateString','endDateString', 'city', 'district', 'address', 'notes', 'payment'];
+        var headers = ['','Adı', 'Soyadı', 'İl', 'İlçe', 'Adres', 'Notlar', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'Ödeme'];
+        var columns = ['name', 'lastname', 'city', 'district', 'address', 'notes', 'startDateString','endDateString', 'payment'];
         var content = {
           pageOrientation: 'landscape',
           content: [
