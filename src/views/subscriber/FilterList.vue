@@ -36,7 +36,7 @@
   export default {
     name: 'subscriber-filter-list',
     data() {
-      // this.paymentArray = [{text: "Alınmadı", value: "Not Paid"}, {text: "Alındı", value: "Paid"}];
+      this.paymentArray = [{text: "Alınmadı", value: "Not Paid"}, {text: "Alındı", value: "Paid"}];
       return {
         totalRecords: 0,
         columns: [
@@ -260,6 +260,12 @@
       },
 
       updateRecord(params) {
+        const paymentArray = this.paymentArray;
+        paymentArray.forEach(function (element) {
+          if (params.payment === element.text) {
+            params.payment = element.value;
+          }
+        });
         this.$router.push({ name: 'Update', params : params });
       },
 
