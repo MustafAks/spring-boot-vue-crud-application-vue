@@ -118,6 +118,9 @@
         await NewspaperService.savePage(formData);
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
         this.loadPages(this.newspaper.id);
+        //clear form data
+        this.page.pageNumber = null;
+        this.page.file = null;
       },
 
       async loadPages(newspaperId) {
