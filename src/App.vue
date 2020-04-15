@@ -9,13 +9,13 @@
         <div id='footer-view' class="text-center">
             <b-img-lazy v-bind="mainProps"
                     :src="require('./assets/images/FooterImages/facebook.png')"
-                    onclick="window.open('https://www.facebook.com/hasret.kemaliye','facebook','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+                    onclick="window.open('https://www.facebook.com/hasret.kemaliye','facebook')" ></b-img-lazy>
             <b-img-lazy v-bind="mainProps"
                     :src="require('./assets/images/FooterImages/twitter.png')"
-                    onclick="window.open('https://twitter.com/HasretKemaliye','twitter','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+                    onclick="window.open('https://twitter.com/HasretKemaliye','twitter')" ></b-img-lazy>
             <b-img-lazy v-bind="mainProps"
                     :src="require('./assets/images/FooterImages/instagram.png')"
-                    onclick="window.open('https://www.instagram.com/hasretgazetesi/','instagram','toolbar=yes,scrollbars=yes,resizable=yes,width=4000,height=4000,top=500,left=500')" ></b-img-lazy>
+                    onclick="window.open('https://www.instagram.com/hasretgazetesi/','instagram')" ></b-img-lazy>
           <div class="container">
                 <p class="text-center text-white">©{{ new Date().getFullYear() }} Copyright — Kemaliye</p>
             </div>
