@@ -9,7 +9,10 @@
                     <b-col sm="7">
                         <b-form-datepicker
                                 id="startDate" v-model="subscriber.startDate"
-                                dark
+                                dark placeholder="Seçiniz"
+                                today-button label-today-button = "Bugün"
+                                reset-button label-reset-button = "Sil"
+                                close-button label-close-button = "Kapat"
                                 :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                                 locale="tr"></b-form-datepicker>
                     </b-col>
@@ -21,7 +24,10 @@
                     <b-col sm="7">
                         <b-form-datepicker
                                 id="endDate" v-model="subscriber.endDate"
-                                dark
+                                dark placeholder="Seçiniz"
+                                today-button label-today-button = "Bugün"
+                                reset-button label-reset-button = "Sil"
+                                close-button label-close-button = "Kapat"
                                 :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                                 locale="tr"></b-form-datepicker>
                     </b-col>
