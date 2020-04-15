@@ -11,7 +11,12 @@
               <label>Sayfa No:</label>
             </b-col>
             <b-col sm="7">
-              <b-form-input v-model="page.pageNumber" type = 'number' :min="0"></b-form-input>
+              <ValidationProvider name="pageNumber" rules="required|page.pageNumber">
+                <div slot-scope="{ errors }">
+              <b-form-input v-model="page.pageNumber" type = 'number' :min="0" v-validate="'required|page.pageNumber'"></b-form-input>
+                  <p>{{ errors[0] }}</p>
+                </div>
+              </ValidationProvider>
             </b-col>
           </b-row>
 
@@ -20,7 +25,12 @@
               <label>Dosya Ekle:</label>
             </b-col>
             <b-col sm="7">
-              <b-form-file v-model="page.file" class="mt-3" plain></b-form-file>
+              <ValidationProvider name="file" rules="required|file">
+                <div slot-scope="{ errors }">
+              <b-form-file v-model="page.file" class="mt-3" plain v-validate="'required|file'"></b-form-file>
+                  <p>{{ errors[0] }}</p>
+                </div>
+              </ValidationProvider>
             </b-col>
           </b-row>
 
@@ -66,10 +76,11 @@
 <script>
   import NewspaperService from "../../service/NewspaperService";
   import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
+  import { ValidationProvider } from 'vee-validate';
   export default {
-    /*
-      Defines the data used by the component
-    */
+    components: {
+      ValidationProvider
+    },
     data(){
       return {
         newspaper: {
@@ -100,15 +111,15 @@
         const newspaperId = this.newspaper.id;
 
         if (fileFromPage === undefined || fileFromPage === null) {
-          this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
+          //this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
           return;
         }
         if (pageNumber === undefined || pageNumber === null) {
-          this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
+          //this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
           return;
         }
         if (newspaperId === undefined || newspaperId === null) {
-          this.$errorNotification(this, 'Gazete bulunamadı !');
+         // this.$errorNotification(this, 'Gazete bulunamadı !');
           return;
         }
 
