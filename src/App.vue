@@ -47,7 +47,7 @@
     }
 
     #router-view {
-        padding: 20px 0px;
+        padding: 20px 0px 100px;
         margin: 0 auto;
     }
 
