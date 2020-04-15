@@ -92,6 +92,9 @@
       async createNewspaper() {
         this.newspaper = await NewspaperService.saveNewspaper(this.newspaper);
         this.$notification(this, 'Gazete başarılı bir şekilde kayıt edildi.');
+        this.newspaper.title = null;
+        this.newspaper.issue = null;
+        this.newspaper.year = null;
         // if success
         this.loadNewspapers();
       },
