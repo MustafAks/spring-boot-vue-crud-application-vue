@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <div class="center">
     <b-container class="bv-example-row">
@@ -6,17 +7,25 @@
         <b-col>
           <h3>{{ newspaper.issue}} sayı numaralı gazete ({{ newspaper.year}})</h3>
           <h3>Sayfa Ekle</h3>
+          <ValidationObserver ref="observer">
+          <b-form slot-scope="{ validate }" @submit.prevent="validate().then(createPage)">
           <b-row>
             <b-col sm="4">
               <label>Sayfa No:</label>
             </b-col>
             <b-col sm="7">
               <ValidationProvider name="pageNumber" rules="required|page.pageNumber">
-                <div slot-scope="{ errors }">
-              <b-form-input v-model="page.pageNumber" type = 'number' :min="0" v-validate="'required|page.pageNumber'"></b-form-input>
-                  <p>{{ errors[0] }}</p>
-                </div>
+                <b-form-group slot-scope="{ valid, errors }">
+<!--                <div slot-scope="{ errors }">-->
+              <b-form-input v-model="page.pageNumber" type = 'number' :state='errors[0] ? false : (valid ? true : null)' :min="0"  ></b-form-input>
+<!--                  <span>{{ errors[0] }}</span>-->
+                  <b-form-invalid-feedback>
+                    {{ errors[0] }}
+                  </b-form-invalid-feedback>
+<!--                </div>-->
+                </b-form-group>
               </ValidationProvider>
+
             </b-col>
           </b-row>
 
@@ -25,11 +34,17 @@
               <label>Dosya Ekle:</label>
             </b-col>
             <b-col sm="7">
-              <ValidationProvider name="file" rules="required|file">
-                <div slot-scope="{ errors }">
-              <b-form-file v-model="page.file" class="mt-3" plain v-validate="'required|file'"></b-form-file>
-                  <p>{{ errors[0] }}</p>
-                </div>
+              <ValidationProvider name="file" rules="required|page.file">
+                <b-form-group
+                        slot-scope="{ valid, errors }">
+<!--                <div slot-scope="{ errors }">-->
+              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : (valid ? true : null)" v-validate="'required|page.file'"></b-form-file>
+<!--                  <span>{{ errors[0] }}</span>-->
+<!--                </div>-->
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
               </ValidationProvider>
             </b-col>
           </b-row>
@@ -37,11 +52,12 @@
           <b-container class="bv-example-row">
             <b-row align-h="end">
               <b-col cols="3">
-                <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="createPage">Kaydet</b-button>
+                <b-button block-type="submit" class="w-75" variant="primary" v-on:click.prevent="createPage">Kaydet</b-button>
               </b-col>
             </b-row>
           </b-container>
-
+          </b-form>
+          </ValidationObserver>
           <b-col >
             <div class="container">
               <h3>Sayfalar</h3>
@@ -67,19 +83,23 @@
             </div>
           </b-col>
         </b-col>
+
       </b-row>
     </b-container>
   </div>
   </div>
+
 </template>
 
 <script>
   import NewspaperService from "../../service/NewspaperService";
   import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
   import { ValidationProvider } from 'vee-validate';
+  import { ValidationObserver } from 'vee-validate';
   export default {
     components: {
-      ValidationProvider
+      ValidationProvider,
+      ValidationObserver
     },
     data(){
       return {
@@ -127,6 +147,7 @@
         formData.append('pageNumber',pageNumber);
         formData.append('newspaperId',newspaperId);
         await NewspaperService.savePage(formData);
+        alert('Başardın Beyz :) !');
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
         this.loadPages(this.newspaper.id);
       },
@@ -158,5 +179,13 @@
   }
   .mycontent-left {
     border-right: 1px dashed #333;
+  }
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .form-group > label {
+    font-weight: 600;
   }
 </style>
