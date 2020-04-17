@@ -8,17 +8,15 @@
           <h3>{{ newspaper.issue}} sayı numaralı gazete ({{ newspaper.year}})</h3>
           <h3>Sayfa Ekle</h3>
           <ValidationObserver ref="observer">
-          <b-form slot-scope="{ validate }" @submit.prevent="validate().then(createPage)">
+          <b-form >
           <b-row>
             <b-col sm="4">
               <label>Sayfa No:</label>
             </b-col>
             <b-col sm="7">
-              <ValidationProvider name="pageNumber" rules="required|page.pageNumber">
+              <ValidationProvider name="pageNumber" rules="required">
                 <b-form-group slot-scope="{ valid, errors }">
-<!--                <div slot-scope="{ errors }">-->
               <b-form-input v-model="page.pageNumber" type = 'number' :state='errors[0] ? false : (valid ? true : null)' :min="0"  ></b-form-input>
-<!--                  <span>{{ errors[0] }}</span>-->
                   <b-form-invalid-feedback>
                     {{ errors[0] }}
                   </b-form-invalid-feedback>
@@ -34,13 +32,11 @@
               <label>Dosya Ekle:</label>
             </b-col>
             <b-col sm="7">
-              <ValidationProvider name="file" rules="required|page.file">
+              <ValidationProvider name="file" rules="required">
                 <b-form-group
                         slot-scope="{ valid, errors }">
-<!--                <div slot-scope="{ errors }">-->
-              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : (valid ? true : null)" v-validate="'required|page.file'"></b-form-file>
-<!--                  <span>{{ errors[0] }}</span>-->
-<!--                </div>-->
+              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : (valid ? true : null)"></b-form-file>
+
                 <b-form-invalid-feedback>
                   {{ errors[0] }}
                 </b-form-invalid-feedback>
