@@ -86,6 +86,7 @@ export default {
       display: inline-block;
       width: 25%;
       list-style: none;
+      margin-top: 1.4em;
       margin-bottom: 1.4em;
       border-style: ridge;
   }
