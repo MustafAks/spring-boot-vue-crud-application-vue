@@ -3,31 +3,17 @@
       <b-tabs content-class="mt-3">
           <b-tab v-for="year in years" :key=year :title=year.toString() @click="onChange(year)">
               <b-col>
-
                   <b-card no-body class="mb-1" v-for="newspaper in newspapers" :key=newspaper.id>
                       <b-card-header header-tag="header" class="p-1" role="tab">
-                          <b-button block href="#" v-b-toggle = "newspaper.id" variant="info" @click="onClick(newspaper.id)">{{ newspaper.title }}</b-button>
+                          <b-link href="#" v-b-toggle = "newspaper.id" @click="onClick(newspaper.id)">{{ newspaper.title }} Sayısı İçin Tıklayınız...</b-link>
+<!--                          <b-button block href="#" v-b-toggle = "newspaper.id" variant="outline-primary" @click="onClick(newspaper.id)">{{ newspaper.title }}</b-button>-->
                       </b-card-header>
-                      <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel">
-                          <b-card-body>
-                                <b-card-group deck>
-                                    <b-card class="col-sm-3" v-for="page in pages" :key=page.id :img-src="image" img-alt="Image" img-top>
-                                        <b-link href="#" class="card-link" @click="linkClick(page.id)">{{ page.pageNumber }}. Sayfa</b-link>
-                                    </b-card>
-                                </b-card-group>
-                          </b-card-body>
+                      <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel" class="swatch__container">
+                          <li v-for="page in pages" :key=page.id class="swatch__wrapper" style="text-align:center">
+                              <img :src=image>
+                              <b-link href="#" @click="linkClick(page.id)">{{ page.pageNumber }}. Sayfa</b-link>
+                          </li>
                       </b-collapse>
-
-
-<!--                      <ul class="swatch__container">-->
-<!--                          <li v-for="page in pages" :key=page.id class="swatch__wrapper">-->
-<!--                              <div class="swatch">-->
-<!--                                  <div  class="swatch__type">№ {{ page.pageNumber }}. {{ page.pageNumber }}</div>-->
-<!--                                  <div class="swatch__hex">{{ page.pageNumber }}</div>-->
-<!--                                  <div  class="swatch__name">{{ page.pageNumber }}</div>-->
-<!--                              </div>-->
-<!--                          </li>-->
-<!--                      </ul>-->
                   </b-card>
               </b-col>
           </b-tab>
@@ -90,41 +76,17 @@ export default {
   img {
     max-width: 100%;
   }
-  /*.swatch__container {*/
-  /*    margin: 0;*/
-  /*    padding: 0;*/
-  /*    display: flex;*/
-  /*    flex-wrap: wrap;*/
-  /*    justify-content: space-between;*/
-  /*}*/
-  /*.swatch {*/
-  /*    display: inline-block;*/
-  /*    width: 100%;*/
-  /*    height: 100px;*/
-  /*    border-radius: 4px;*/
-  /*    margin-bottom: 1em;*/
-  /*    transition: background .3s ease;*/
-  /*}*/
-  /*.swatch__wrapper {*/
-  /*    display: inline-block;*/
-  /*    width: 25%;*/
-  /*    list-style: none;*/
-  /*    margin-bottom: 1.4em;*/
-  /*}*/
-  /*.swatch__hex {*/
-  /*    text-transform: uppercase;*/
-  /*    font-weight: 600;*/
-  /*    letter-spacing: 1.5px;*/
-  /*    padding: .3em 0 .2em .3em;*/
-  /*}*/
-  /*.swatch__name {*/
-  /*    font-size: 11px;*/
-  /*    color: #aaa;*/
-  /*    padding-left: .5em;*/
-  /*}*/
-  /*.swatch__type {*/
-  /*    font-size: 13px;*/
-  /*    color: #aaa;*/
-  /*    padding: 1.0em 0 .5em .5em;*/
-  /*}*/
+  .swatch__container {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+  }
+  .swatch__wrapper {
+      display: inline-block;
+      width: 25%;
+      list-style: none;
+      margin-bottom: 1.4em;
+      border-style: ridge;
+  }
 </style>
