@@ -106,7 +106,7 @@ const router = new Router({
             path: '/subscriberEndDateControl',
             name: 'SubscriberEndDateControl',
             component: SubscriberEndDateControl,
-            meta: {title: 'Abone Bitis', roles: ["ROLE_ADMIN"] }
+            meta: {title: 'Abonelik Bitiş', roles: ["ROLE_ADMIN"] }
         },
         {
           path: '/401',
