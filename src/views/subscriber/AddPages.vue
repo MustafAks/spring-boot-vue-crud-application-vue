@@ -1,5 +1,4 @@
 <template>
-
   <div class="container">
     <div class="center">
     <b-container class="bv-example-row">
@@ -7,8 +6,6 @@
         <b-col>
           <h3>{{ newspaper.issue}} sayı numaralı gazete ({{ newspaper.year}})</h3>
           <h3>Sayfa Ekle</h3>
-          <ValidationObserver ref="observer">
-          <b-form >
           <b-row>
             <b-col sm="4">
               <label>Sayfa No:</label>
@@ -20,13 +17,10 @@
                   <b-form-invalid-feedback>
                     {{ errors[0] }}
                   </b-form-invalid-feedback>
-<!--                </div>-->
                 </b-form-group>
               </ValidationProvider>
-
             </b-col>
           </b-row>
-
           <b-row>
             <b-col sm="4">
               <label>Dosya Ekle:</label>
@@ -35,8 +29,7 @@
               <ValidationProvider name="file" rules="required">
                 <b-form-group
                         slot-scope="{ valid, errors }">
-              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : (valid ? true : null)"></b-form-file>
-
+              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : valid"></b-form-file>
                 <b-form-invalid-feedback>
                   {{ errors[0] }}
                 </b-form-invalid-feedback>
@@ -48,12 +41,12 @@
           <b-container class="bv-example-row">
             <b-row align-h="end">
               <b-col cols="3">
-                <b-button block-type="submit" class="w-75" variant="primary" v-on:click.prevent="createPage">Kaydet</b-button>
+                <b-button class="w-75" variant="primary" v-on:click.prevent="createPage">Kaydet</b-button>
               </b-col>
             </b-row>
           </b-container>
-          </b-form>
-          </ValidationObserver>
+
+
           <b-col >
             <div class="container">
               <h3>Sayfalar</h3>
@@ -79,7 +72,6 @@
             </div>
           </b-col>
         </b-col>
-
       </b-row>
     </b-container>
   </div>
@@ -91,11 +83,9 @@
   import NewspaperService from "../../service/NewspaperService";
   import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
   import { ValidationProvider } from 'vee-validate';
-  import { ValidationObserver } from 'vee-validate';
   export default {
     components: {
-      ValidationProvider,
-      ValidationObserver
+      ValidationProvider
     },
     data(){
       return {
@@ -123,27 +113,26 @@
       async createPage() {
         let formData = new FormData();
         const fileFromPage = this.page.file;
-        const pageNumber = this.page.pageNumber;
+        const pageNo = this.page.pageNumber;
         const newspaperId = this.newspaper.id;
 
+          if (pageNo === undefined || pageNo === null) {
+              this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
+              return;
+          }
         if (fileFromPage === undefined || fileFromPage === null) {
-          //this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
-          return;
-        }
-        if (pageNumber === undefined || pageNumber === null) {
-          //this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
+          this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
           return;
         }
         if (newspaperId === undefined || newspaperId === null) {
-         // this.$errorNotification(this, 'Gazete bulunamadı !');
+          this.$errorNotification(this, 'Gazete bulunamadı !');
           return;
         }
 
         formData.append('file', fileFromPage);
-        formData.append('pageNumber',pageNumber);
+        formData.append('pageNo',pageNo);
         formData.append('newspaperId',newspaperId);
         await NewspaperService.savePage(formData);
-        alert('Başardın Beyz :) !');
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
         this.loadPages(this.newspaper.id);
       },
