@@ -6,6 +6,7 @@
   // bu sayfayı önceden newspapers.vue ekranından çağırıyorduk
   // ama height ı otomatik ayarlayamadığım için
   // GeneratePdfUtils.openWithPageId(pageId); bu şekilde kullanmaya başladık.
+  // height otomatik ayarlanır hale gelir ve undownload özelliğini bulursak burası kullanılabilir.
   import NewspaperService from "../../service/NewspaperService";
 
   export default {
