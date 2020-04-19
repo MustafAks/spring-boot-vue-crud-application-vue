@@ -29,7 +29,7 @@
               <ValidationProvider name="file" rules="required">
                 <b-form-group
                         slot-scope="{ valid, errors }">
-              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : (valid ? true : null)"></b-form-file>
+              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : valid"></b-form-file>
                 <b-form-invalid-feedback>
                   {{ errors[0] }}
                 </b-form-invalid-feedback>
