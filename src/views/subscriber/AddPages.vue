@@ -126,7 +126,7 @@
         }
 
         formData.append('file', fileFromPage);
-        formData.append('pageNo',pageNo);
+        formData.append('pageNumber',pageNo);
         formData.append('newspaperId',newspaperId);
         await NewspaperService.savePage(formData);
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
