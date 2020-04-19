@@ -4,7 +4,7 @@ const SAVE_NEWSPAPER_URL = '/newspaper/';
 const DELETE_NEWSPAPER_URL = '/newspaper/';
 const LIST_NEWSPAPER_URL = '/newspaper/list';
 const SAVE_PAGE_URL = '/newspaper/pages/';
-const GET_PAGES_URL = '/newspaper/pages/';
+const GET_PAGES_BY_NEWSPAPER_ID_URL = '/newspaper/pages/getPagesByNewspaperId';
 const DELETE_PAGE_URL = '/newspaper/pages/';
 const GET_FILE_URL = '/newspaper/pages/getFile';
 const GET_YEARS_URL = '/newspaper/getYears';
@@ -31,8 +31,12 @@ class NewspaperService {
         return await Vue.prototype.$axios.delete(DELETE_PAGE_URL, { params: { id: id } });
     }
 
-    async getPages(newspaperId) {
-        return await Vue.prototype.$axios.get(GET_PAGES_URL, { params: { newspaperId: newspaperId } });
+    async getPagesByNewspaperId(newspaperId, orderBy) {
+        var request = {
+            newspaperId : newspaperId,
+            orderBy : orderBy
+        };
+        return await Vue.prototype.$axios.post(GET_PAGES_BY_NEWSPAPER_ID_URL, request);
     }
 
     async getFile(pageId) {

@@ -124,7 +124,7 @@
       },
 
       async loadPages(newspaperId) {
-        this.pagesItems = await NewspaperService.getPages(newspaperId);
+        this.pagesItems = await NewspaperService.getPagesByNewspaperId(newspaperId, 'Desc');
       },
 
       async previewPage(pageId) {

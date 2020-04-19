@@ -48,7 +48,7 @@ export default {
       },
 
       async getPagesByNewspaperId(newspaperId) {
-          this.pages = await NewspaperService.getPages(newspaperId);
+          this.pages = await NewspaperService.getPagesByNewspaperId(newspaperId, 'Asc');
       },
 
       async onChange(year) {
