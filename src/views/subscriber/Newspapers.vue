@@ -83,11 +83,11 @@ export default {
       flex-wrap: wrap;
   }
   .swatch__wrapper {
+      padding: 10px 10px 10px 10px;
       display: inline-block;
       width: 25%;
       list-style: none;
       margin-top: 1.4em;
       margin-bottom: 1.4em;
-      border-style: ridge;
   }
 </style>
