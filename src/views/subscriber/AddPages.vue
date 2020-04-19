@@ -45,8 +45,6 @@
               </b-col>
             </b-row>
           </b-container>
-
-
           <b-col >
             <div class="container">
               <h3>Sayfalar</h3>
@@ -58,7 +56,6 @@
                         <b-button variant="success" v-on:click.prevent="previewPage(row.item.id)">Sayfa Önizleme</b-button>
                       </b-row>
                     </template>
-
                       <template v-slot:cell(operations)="row">
                       <b-row>
                         <b-button variant="danger" v-on:click.prevent="deletePage(row.item.id)">Sayfa Sil</b-button>
@@ -76,7 +73,6 @@
     </b-container>
   </div>
   </div>
-
 </template>
 
 <script>
@@ -116,10 +112,10 @@
         const pageNo = this.page.pageNumber;
         const newspaperId = this.newspaper.id;
 
-          if (pageNo === undefined || pageNo === null) {
-              this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
-              return;
-          }
+        if (pageNo === undefined || pageNo === null || pageNo==='') {
+            this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
+            return;
+        }
         if (fileFromPage === undefined || fileFromPage === null) {
           this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
           return;
@@ -161,16 +157,5 @@
 <style>
   img {
     max-width: 100%;
-  }
-  .mycontent-left {
-    border-right: 1px dashed #333;
-  }
-  form {
-    max-width: 500px;
-    margin: 0 auto;
-    text-align: left;
-  }
-  .form-group > label {
-    font-weight: 600;
   }
 </style>
