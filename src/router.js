@@ -7,23 +7,23 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { extend } from 'vee-validate';
 import { required } from 'vee-validate/dist/rules';
 import NavBar from './components/Navbar'
-import Register from "./views/subscriber/Register";
-import Update from "./views/subscriber/Update";
+import Register from "./views/subscribers/Register";
+import Update from "./views/subscribers/Update";
 import axios from './utils/AxiosUtils';
 import errorHandler from './utils/ExceptionHandler';
 import Notify from 'vue-notifyjs';
 import 'vue-notifyjs/themes/default.css';
 // eslint-disable-next-line no-unused-vars
 import notificationUtils from './utils/NotificationUtils';
-import FilterList from "./views/subscriber/FilterList";
+import FilterList from "./views/subscribers/FilterList";
 import About from "./views/About";
-import SubscriberEndDateControl from "./views/subscriber/SubscriberEndDateControl";
+import SubscriberEndDateControl from "./views/subscribers/SubscriberEndDateControl";
 import Login from "./views/user/Login";
-import AddNewspaper from "./views/subscriber/AddNewspaper";
-import AddPages from "./views/subscriber/AddPages";
+import AddNewspaper from "./views/newspapers/AddNewspaper";
+import AddPages from "./views/newspapers/AddPages";
 import Page401 from "./views/Page401";
-import Newspapers from "./views/subscriber/Newspapers";
-import EmbeddedFile from "./views/subscriber/EmbeddedFile";
+import Newspapers from "./views/newspapers/Newspapers";
+import EmbeddedFile from "./views/newspapers/EmbeddedFile";
 
 
 Vue.component('nav-bar', NavBar);
