@@ -15,18 +15,18 @@
     "bootstrap-vue": "^2.6.0",
     "core-js": "^3.6.4",
     "node-sass": "^4.13.1",
+    "pdfmake": "^0.1.65",
     "sass-loader": "^8.0.2",
     "superagent": "^5.2.2",
     "vee-validate": "^3.2.5",
     "vue": "^2.6.11",
     "vue-good-table": "^2.18.1",
+    "vue-notifyjs": "^0.3.0",
     "vue-router": "^3.1.5",
     "vue-social-sharing": "^2.4.7",
     "vuelidate": "^0.7.5",
     "vuelidate-error-extractor": "^2.4.1",
-    "vuetify": "^2.2.14",
-    "vue-notifyjs": "^0.3.0",
-    "pdfmake": "^0.1.65"
+    "vuetify": "^2.2.14"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",

@@ -11,27 +11,40 @@
               <label>Sayfa No:</label>
             </b-col>
             <b-col sm="7">
-              <b-form-input v-model="page.pageNumber" type = 'number' :min="0"></b-form-input>
+              <ValidationProvider name="pageNumber" rules="required">
+                <b-form-group slot-scope="{ valid, errors }">
+              <b-form-input v-model="page.pageNumber" type = 'number' :state='errors[0] ? false : (valid ? true : null)' :min="0"  ></b-form-input>
+                  <b-form-invalid-feedback>
+                    {{ errors[0] }}
+                  </b-form-invalid-feedback>
+                </b-form-group>
+              </ValidationProvider>
             </b-col>
           </b-row>
-
           <b-row>
             <b-col sm="4">
               <label>Dosya Ekle:</label>
             </b-col>
             <b-col sm="7">
-              <b-form-file v-model="page.file" class="mt-3" plain></b-form-file>
+              <ValidationProvider name="file" rules="required">
+                <b-form-group
+                        slot-scope="{ valid, errors }">
+              <b-form-file v-model="page.file" class="mt-3" plain :state="errors[0] ? false : valid"></b-form-file>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+              </ValidationProvider>
             </b-col>
           </b-row>
 
           <b-container class="bv-example-row">
             <b-row align-h="end">
               <b-col cols="3">
-                <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="createPage">Kaydet</b-button>
+                <b-button class="w-75" variant="primary" v-on:click.prevent="createPage">Kaydet</b-button>
               </b-col>
             </b-row>
           </b-container>
-
           <b-col >
             <div class="container">
               <h3>Sayfalar</h3>
@@ -43,7 +56,6 @@
                         <b-button variant="success" v-on:click.prevent="previewPage(row.item.id)">Sayfa Önizleme</b-button>
                       </b-row>
                     </template>
-
                       <template v-slot:cell(operations)="row">
                       <b-row>
                         <b-button variant="danger" v-on:click.prevent="deletePage(row.item.id)">Sayfa Sil</b-button>
@@ -66,10 +78,11 @@
 <script>
   import NewspaperService from "../../service/NewspaperService";
   import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
+  import { ValidationProvider } from 'vee-validate';
   export default {
-    /*
-      Defines the data used by the component
-    */
+    components: {
+      ValidationProvider
+    },
     data(){
       return {
         newspaper: {
@@ -99,12 +112,12 @@
         const pageNumber = this.page.pageNumber;
         const newspaperId = this.newspaper.id;
 
+        if (pageNumber === undefined || pageNumber === null || pageNumber==='') {
+            this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
+            return;
+        }
         if (fileFromPage === undefined || fileFromPage === null) {
           this.$errorNotification(this, 'Lütfen bir dosya seçiniz !');
-          return;
-        }
-        if (pageNumber === undefined || pageNumber === null) {
-          this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
           return;
         }
         if (newspaperId === undefined || newspaperId === null) {
@@ -147,8 +160,5 @@
 <style>
   img {
     max-width: 100%;
-  }
-  .mycontent-left {
-    border-right: 1px dashed #333;
   }
 </style>

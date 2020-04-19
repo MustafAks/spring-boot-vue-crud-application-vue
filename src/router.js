@@ -4,7 +4,8 @@ import MainPage from './components/MainPage'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import * as VeeValidate from 'vee-validate';
+import { extend } from 'vee-validate';
+import { required } from 'vee-validate/dist/rules';
 import NavBar from './components/Navbar'
 import Register from "./views/subscriber/Register";
 import Update from "./views/subscriber/Update";
@@ -13,8 +14,6 @@ import errorHandler from './utils/ExceptionHandler';
 import Notify from 'vue-notifyjs';
 import 'vue-notifyjs/themes/default.css';
 // eslint-disable-next-line no-unused-vars
-import VuelidateErrorExtractor, { templates } from 'vuelidate-error-extractor';
-
 import notificationUtils from './utils/NotificationUtils';
 import FilterList from "./views/subscriber/FilterList";
 import About from "./views/About";
@@ -30,11 +29,16 @@ import EmbeddedFile from "./views/subscriber/EmbeddedFile";
 Vue.component('nav-bar', NavBar);
 Vue.use(Router);
 Vue.use(BootstrapVue);
-Vue.use(VeeValidate);
+
 Vue.use(Notify);
 Vue.use(axios);
 Vue.use(errorHandler);
 Vue.use(notificationUtils);
+
+extend('required', {
+    ...required,
+    message: 'Bu alan zorunludur !'
+});
 
 const router = new Router({
     routes: [
