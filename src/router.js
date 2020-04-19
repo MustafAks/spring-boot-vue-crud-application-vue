@@ -16,7 +16,7 @@ import 'vue-notifyjs/themes/default.css';
 // eslint-disable-next-line no-unused-vars
 import notificationUtils from './utils/NotificationUtils';
 import FilterList from "./views/subscribers/FilterList";
-import About from "./views/About";
+import Contact from "./views/Contact";
 import SubscriberEndDateControl from "./views/subscribers/SubscriberEndDateControl";
 import Login from "./views/user/Login";
 import AddNewspaper from "./views/newspapers/AddNewspaper";
@@ -85,10 +85,10 @@ const router = new Router({
             meta: { title: 'Filtrele', roles: ["ROLE_ADMIN"]  }
         },
         {
-            path: '/about',
-            name: 'About',
-            component: About,
-            meta: { title: 'Hakkımızda', isPublic: true }
+            path: '/contact',
+            name: 'Contact',
+            component: Contact,
+            meta: { title: 'İletişim', isPublic: true }
         },
         {
             path: '/update',

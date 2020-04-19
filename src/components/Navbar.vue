@@ -13,7 +13,7 @@
             <b-navbar-nav class="ml-auto">
                 <b-nav-item :to="{ name: 'Register'}" :active="$route.name == 'Register'">Abone Ekle</b-nav-item>
                 <b-nav-item :to="{ name: 'AddNewspaper'}" :active="$route.name == 'AddNewspaper'">Gazete Ekle</b-nav-item>
-                <b-nav-item :to="{ name: 'AboutUs'}" :active="$route.name == 'Register'">Hakkımızda</b-nav-item>
+                <b-nav-item :to="{ name: 'Contact'}" :active="$route.name == 'Contact'">İletişim</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
