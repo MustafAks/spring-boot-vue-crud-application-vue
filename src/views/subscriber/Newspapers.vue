@@ -24,6 +24,7 @@
 <script>
 import NewspaperService from "../../service/NewspaperService";
 import image from "../../assets/images/NavbarImages/hasretNavbarImage.jpeg"
+import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
 
 export default {
   data(){
@@ -60,11 +61,7 @@ export default {
       },
 
       async linkClick(pageId) {
-          var params = {
-              pageId: pageId
-          };
-          let routeData = this.$router.resolve({name: 'EmbeddedFile', query: params});
-          window.open(routeData.href, '_blank');
+          await GeneratePdfUtils.openWithPageId(pageId);
       }
   },
   beforeMount() {

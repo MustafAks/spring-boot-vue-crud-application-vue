@@ -3,6 +3,9 @@
 </template>
 
 <script>
+  // bu sayfayı önceden newspapers.vue ekranından çağırıyorduk
+  // ama height ı otomatik ayarlayamadığım için
+  // GeneratePdfUtils.openWithPageId(pageId); bu şekilde kullanmaya başladık.
   import NewspaperService from "../../service/NewspaperService";
 
   export default {
