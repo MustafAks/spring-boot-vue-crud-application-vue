@@ -109,10 +109,10 @@
       async createPage() {
         let formData = new FormData();
         const fileFromPage = this.page.file;
-        const pageNo = this.page.pageNumber;
+        const pageNumber = this.page.pageNumber;
         const newspaperId = this.newspaper.id;
 
-        if (pageNo === undefined || pageNo === null || pageNo==='') {
+        if (pageNumber === undefined || pageNumber === null || pageNumber==='') {
             this.$errorNotification(this, 'Lütfen sayfa numarası giriniz !');
             return;
         }
@@ -126,7 +126,7 @@
         }
 
         formData.append('file', fileFromPage);
-        formData.append('pageNumber',pageNo);
+        formData.append('pageNumber',pageNumber);
         formData.append('newspaperId',newspaperId);
         await NewspaperService.savePage(formData);
         this.$notification(this, 'Sayfa başarılı bir şekilde kayıt edildi.');
