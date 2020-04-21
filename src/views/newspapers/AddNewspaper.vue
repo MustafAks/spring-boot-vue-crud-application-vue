@@ -132,7 +132,7 @@
         this.newspaper.title = null;
         this.newspaper.issue = null;
         this.newspaper.year = null;
-        
+
         this.loadNewspapers();
       },
 
