@@ -10,7 +10,14 @@
                 <label>Başlık:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="newspaper.title"></b-form-input>
+                <ValidationProvider name="newspaperTitle" rules="required">
+                  <b-form-group slot-scope="{ valid, errors }">
+                <b-form-input v-model="newspaper.title" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                    <b-form-invalid-feedback>
+                      {{ errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </ValidationProvider>
               </b-col>
             </b-row>
             <b-row>
@@ -18,7 +25,14 @@
                 <label>Sayı:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="newspaper.issue" type = 'number' :min="1"></b-form-input>
+                <ValidationProvider name="newspaperTitle" rules="required">
+                  <b-form-group slot-scope="{ valid, errors }">
+                <b-form-input v-model="newspaper.issue" type = 'number' :min="1" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                    <b-form-invalid-feedback>
+                      {{ errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </ValidationProvider>
               </b-col>
             </b-row>
             <b-row>
@@ -26,7 +40,14 @@
                 <label>Yıl:</label>
               </b-col>
               <b-col sm="7">
-                <b-form-input v-model="newspaper.year" type = 'number' :min="2010"></b-form-input>
+                <ValidationProvider name="newspaperTitle" rules="required">
+                  <b-form-group slot-scope="{ valid, errors }">
+                <b-form-input v-model="newspaper.year" type = 'number' :min="2010"  :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                    <b-form-invalid-feedback>
+                      {{ errors[0] }}
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </ValidationProvider>
               </b-col>
             </b-row>
 
@@ -41,7 +62,6 @@
         </b-row>
       </b-container>
     </div>
-
 
     <b-container class="bv-example-row">
       <b-row>
@@ -69,7 +89,11 @@
 
 <script>
   import NewspaperService from "../../service/NewspaperService";
+  import {ValidationProvider} from "vee-validate";
   export default {
+    components: {
+      ValidationProvider
+    },
     data(){
       return {
         newspaper: {
@@ -90,13 +114,25 @@
 
     methods: {
       async createNewspaper() {
+        if(this.newspaper.title===undefined || this.newspaper.title===null || this.newspaper.title===''){
+          this.$errorNotification(this, 'Lütfen gazete başlığı giriniz !');
+          return ;
+        }
+        if(this.newspaper.issue===undefined || this.newspaper.issue===null || this.newspaper.issue===''){
+          this.$errorNotification(this, 'Lütfen sayı değerini giriniz !');
+          return ;
+        }
+        if(this.newspaper.year===undefined || this.newspaper.year===null || this.newspaper.year===''){
+          this.$errorNotification(this, 'Lütfen yıl değerini giriniz !');
+          return ;
+        }
         await NewspaperService.saveNewspaper(this.newspaper);
         this.$notification(this, 'Gazete başarılı bir şekilde kayıt edildi.');
         this.newspaper.id = null;
         this.newspaper.title = null;
         this.newspaper.issue = null;
         this.newspaper.year = null;
-        // if success
+        
         this.loadNewspapers();
       },
 
@@ -123,8 +159,5 @@
 <style>
   img {
     max-width: 100%;
-  }
-  .mycontent-left {
-    border-right: 1px dashed #333;
   }
 </style>
