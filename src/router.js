@@ -17,6 +17,7 @@ import 'vue-notifyjs/themes/default.css';
 import notificationUtils from './utils/NotificationUtils';
 import FilterList from "./views/subscribers/FilterList";
 import Contact from "./views/Contact";
+import Parameters from "./views/Parameters";
 import SubscriberEndDateControl from "./views/subscribers/SubscriberEndDateControl";
 import Login from "./views/user/Login";
 import AddNewspaper from "./views/newspapers/AddNewspaper";
@@ -89,6 +90,12 @@ const router = new Router({
             name: 'Contact',
             component: Contact,
             meta: { title: 'İletişim', isPublic: true }
+        },
+        {
+            path: '/parameters',
+            name: 'Parameters',
+            component: Parameters,
+            meta: { title: 'Parametreler', roles: ["ROLE_ADMIN"]  }
         },
         {
             path: '/update',
