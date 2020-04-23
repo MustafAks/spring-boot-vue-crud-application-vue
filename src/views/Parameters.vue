@@ -20,10 +20,18 @@
                 </b-row>
                 <b-row>
                     <b-col sm="4">
-                        <label>Mail Adresi:</label>
+                        <label>İrtibat Telefonu:</label>
                     </b-col>
                     <b-col sm="7">
-                        <b-form-input v-model="parameters.mailAddress"></b-form-input>
+                        <b-form-input v-model="parameters.contactNumber"></b-form-input>
+                    </b-col>
+                </b-row>
+                <b-row>
+                    <b-col sm="4">
+                        <label>E-Mail Adresi:</label>
+                    </b-col>
+                    <b-col sm="7">
+                        <b-form-input v-model="parameters.emailAddress"></b-form-input>
                     </b-col>
                 </b-row>
                 <b-row>
@@ -72,7 +80,8 @@
                 parameters: {
                     licensee: null,
                     boss: null,
-                    mailAddress: null,
+                    contactNumber: null,
+                    emailAddress: null,
                     facebookLink: null,
                     twitterLink: null,
                     instagramLink: null
