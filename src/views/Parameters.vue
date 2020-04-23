@@ -52,7 +52,7 @@
                 </b-row>
                 <b-row>
                     <b-col sm="4">
-                        <label>Intagram Linki:</label>
+                        <label>Instagram Linki:</label>
                     </b-col>
                     <b-col sm="7">
                         <b-form-input v-model="parameters.instagramLink"></b-form-input>
