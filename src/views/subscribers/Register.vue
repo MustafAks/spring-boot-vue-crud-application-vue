@@ -7,7 +7,14 @@
             <label>Adı:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.name"></b-form-input>
+            <ValidationProvider name="name" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
+            <b-form-input v-model="user.name" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -15,7 +22,14 @@
             <label>Soyadı:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.lastname"></b-form-input>
+            <ValidationProvider name="lastName" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
+            <b-form-input v-model="user.lastname" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -23,6 +37,8 @@
             <label>Başlangıç Tarihi:</label>
           </b-col>
           <b-col sm="7">
+            <ValidationProvider name="startDate" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
             <b-form-datepicker
                     id="startDate" v-model="user.startDate"
                     dark placeholder="Seçiniz"
@@ -30,7 +46,14 @@
                     reset-button label-reset-button = "Sil"
                     close-button label-close-button = "Kapat"
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                    locale="tr"></b-form-datepicker>
+                    locale="tr"
+                    :state='errors[0] ? false : (valid ? true : null)'
+            ></b-form-datepicker>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -38,6 +61,8 @@
             <label>Bitiş Tarihi:</label>
           </b-col>
           <b-col sm="7">
+            <ValidationProvider name="endDate" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
             <b-form-datepicker
                     id="endDate" v-model="user.endDate"
                     dark placeholder="Seçiniz"
@@ -45,7 +70,14 @@
                     reset-button label-reset-button = "Sil"
                     close-button label-close-button = "Kapat"
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                    locale="tr"></b-form-datepicker>
+                    locale="tr"
+                    :state='errors[0] ? false : (valid ? true : null)'
+            ></b-form-datepicker>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -53,7 +85,14 @@
             <label>İl:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.city"></b-form-input>
+            <ValidationProvider name="city" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
+            <b-form-input v-model="user.city" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -61,7 +100,14 @@
             <label>İlçe:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.district"></b-form-input>
+            <ValidationProvider name="district" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
+            <b-form-input v-model="user.district" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -69,7 +115,14 @@
             <label>Adres:</label>
           </b-col>
           <b-col sm="7">
-            <b-form-input v-model="user.address"></b-form-input>
+            <ValidationProvider name="address" rules="required">
+              <b-form-group slot-scope="{ valid, errors }">
+            <b-form-input v-model="user.address" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>
+                <b-form-invalid-feedback>
+                  {{ errors[0] }}
+                </b-form-invalid-feedback>
+              </b-form-group>
+            </ValidationProvider>
           </b-col>
         </b-row>
         <b-row>
@@ -86,8 +139,15 @@
           </b-col>
           <b-col sm="7">
             <div>
-              <b-form-select v-model="user.payment" class="mb-3" :options=paymentArray value-field="value" text-field="key">
+              <ValidationProvider name="address" rules="required">
+                <b-form-group slot-scope="{ valid, errors }">
+              <b-form-select v-model="user.payment" class="mb-3" :options=paymentArray value-field="value" text-field="key" :state='errors[0] ? false : (valid ? true : null)'>
               </b-form-select>
+                  <b-form-invalid-feedback>
+                    {{ errors[0] }}
+                  </b-form-invalid-feedback>
+                </b-form-group>
+              </ValidationProvider>
             </div>
           </b-col>
         </b-row>
@@ -107,8 +167,13 @@
   import SubscriptionService from '../../service/SubscriptionService';
   import EnumService from '../../service/EnumService';
   import DateConverterUtils from "../../utils/DateConverterUtils";
+  import { ValidationProvider } from 'vee-validate';
+
   export default {
     name: "register",
+    components: {
+      ValidationProvider
+    },
     data() {
       return {
         user: {
@@ -130,6 +195,34 @@
         const data = JSON.parse(JSON.stringify(this.user));
         data.startDate = DateConverterUtils.convertDateToTimestamp(this.user.startDate);
         data.endDate = DateConverterUtils.convertDateToTimestamp(this.user.endDate);
+        if (this.user.name===undefined || this.user.name===null || this.user.name===''){
+          this.$errorNotification(this, 'Lütfen adı değerini giriniz !');
+          return;
+        }
+        if (this.user.lastname===undefined || this.user.lastname===null || this.user.lastname===''){
+          this.$errorNotification(this, 'Lütfen soyadı değerini giriniz !');
+          return;
+        }
+        if (this.user.startDate===undefined || this.user.startDate===null || this.user.startDate===''){
+          this.$errorNotification(this, 'Lütfen başlangıç tarihi değerini giriniz !');
+          return;
+        }
+        if (this.user.endDate===undefined || this.user.endDate===null || this.user.endDate===''){
+          this.$errorNotification(this, 'Lütfen bitiş tarihi değerini giriniz !');
+          return;
+        }
+        if (this.user.city===undefined || this.user.city===null || this.user.city===''){
+          this.$errorNotification(this, 'Lütfen il değerini giriniz !');
+          return;
+        }
+        if (this.user.district===undefined || this.user.district===null || this.user.district===''){
+          this.$errorNotification(this, 'Lütfen ilçe değerini giriniz !');
+          return;
+        }
+        if (this.user.address===undefined || this.user.address===null || this.user.address===''){
+          this.$errorNotification(this, 'Lütfen adres değerini giriniz !');
+          return;
+        }
         await SubscriptionService.saveSubscriber(data);
         this.$notification(this, 'Abone başarılı bir şekilde kayıt edildi.');
         // if success
