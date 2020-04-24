@@ -20,7 +20,7 @@ class MessageService {
     }
 
     async deleteAll() {
-        return await Vue.prototype.$axios.get(DELETE_ALL_URL);
+        return await Vue.prototype.$axios.delete(DELETE_ALL_URL);
     }
 }
 

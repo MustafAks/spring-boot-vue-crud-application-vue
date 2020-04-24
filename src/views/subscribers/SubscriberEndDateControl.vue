@@ -49,7 +49,7 @@
                 </b-row>
                 <div class="container">
                     <div>
-                        <b-table :fields="subscriberFields" :items="subscriptions">
+                        <b-table striped :fields="subscriberFields" :items="subscriptions">
                         </b-table>
                     </div>
                 </div>

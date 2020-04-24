@@ -14,6 +14,7 @@
                 <b-nav-item :to="{ name: 'Register'}" :active="$route.name == 'Register'">Abone Ekle</b-nav-item>
                 <b-nav-item :to="{ name: 'AddNewspaper'}" :active="$route.name == 'AddNewspaper'">Gazete Ekle</b-nav-item>
                 <b-nav-item :to="{ name: 'Parameters'}" :active="$route.name == 'Parameters'">Parametreler</b-nav-item>
+                <b-nav-item :to="{ name: 'Messages'}" :active="$route.name == 'Messages'">Mesajlar</b-nav-item>
                 <b-nav-item :to="{ name: 'Contact'}" :active="$route.name == 'Contact'">İletişim</b-nav-item>
             </b-navbar-nav>
         </b-collapse>

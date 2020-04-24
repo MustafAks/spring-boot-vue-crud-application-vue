@@ -4,11 +4,15 @@ import router from './router'
 import VueGoodTablePlugin from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css'
 import "vuetify/dist/vuetify.css";
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+
 router.beforeEach((to, from, next) => {
   document.title = to.meta.title;
   next()
 })
 Vue.use(VueGoodTablePlugin);
+Vue.use(BootstrapVue)
+Vue.use(BootstrapVueIcons)
 let APIURL = 'http://mealapi.jauyeung.net/index.php/';
 Vue.config.productionTip = false
 /* eslint-disable no-new */
