@@ -1,233 +1,148 @@
-<!--<template>-->
-<!--  <div class="container">-->
-<!--    <div class="center">-->
-<!--      <b-container class="bv-example-row">-->
-<!--        <b-row>-->
-<!--          <b-col>-->
-<!--            <h3>Gazete Ekle</h3>-->
-<!--            <b-row>-->
-<!--              <b-col sm="4">-->
-<!--                <label>Başlık:</label>-->
-<!--              </b-col>-->
-<!--              <b-col sm="7">-->
-<!--                <ValidationProvider name="newspaperTitle" rules="required">-->
-<!--                  <b-form-group slot-scope="{ valid, errors }">-->
-<!--                <b-form-input v-model="newspaper.title" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>-->
-<!--                    <b-form-invalid-feedback>-->
-<!--                      {{ errors[0] }}-->
-<!--                    </b-form-invalid-feedback>-->
-<!--                  </b-form-group>-->
-<!--                </ValidationProvider>-->
-<!--              </b-col>-->
-<!--            </b-row>-->
-<!--            <b-row>-->
-<!--              <b-col sm="4">-->
-<!--                <label>Sayı:</label>-->
-<!--              </b-col>-->
-<!--              <b-col sm="7">-->
-<!--                <ValidationProvider name="newspaperTitle" rules="required">-->
-<!--                  <b-form-group slot-scope="{ valid, errors }">-->
-<!--                <b-form-input v-model="newspaper.issue" type = 'number' :min="1" :state='errors[0] ? false : (valid ? true : null)'></b-form-input>-->
-<!--                    <b-form-invalid-feedback>-->
-<!--                      {{ errors[0] }}-->
-<!--                    </b-form-invalid-feedback>-->
-<!--                  </b-form-group>-->
-<!--                </ValidationProvider>-->
-<!--              </b-col>-->
-<!--            </b-row>-->
-<!--            <b-row>-->
-<!--              <b-col sm="4">-->
-<!--                <label>Yıl:</label>-->
-<!--              </b-col>-->
-<!--              <b-col sm="7">-->
-<!--                <ValidationProvider name="newspaperTitle" rules="required">-->
-<!--                  <b-form-group slot-scope="{ valid, errors }">-->
-<!--                <b-form-input v-model="newspaper.year" type = 'number' :min="2010"  :state='errors[0] ? false : (valid ? true : null)'></b-form-input>-->
-<!--                    <b-form-invalid-feedback>-->
-<!--                      {{ errors[0] }}-->
-<!--                    </b-form-invalid-feedback>-->
-<!--                  </b-form-group>-->
-<!--                </ValidationProvider>-->
-<!--              </b-col>-->
-<!--            </b-row>-->
-
-<!--            <b-container class="bv-example-row">-->
-<!--              <b-row align-h="end">-->
-<!--                <b-col cols="3">-->
-<!--                  <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="createNewspaper">Kaydet</b-button>-->
-<!--                </b-col>-->
-<!--              </b-row>-->
-<!--            </b-container>-->
-<!--          </b-col>-->
-<!--        </b-row>-->
-<!--      </b-container>-->
-<!--    </div>-->
-
-<!--    <b-container class="bv-example-row">-->
-<!--      <b-row>-->
-<!--        <b-col>-->
-<!--          <div class="container">-->
-<!--            <h3>Gazeteler</h3>-->
-<!--            <div class="container">-->
-<!--              <div>-->
-<!--                <b-table :fields="newspapersFields" :items="newspapersItems">-->
-<!--                  <template v-slot:cell(operation)="row">-->
-<!--                    <b-row>-->
-<!--                      <b-button variant="success" v-on:click.prevent="redirectPages(row.item)">Sayfa Ekle/Çıkar</b-button>-->
-<!--                      <b-button variant="danger"  v-on:click.prevent="deleteNewspaper(row.item.id)">Sil</b-button>-->
-<!--                    </b-row>-->
-<!--                  </template>-->
-<!--                </b-table>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </b-col>-->
-<!--      </b-row>-->
-<!--    </b-container>-->
-<!--  </div>-->
-<!--</template>-->
-
 <template>
     <div class="container">
-      <div class="center">
-    <b-form @submit="createNewspaper" @reset="onReset">
-      <b-form-group
-              id="input-group-1"
-              label="Başlık:"
-              label-for="newspaperTitle"
-      >
-        <b-form-input
-                id="newspaperTitle"
-                v-model="newspaper.title"
-                required
-        ></b-form-input>
-      </b-form-group>
+        <div class="center">
+            <b-form @submit="createNewspaper" @reset="clear">
+                <b-form-group
+                        id="input-group-1"
+                        label-cols-sm="4"
+                        label-cols-lg="3"
+                        label="Başlık :"
+                        label-for="newspaperTitle"
+                >
+                    <b-form-input id="newspaperTitle" v-model="newspaper.title" required></b-form-input>
+                </b-form-group>
 
-      <b-form-group id="input-group-2" label="Sayı:" label-for="newspaperIssue">
-        <b-form-input
-                id="newspaperIssue"
-                v-model="newspaper.issue"
-                type="number"
-                required
-        ></b-form-input>
-      </b-form-group>
+                <b-form-group
+                        id="input-group-2"
+                        label-cols-sm="4"
+                        label-cols-lg="3"
+                        label="Sayı :"
+                        label-for="newspaperIssue"
+                >
+                    <b-form-input id="newspaperIssue"
+                                  v-model="newspaper.issue"
+                                  type="number"
+                                  :min=0
+                                  required>
+                    </b-form-input>
+                </b-form-group>
 
-      <b-form-group id="input-group-3" label="Yıl:" label-for="newspaperYear">
-        <b-form-input
-                id="newspaperYear"
-                v-model="newspaper.year"
-                type="number"
-                required
-        ></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="success">Ekle</b-button>
-      <b-button type="reset" variant="primary">Reset</b-button>
-    </b-form>
-<div>
-    <b-container class="bv-example-row">
-      <b-row>
-        <b-col>
-          <div class="container">
-            <h3>Gazeteler</h3>
-            <div class="container">
-              <div>
-                <b-table :fields="newspapersFields" :items="newspapersItems">
-                  <template v-slot:cell(operation)="row">
-                    <b-row>
-                      <b-button variant="success" v-on:click.prevent="redirectPages(row.item)">Sayfa Ekle/Çıkar</b-button>
-                      <b-button variant="danger"  v-on:click.prevent="deleteNewspaper(row.item.id)">Sil</b-button>
-                    </b-row>
-                  </template>
-                </b-table>
-              </div>
-            </div>
-          </div>
-        </b-col>
-      </b-row>
-    </b-container>
-  </div>
-    </div>
+                <b-form-group
+                        id="input-group-3"
+                        label-cols-sm="4"
+                        label-cols-lg="3"
+                        label="Yıl :"
+                        label-for="newspaperYear"
+                >
+                    <b-form-input id="newspaperYear"
+                                  v-model="newspaper.year"
+                                  type="number"
+                                  :min=2015
+                                  required>
+
+                    </b-form-input>
+                </b-form-group>
+
+                <b-row align-h="end">
+                    <b-button type="submit" variant="success">
+                        <b-icon icon="plus"></b-icon>
+                        Ekle
+                    </b-button>
+                    <b-button type="reset" variant="primary" style="margin-left: 5px">Temizle</b-button>
+                </b-row>
+            </b-form>
+        </div>
+        <h3 align="center" style="margin-top: 50px">Gazeteler</h3>
+        <div class="container" style="text-align: center">
+            <b-table :fields="newspapersFields" :items="newspapersItems">
+                <template v-slot:cell(operation)="row">
+                    <b-button variant="success" v-on:click.prevent="redirectPages(row.item)">
+                        <b-icon icon="layout-text-sidebar-reverse"></b-icon>
+                        Sayfalar
+                    </b-button>
+                    <b-button style="margin-left: 5px" variant="danger"
+                              v-on:click.prevent="deleteNewspaper(row.item.id)">
+                        <b-icon icon="trash-fill"></b-icon>
+                        Sil
+                    </b-button>
+                </template>
+            </b-table>
+        </div>
     </div>
 </template>
 <script>
-  import NewspaperService from "../../service/NewspaperService";
-  export default {
-    data(){
-      return {
-        newspaper: {
-          title: '',
-          issue: '',
-          year: '',
+    import NewspaperService from "../../service/NewspaperService";
+
+    export default {
+        data() {
+            return {
+                newspaper: {
+                    title: '',
+                    issue: '',
+                    year: '',
+                },
+                newspapers: [],
+                newspapersItems: [],
+                newspapersFields: [
+                    {key: 'title', label: 'Başlık'},
+                    {key: 'issue', label: 'Sayı'},
+                    {key: 'year', label: 'Yıl'},
+                    {key: 'operation', label: 'İşlemler'}
+                ]
+            }
         },
-        newspapers: [],
-        newspapersItems: [],
-        newspapersFields: [
-          { key: 'title', label: 'Başlık' },
-          { key: 'issue', label: 'Sayı' },
-          { key: 'year', label: 'Yıl' },
-          { key: 'operation', label: 'İşlemler' }
-        ]
-      }
-    },
 
-    methods: {
-      async createNewspaper() {
-        if(this.newspaper.title===undefined || this.newspaper.title===null || this.newspaper.title===''){
-          this.$errorNotification(this, 'Lütfen gazete başlığı giriniz !');
-          return ;
+        methods: {
+            async createNewspaper() {
+                if (this.newspaper.title === undefined || this.newspaper.title === null || this.newspaper.title === '') {
+                    this.$errorNotification(this, 'Lütfen gazete başlığı giriniz !');
+                    return;
+                }
+                if (this.newspaper.issue === undefined || this.newspaper.issue === null || this.newspaper.issue === '') {
+                    this.$errorNotification(this, 'Lütfen sayı değerini giriniz !');
+                    return;
+                }
+                if (this.newspaper.year === undefined || this.newspaper.year === null || this.newspaper.year === '') {
+                    this.$errorNotification(this, 'Lütfen yıl değerini giriniz !');
+                    return;
+                }
+                await NewspaperService.saveNewspaper(this.newspaper);
+                this.$notification(this, 'Gazete başarılı bir şekilde kayıt edildi.');
+                this.clear();
+
+                this.loadNewspapers();
+            },
+
+            async deleteNewspaper(newspaperId) {
+                await NewspaperService.deleteNewspaper(newspaperId);
+                this.$notification(this, 'Gazete başarılı bir şekilde silindi.');
+                // if success
+                this.loadNewspapers();
+            },
+
+            async loadNewspapers() {
+                this.newspapersItems = await NewspaperService.list();
+            },
+
+            redirectPages(params) {
+                this.$router.push({name: 'AddPages', params: params});
+            },
+
+            clear() {
+                // Reset our form values
+                this.newspaper.id = '';
+                this.newspaper.title = '';
+                this.newspaper.issue = '';
+                this.newspaper.year = '';
+            }
+        },
+        beforeMount() {
+            this.loadNewspapers();
         }
-        if(this.newspaper.issue===undefined || this.newspaper.issue===null || this.newspaper.issue===''){
-          this.$errorNotification(this, 'Lütfen sayı değerini giriniz !');
-          return ;
-        }
-        if(this.newspaper.year===undefined || this.newspaper.year===null || this.newspaper.year===''){
-          this.$errorNotification(this, 'Lütfen yıl değerini giriniz !');
-          return ;
-        }
-        await NewspaperService.saveNewspaper(this.newspaper);
-        this.$notification(this, 'Gazete başarılı bir şekilde kayıt edildi.');
-        this.newspaper.id = null;
-        this.newspaper.title = null;
-        this.newspaper.issue = null;
-        this.newspaper.year = null;
-
-        this.loadNewspapers();
-      },
-
-      async deleteNewspaper(newspaperId) {
-        await NewspaperService.deleteNewspaper(newspaperId);
-        this.$notification(this, 'Gazete başarılı bir şekilde silindi.');
-        // if success
-        this.loadNewspapers();
-      },
-
-      async loadNewspapers() {
-        this.newspapersItems = await NewspaperService.list();
-      },
-      redirectPages(params) {
-        this.$router.push({ name: 'AddPages', params : params});
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.newspaper.title = '',
-                this.newspaper.id = '',
-                this.newspaper.issue = '',
-                this.newspaper.year = '',
-                // Trick to reset/clear native browser form validation state
-                this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
-      }
-    },
-    beforeMount() {
-      this.loadNewspapers();
     }
-  }
 </script>
 <style>
-  img {
-    max-width: 100%;
-  }
+    img {
+        max-width: 100%;
+    }
 </style>
