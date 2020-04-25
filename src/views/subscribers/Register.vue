@@ -1,156 +1,154 @@
 <template>
     <div class="container">
-        <div id="contact-form" class="contact-form">
-            <b-form @submit="createSubscriber" @reset="clear">
-                <b-row>
-                    <b-col class="col-6">
-                        <b-form-group
-                                id="input-group-1"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Adı :"
-                                label-for="name"
-                        >
-                            <b-form-input
-                                    id="name"
-                                    v-model="user.name"
-                                    required
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-2"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Soyadı :"
-                                label-for="lastName"
-                        >
-                            <b-form-input
-                                    id="lastName"
-                                    v-model="user.lastname"
-                                    required
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-3"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Başlangıç Tarihi :"
-                                label-for="startDate"
-                        >
-                            <b-form-datepicker
-                                    id="startDate"
-                                    v-model="user.startDate"
-                                    dark
-                                    placeholder="Seçiniz"
-                                    today-button label-today-button="Bugün"
-                                    reset-button label-reset-button="Sil"
-                                    close-button label-close-button="Kapat"
-                                    :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                                    locale="tr"
-                                    required
-                            ></b-form-datepicker>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-4"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Bitiş Tarihi :"
-                                label-for="endDate"
-                        >
-                            <b-form-datepicker
-                                    id="endDate"
-                                    v-model="user.endDate"
-                                    dark
-                                    placeholder="Seçiniz"
-                                    today-button label-today-button="Bugün"
-                                    reset-button label-reset-button="Sil"
-                                    close-button label-close-button="Kapat"
-                                    :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
-                                    locale="tr"
-                                    required
-                            ></b-form-datepicker>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-5"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Şehir :"
-                                label-for="city"
-                        >
-                            <b-form-input
-                                    id="city"
-                                    v-model="user.city"
-                                    required
-                            ></b-form-input>
-                        </b-form-group>
-                    </b-col>
-                    <b-col class="col-6">
-                        <b-form-group
-                                id="input-group-6"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="İlçe :"
-                                label-for="district"
-                        >
-                            <b-form-input
-                                    id="district"
-                                    v-model="user.district"
-                                    required
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-7"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Adres :"
-                                label-for="address"
-                        >
-                            <b-form-input
-                                    id="address"
-                                    v-model="user.address"
-                                    required
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-8"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Not :"
-                                label-for="notes"
-                        >
-                            <b-form-input
-                                    id="notes"
-                                    v-model="user.notes"
-                            ></b-form-input>
-                        </b-form-group>
-                        <b-form-group
-                                id="input-group-9"
-                                label-cols-sm="4"
-                                label-cols-lg="3"
-                                label="Ödeme Bilgisi :"
-                                label-for="payment"
-                        >
-                            <b-form-select
-                                    id="payment"
-                                    v-model="user.payment"
-                                    class="mb-3"
-                                    :options=paymentArray
-                                    value-field="value"
-                                    text-field="key"
-                                    required
-                            ></b-form-select>
-                        </b-form-group>
-                        <b-row align-h="end">
-                            <b-button type="submit" variant="success">
-                                <b-icon icon="plus"></b-icon>
-                                Kaydet
-                            </b-button>
-                            <b-button type="reset" variant="primary" style="margin-left: 5px">Temizle</b-button>
-                        </b-row>
-                    </b-col>
-                </b-row>
-            </b-form>
-        </div>
+        <b-form @submit="createSubscriber" @reset="clear">
+            <b-row>
+                <b-col class="col-6">
+                    <b-form-group
+                            id="input-group-1"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Adı :"
+                            label-for="name"
+                    >
+                        <b-form-input
+                                id="name"
+                                v-model="user.name"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-2"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Soyadı :"
+                            label-for="lastName"
+                    >
+                        <b-form-input
+                                id="lastName"
+                                v-model="user.lastname"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-3"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Başlangıç Tarihi :"
+                            label-for="startDate"
+                    >
+                        <b-form-datepicker
+                                id="startDate"
+                                v-model="user.startDate"
+                                dark
+                                placeholder="Seçiniz"
+                                today-button label-today-button="Bugün"
+                                reset-button label-reset-button="Sil"
+                                close-button label-close-button="Kapat"
+                                :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                                locale="tr"
+                                aria-required="true"
+                        ></b-form-datepicker>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-4"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Bitiş Tarihi :"
+                            label-for="endDate"
+                    >
+                        <b-form-datepicker
+                                id="endDate"
+                                v-model="user.endDate"
+                                dark
+                                placeholder="Seçiniz"
+                                today-button label-today-button="Bugün"
+                                reset-button label-reset-button="Sil"
+                                close-button label-close-button="Kapat"
+                                :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
+                                locale="tr"
+                                required
+                        ></b-form-datepicker>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-5"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Şehir :"
+                            label-for="city"
+                    >
+                        <b-form-input
+                                id="city"
+                                v-model="user.city"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
+                </b-col>
+                <b-col class="col-6">
+                    <b-form-group
+                            id="input-group-6"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="İlçe :"
+                            label-for="district"
+                    >
+                        <b-form-input
+                                id="district"
+                                v-model="user.district"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-7"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Adres :"
+                            label-for="address"
+                    >
+                        <b-form-input
+                                id="address"
+                                v-model="user.address"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-8"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Not :"
+                            label-for="notes"
+                    >
+                        <b-form-input
+                                id="notes"
+                                v-model="user.notes"
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-9"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Ödeme Bilgisi :"
+                            label-for="payment"
+                    >
+                        <b-form-select
+                                id="payment"
+                                v-model="user.payment"
+                                class="mb-3"
+                                :options=paymentArray
+                                value-field="value"
+                                text-field="key"
+                                required
+                        ></b-form-select>
+                    </b-form-group>
+                    <b-row align-h="end">
+                        <b-button type="submit" variant="success">
+                            <b-icon icon="plus"></b-icon>
+                            Kaydet
+                        </b-button>
+                        <b-button type="reset" variant="primary" style="margin-left: 5px">Temizle</b-button>
+                    </b-row>
+                </b-col>
+            </b-row>
+        </b-form>
     </div>
 </template>
 <script>
