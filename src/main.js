@@ -6,10 +6,6 @@ import 'vue-good-table/dist/vue-good-table.css'
 import "vuetify/dist/vuetify.css";
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
-router.beforeEach((to, from, next) => {
-  document.title = to.meta.title;
-  next()
-})
 Vue.use(VueGoodTablePlugin);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)

@@ -7,14 +7,9 @@
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'mainPage'}" :active="$route.name == 'mainPage'">Anasayfa</b-nav-item>
                 <b-nav-item :to="{ name: 'Newspapers'}" :active="$route.name == 'Newspapers'">Gazeteler</b-nav-item>
-                <b-nav-item :to="{ name: 'FilterList'}" :active="$route.name == 'FilterList'">Filtrele</b-nav-item>
-                <b-nav-item :to="{ name: 'SubscriberEndDateControl'}" :active="$route.name == 'SubscriberEndDateControl'">Abonelik Bitiş Sorgulama</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item :to="{ name: 'Register'}" :active="$route.name == 'Register'">Abone Ekle</b-nav-item>
-                <b-nav-item :to="{ name: 'AddNewspaper'}" :active="$route.name == 'AddNewspaper'">Gazete Ekle</b-nav-item>
-                <b-nav-item :to="{ name: 'Parameters'}" :active="$route.name == 'Parameters'">Parametreler</b-nav-item>
-                <b-nav-item :to="{ name: 'Messages'}" :active="$route.name == 'Messages'">Mesajlar</b-nav-item>
+                <b-nav-item :to="{ name: 'AdminPanel'}" :active="$route.name == 'AdminPanel'">Admin Paneli</b-nav-item>
                 <b-nav-item :to="{ name: 'Contact'}" :active="$route.name == 'Contact'">İletişim</b-nav-item>
             </b-navbar-nav>
         </b-collapse>

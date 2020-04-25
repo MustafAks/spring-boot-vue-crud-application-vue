@@ -26,6 +26,13 @@ import AddPages from "./views/newspapers/AddPages";
 import Page401 from "./views/Page401";
 import Newspapers from "./views/newspapers/Newspapers";
 import EmbeddedFile from "./views/newspapers/EmbeddedFile";
+import AdminPanel from "./views/adminPanel/AdminPanel";
+import addSubscriberImage from "./assets/images/AdminPanelImages/addSubscriber.png"
+import filterImage from "./assets/images/AdminPanelImages/filter.png"
+import endImage from "./assets/images/AdminPanelImages/end.png"
+import newspaperImage from "./assets/images/AdminPanelImages/newspaper.png"
+import messagesImage from "./assets/images/AdminPanelImages/messages.png"
+import parametersImage from "./assets/images/AdminPanelImages/parameters.png"
 
 
 Vue.component('nav-bar', NavBar);
@@ -66,25 +73,25 @@ const router = new Router({
             path: '/register',
             name: 'Register',
             component: Register,
-            meta: { title: 'Yeni Abone', roles: ["ROLE_ADMIN"] }
+            meta: { title: 'Abone Ekle', roles: ["ROLE_ADMIN"], operations: "subscriptions", image: addSubscriberImage }
         },
         {
             path: '/addNewspaper',
             name: 'AddNewspaper',
             component: AddNewspaper,
-            meta: { title: 'Yeni Gazete Ekle', roles: ["ROLE_ADMIN"] }
+            meta: { title: 'Gazete Ekle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newspaperImage }
         },
         {
             path: '/addPages',
             name: 'AddPages',
             component: AddPages,
-            meta: { title: 'Yeni Sayfa Ekle', roles: ["ROLE_ADMIN"] }
+            meta: { title: 'Sayfa Ekle', roles: ["ROLE_ADMIN"] }
         },
         {
             path: '/filter',
             name: 'FilterList',
             component: FilterList,
-            meta: { title: 'Filtrele', roles: ["ROLE_ADMIN"]  }
+            meta: { title: 'Filtrele', roles: ["ROLE_ADMIN"], operations: "subscriptions", image: filterImage }
         },
         {
             path: '/contact',
@@ -93,16 +100,22 @@ const router = new Router({
             meta: { title: 'İletişim', isPublic: true }
         },
         {
+            path: '/adminPanel',
+            name: 'AdminPanel',
+            component: AdminPanel,
+            meta: { title: 'Admin Paneli', roles: ["ROLE_ADMIN"] }
+        },
+        {
             path: '/messages',
             name: 'Messages',
             component: Messages,
-            meta: { title: 'Mesajlar', roles: ["ROLE_ADMIN"] }
+            meta: { title: 'Mesajlar', roles: ["ROLE_ADMIN"], operations: "messages", image: messagesImage }
         },
         {
             path: '/parameters',
             name: 'Parameters',
             component: Parameters,
-            meta: { title: 'Parametreler', roles: ["ROLE_ADMIN"]  }
+            meta: { title: 'Parametreler', roles: ["ROLE_ADMIN"], operations: "parameters", image: parametersImage }
         },
         {
             path: '/update',
@@ -120,7 +133,7 @@ const router = new Router({
             path: '/subscriberEndDateControl',
             name: 'SubscriberEndDateControl',
             component: SubscriberEndDateControl,
-            meta: {title: 'Abonelik Bitiş', roles: ["ROLE_ADMIN"] }
+            meta: {title: 'Abonelik Bitiş', roles: ["ROLE_ADMIN"], operations: "subscriptions", image: endImage }
         },
         {
           path: '/401',
@@ -132,6 +145,7 @@ const router = new Router({
 });
 
 router.beforeEach((to, from, next) => {
+    document.title = to.meta.title;
     const isPublic = to.matched.some(record => record.meta.isPublic);
     const roles = to.meta.roles;
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))  : null;
