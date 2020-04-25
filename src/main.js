@@ -7,12 +7,7 @@ import "vuetify/dist/vuetify.css";
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 
 Vue.use(VueGoodTablePlugin);
-Vue.use(BootstrapVue)
-Vue.use(BootstrapVueIcons)
-let APIURL = 'http://mealapi.jauyeung.net/index.php/';
-Vue.config.productionTip = false
+Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 /* eslint-disable no-new */
-new Vue({ el: '#app', router, render: h => h(App) })
-
-
-export { APIURL };
+new Vue({ el: '#app', router, render: h => h(App) });

@@ -7,11 +7,9 @@
 <script>
     import image from "../assets/images/MainPageImages/hasretMainPage.jpg"
 
-
     export default {
         data: function () {
             return {
-                mainProps: { blank: true, blankColor: '#777', width: 75, height: 75, class: 'm1' },
                 image: image
             }
         }
@@ -24,6 +22,6 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 50%;
+        width: 60%;
     }
 </style>

@@ -16,42 +16,18 @@
     </b-navbar>
 </template>
 <script>
-    const request = require("superagent");
-    import { APIURL } from "../main";
     export default {
         name: "nav-bar",
         data() {
             return {
-                keyword: "",
-                categories: [],
-                areas: [],
-                ingredients: []
+
             };
         },
         methods: {
-            search(evt) {
-                evt.preventDefault();
-                if (this.errors.any()){
-                    return;
-                }
-                this.$router.push({
-                    name: 'search-keyword',
-                    params: {
-                        keyword: this.keyword
-                    }
-                });
-            }
+
         },
         beforeMount() {
-            request.get(`${APIURL}categories`).end((err, res) => {
-                this.categories = res.body.meals;
-            });
-            request.get(`${APIURL}area`).end((err, res) => {
-                this.areas = res.body.meals;
-            });
-            request.get(`${APIURL}ingredients`).end((err, res) => {
-                this.ingredients = res.body.meals;
-            });
+
         }
     };
 </script>
