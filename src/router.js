@@ -4,8 +4,6 @@ import MainPage from './components/MainPage'
 import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-import { extend } from 'vee-validate';
-import { required } from 'vee-validate/dist/rules';
 import NavBar from './components/Navbar'
 import Register from "./views/subscribers/Register";
 import Update from "./views/subscribers/Update";
@@ -43,11 +41,6 @@ Vue.use(Notify);
 Vue.use(axios);
 Vue.use(errorHandler);
 Vue.use(notificationUtils);
-
-extend('required', {
-    ...required,
-    message: 'Bu alan zorunludur !'
-});
 
 const router = new Router({
     routes: [
