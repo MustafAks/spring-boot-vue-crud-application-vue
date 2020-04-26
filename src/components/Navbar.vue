@@ -3,6 +3,7 @@
         <b-navbar-brand>
             <img :src="require('../assets/images/NavbarImages/hasretNavbarImage.jpeg')" id='logo'>
         </b-navbar-brand>
+        <b-navbar-toggle target="nav_ collapse"></b-navbar-toggle>
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'mainPage'}" :active="$route.name == 'mainPage'">Anasayfa</b-nav-item>
@@ -24,6 +25,9 @@
             };
         },
         methods: {
+            async redirectMainPage() {
+                this.$router.push({ name: 'mainPage'});
+            }
 
         },
         beforeMount() {
