@@ -10,8 +10,10 @@
                       </b-card-header>
                       <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel" class="swatch__container">
                           <li v-for="page in pages" :key=page.id class="swatch__wrapper" style="text-align:center">
-                              <img :src=image>
-                              <b-link href="#" @click="linkClick(page.id)">{{ page.pageNumber }}. Sayfa</b-link>
+                              <div @click="linkClick(page.id)">
+                                  <img :src=image>
+                                  <b-link>{{ page.pageNumber }}. Sayfa</b-link>
+                              </div>
                           </li>
                       </b-collapse>
                   </b-card>
@@ -86,5 +88,6 @@ export default {
       list-style: none;
       margin-top: 1.4em;
       margin-bottom: 1.4em;
+      cursor: pointer;
   }
 </style>

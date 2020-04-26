@@ -5,9 +5,10 @@
         <li v-for="subscriptionsOperation in subscriptionsOperations" :key=subscriptionsOperation.name
             class="swatch__wrapper" style="text-align:center">
             <b-card img-alt="Image" img-left>
-                <img :src=subscriptionsOperation.image>
-                <b-link href="#" @click="redirect(subscriptionsOperation.name)">{{ subscriptionsOperation.title }}
-                </b-link>
+                <div @click="redirect(subscriptionsOperation.name)">
+                    <img :src=subscriptionsOperation.image>
+                    <b-link>{{ subscriptionsOperation.title }}</b-link>
+                </div>
             </b-card>
         </li>
 
@@ -16,9 +17,10 @@
         <li v-for="newspapersOperation in newspapersOperations" :key=newspapersOperation.name
             class="swatch__wrapper" style="text-align:center">
             <b-card img-alt="Image" img-left>
-                <img :src=newspapersOperation.image>
-                <b-link href="#" @click="redirect(newspapersOperation.name)">{{ newspapersOperation.title }}
-                </b-link>
+                <div @click="redirect(newspapersOperation.name)">
+                    <img :src=newspapersOperation.image>
+                    <b-link>{{ newspapersOperation.title }}</b-link>
+                </div>
             </b-card>
         </li>
 
@@ -27,9 +29,10 @@
         <li v-for="messagesOperation in messagesOperations" :key=messagesOperation.name
             class="swatch__wrapper" style="text-align:center">
             <b-card img-alt="Image" img-left>
-                <img :src=messagesOperation.image>
-                <b-link href="#" @click="redirect(messagesOperation.name)">{{ messagesOperation.title }}
-                </b-link>
+                <div @click="redirect(messagesOperation.name)">
+                    <img :src=messagesOperation.image>
+                    <b-link>{{ messagesOperation.title }}</b-link>
+                </div>
             </b-card>
         </li>
 
@@ -38,9 +41,10 @@
         <li v-for="parametersOperation in parametersOperations" :key=parametersOperation.name
             class="swatch__wrapper" style="text-align:center">
             <b-card img-alt="Image" img-left>
-                <img :src=parametersOperation.image>
-                <b-link href="#" @click="redirect(parametersOperation.name)">{{ parametersOperation.title }}
-                </b-link>
+                <div @click="redirect(parametersOperation.name)">
+                    <img :src=parametersOperation.image>
+                    <b-link>{{ parametersOperation.title }}</b-link>
+                </div>
             </b-card>
         </li>
     </div>
@@ -72,16 +76,28 @@
                 router.options.routes.forEach(function (item) {
                     switch (item.meta.operations) {
                         case "subscriptions":
-                            subscriptionsOperations.push({title: item.meta.title, name: item.name, image:item.meta.image});
+                            subscriptionsOperations.push({
+                                title: item.meta.title,
+                                name: item.name,
+                                image: item.meta.image
+                            });
                             break;
                         case "newspapers":
-                            newspapersOperations.push({title: item.meta.title, name: item.name, image:item.meta.image});
+                            newspapersOperations.push({
+                                title: item.meta.title,
+                                name: item.name,
+                                image: item.meta.image
+                            });
                             break;
                         case "messages":
-                            messagesOperations.push({title: item.meta.title, name: item.name, image:item.meta.image});
+                            messagesOperations.push({title: item.meta.title, name: item.name, image: item.meta.image});
                             break;
                         case "parameters":
-                            parametersOperations.push({title: item.meta.title, name: item.name, image:item.meta.image});
+                            parametersOperations.push({
+                                title: item.meta.title,
+                                name: item.name,
+                                image: item.meta.image
+                            });
                             break;
                     }
                 });
@@ -115,6 +131,7 @@
         list-style: none;
         margin-top: 1.4em;
         margin-bottom: 1.4em;
+        cursor: pointer;
     }
 
     .separator {
