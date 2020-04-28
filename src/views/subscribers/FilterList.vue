@@ -142,6 +142,12 @@
           },{
             field: 'endDate',
             hidden: true
+          },{
+            field: 'phone',
+            hidden: true
+          },{
+            field: 'username',
+            hidden: true
           }/*,
                     {
                         label: 'Created On',

@@ -12,7 +12,7 @@
           >
             <b-form-input
                     id="name"
-                    v-model="user.name"
+                    v-model="subscribers.name"
                     required
             ></b-form-input>
           </b-form-group>
@@ -25,7 +25,7 @@
           >
             <b-form-input
                     id="lastName"
-                    v-model="user.lastname"
+                    v-model="subscribers.lastname"
                     required
             ></b-form-input>
           </b-form-group>
@@ -38,7 +38,7 @@
           >
             <b-form-datepicker
                     id="startDate"
-                    v-model="user.startDate"
+                    v-model="subscribers.startDate"
                     dark
                     placeholder="Seçiniz"
                     today-button label-today-button="Bugün"
@@ -58,7 +58,7 @@
           >
             <b-form-datepicker
                     id="endDate"
-                    v-model="user.endDate"
+                    v-model="subscribers.endDate"
                     dark
                     placeholder="Seçiniz"
                     today-button label-today-button="Bugün"
@@ -78,12 +78,10 @@
           >
             <b-form-input
                     id="city"
-                    v-model="user.city"
+                    v-model="subscribers.city"
                     required
             ></b-form-input>
           </b-form-group>
-        </b-col>
-        <b-col class="col-6">
           <b-form-group
                   id="input-group-6"
                   label-cols-sm="4"
@@ -93,10 +91,12 @@
           >
             <b-form-input
                     id="district"
-                    v-model="user.district"
+                    v-model="subscribers.district"
                     required
             ></b-form-input>
           </b-form-group>
+        </b-col>
+        <b-col class="col-6">
           <b-form-group
                   id="input-group-7"
                   label-cols-sm="4"
@@ -106,7 +106,7 @@
           >
             <b-form-input
                     id="address"
-                    v-model="user.address"
+                    v-model="subscribers.address"
                     required
             ></b-form-input>
           </b-form-group>
@@ -114,16 +114,53 @@
                   id="input-group-8"
                   label-cols-sm="4"
                   label-cols-lg="3"
+                  label="Telefon :"
+                  label-for="phone"
+          >
+            <b-form-input
+                    id="phone"
+                    v-model="subscribers.phone"
+                    required
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+                  id="input-group-9"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
                   label="Not :"
                   label-for="notes"
           >
             <b-form-input
                     id="notes"
-                    v-model="user.notes"
+                    v-model="subscribers.notes"
             ></b-form-input>
           </b-form-group>
           <b-form-group
-                  id="input-group-9"
+                  id="input-group-10"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  label="Kullanıcı Adı :"
+                  label-for="username"
+          >
+            <b-form-input
+                    id="username"
+                    v-model="subscribers.user.username"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+                  id="input-group-11"
+                  label-cols-sm="4"
+                  label-cols-lg="3"
+                  label="Şifre :"
+                  label-for="password"
+          >
+            <b-form-input
+                    id="password"
+                    v-model="subscribers.user.password"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group
+                  id="input-group-12"
                   label-cols-sm="4"
                   label-cols-lg="3"
                   label="Ödeme Bilgisi :"
@@ -131,7 +168,7 @@
           >
             <b-form-select
                     id="payment"
-                    v-model="user.payment"
+                    v-model="subscribers.payment"
                     class="mb-3"
                     :options=paymentArray
                     value-field="value"
@@ -157,7 +194,7 @@
     name: "update",
     data() {
       return {
-        user: {
+        subscribers: {
           id: this.$route.params.id,
           name: this.$route.params.name,
           lastname: this.$route.params.lastname,
@@ -166,43 +203,83 @@
           city: this.$route.params.city,
           district: this.$route.params.district,
           address: this.$route.params.address,
+          phone: this.$route.params.phone,
           notes: this.$route.params.notes,
-          payment: this.$route.params.payment
+          payment: this.$route.params.payment,
+          user:{
+            username: this.$route.params.username,
+            password: null
+          }
         },
         paymentArray : []
       };
     },
     methods: {
       async updateSubscriber() {
-        if (this.user.name === undefined || this.user.name === null || this.user.name === '') {
+        if (this.subscribers.name === undefined || this.subscribers.name === null || this.subscribers.name === '') {
           this.$errorNotification(this, 'Lütfen adı değerini giriniz !');
           return;
         }
-        if (this.user.lastname === undefined || this.user.lastname === null || this.user.lastname === '') {
+        if (this.subscribers.lastname === undefined || this.subscribers.lastname === null || this.subscribers.lastname === '') {
           this.$errorNotification(this, 'Lütfen soyadı değerini giriniz !');
           return;
         }
-        if (this.user.startDate === undefined || this.user.startDate === null || this.user.startDate === '') {
+        if (this.subscribers.startDate === undefined || this.subscribers.startDate === null || this.subscribers.startDate === '') {
           this.$errorNotification(this, 'Lütfen başlangıç tarihi değerini giriniz !');
           return;
         }
-        if (this.user.endDate === undefined || this.user.endDate === null || this.user.endDate === '') {
+        if (this.subscribers.endDate === undefined || this.subscribers.endDate === null || this.subscribers.endDate === '') {
           this.$errorNotification(this, 'Lütfen bitiş tarihi değerini giriniz !');
           return;
         }
-        if (this.user.city === undefined || this.user.city === null || this.user.city === '') {
+        if (this.subscribers.city === undefined || this.subscribers.city === null || this.subscribers.city === '') {
           this.$errorNotification(this, 'Lütfen il değerini giriniz !');
           return;
         }
-        if (this.user.district === undefined || this.user.district === null || this.user.district === '') {
+        if (this.subscribers.district === undefined || this.subscribers.district === null || this.subscribers.district === '') {
           this.$errorNotification(this, 'Lütfen ilçe değerini giriniz !');
           return;
         }
-        if (this.user.address === undefined || this.user.address === null || this.user.address === '') {
+        if (this.subscribers.address === undefined || this.subscribers.address === null || this.subscribers.address === '') {
           this.$errorNotification(this, 'Lütfen adres değerini giriniz !');
           return;
         }
-        this.user = await SubscriptionService.saveSubscriber(this.user);
+        if (this.subscribers.phone === undefined || this.subscribers.phone === null || this.subscribers.phone === '') {
+          this.$errorNotification(this, 'Lütfen telefon değerini giriniz !');
+          return;
+        }
+        if (this.$route.params.username !== undefined
+                && this.$route.params.username !== null
+                && this.$route.params.username !== ''
+                && this.subscribers.user.username !== undefined
+                && this.subscribers.user.username !== null
+                && this.$route.params.username !== this.subscribers.user.username) {
+          // önceden bir user oluşturulmuş yani username i var ve bu alanı update etmeye çalışıyorsa
+          //password göndermek zorunda
+          if (this.subscribers.user.password === undefined
+                  || this.subscribers.user.password === null
+                  || this.subscribers.user.password === '') {
+            this.$errorNotification(this, 'Kullanıcı adını güncellemeye çalıştığınız için şifre girmelisiniz.');
+            return;
+          }
+        }
+
+        if ((this.$route.params.username === undefined
+                || this.$route.params.username === null
+                || this.$route.params.username === '')
+                && (this.subscribers.user.username !== undefined
+                        && this.subscribers.user.username !== null
+                        && this.subscribers.user.username !== '')) {
+          //önceden user oluşturulmamış yani username alanı boşsa ve şimdi kullanıcı eklemek isteniyorsa
+          //username ile birlikte password de girmeli.
+          if (this.subscribers.user.password === undefined
+                  || this.subscribers.user.password === null
+                  || this.subscribers.user.password === '') {
+            this.$errorNotification(this, 'Kullanıcı eklemeye çalıştığınız için şifre de girmelisiniz.');
+            return;
+          }
+        }
+        await SubscriptionService.saveSubscriber(this.subscribers);
         this.$notification(this, 'Abone başarılı bir şekilde güncellendi.');
         // if success
         this.$router.push({ name: 'FilterList' });
