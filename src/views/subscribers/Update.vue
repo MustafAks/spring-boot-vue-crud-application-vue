@@ -248,11 +248,13 @@
           this.$errorNotification(this, 'Lütfen telefon değerini giriniz !');
           return;
         }
+
         if (this.$route.params.username !== undefined
                 && this.$route.params.username !== null
                 && this.$route.params.username !== ''
                 && this.subscribers.user.username !== undefined
                 && this.subscribers.user.username !== null
+                && this.subscribers.user.username !== ''
                 && this.$route.params.username !== this.subscribers.user.username) {
           // önceden bir user oluşturulmuş yani username i var ve bu alanı update etmeye çalışıyorsa
           //password göndermek zorunda
@@ -279,6 +281,36 @@
             return;
           }
         }
+
+
+        if (this.$route.params.username !== undefined
+                && this.$route.params.username !== null
+                && this.$route.params.username !== ''
+                && (this.subscribers.user.username === undefined
+                        || this.subscribers.user.username === null
+                        || this.subscribers.user.username === '')) {
+          var response = null;
+          await this.$bvModal.msgBoxConfirm('Kullanıcı adını boşalttığınız için kullanıcı silinecek ve siteye artık internetten giriş yapamayacaktır. ' +
+                  'Devam etmek istiyor musunuz ?', {
+            title: 'Onayla',
+            size: 'lg',
+            buttonSize: 'sm',
+            okVariant: 'primary',
+            okTitle: 'Devam',
+            cancelVariant: 'danger',
+            cancelTitle: 'İptal',
+            footerClass: 'p-2',
+            hideHeaderClose: false,
+            centered: true
+          })
+                  .then(value => {
+                    response = value;
+                  });
+          if (response === null || !response) {
+            return;
+          }
+        }
+
         await SubscriptionService.saveSubscriber(this.subscribers);
         this.$notification(this, 'Abone başarılı bir şekilde güncellendi.');
         // if success
@@ -290,6 +322,9 @@
       }
     },
     beforeMount() {
+      if (this.subscribers.id === undefined || this.subscribers.id === null || this.subscribers.id === '') {
+        this.$router.push({ name: 'FilterList'});
+      }
       this.prepare();
     }
   };
