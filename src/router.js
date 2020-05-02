@@ -54,7 +54,7 @@ const router = new Router({
             path: '/mainPage',
             name: 'mainPage',
             component: MainPage,
-            meta: { title: 'Hasret Gazetesi - Kemaliye', roles: ["ROLE_USER", "ROLE_ADMIN"] }
+            meta: { title: 'Hasret Gazetesi - Kemaliye', isPublic: true }
         },
         {
             path: '/newspapers',
