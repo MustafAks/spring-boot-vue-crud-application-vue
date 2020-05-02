@@ -2,32 +2,13 @@
   <div class="container">
       <b-row>
         <b-col class="col-6">
-          <div>
-            <b-avatar size="100px" :text=this.user.username.charAt(0)+this.user.lastname.charAt(0)></b-avatar>
-          </div>
           <b-form-group
                   id="input-group-1"
                   label-cols-sm="4"
                   label-cols-lg="3"
-                  label="Adı :"
-                  label-for="name"
+                  label-for="avatar"
           >
-            <text
-                    id="name"
-                    v-model="user.name"
-            ></text>
-          </b-form-group>
-          <b-form-group
-                  id="input-group-2"
-                  label-cols-sm="4"
-                  label-cols-lg="3"
-                  label="Soyadı :"
-                  label-for="lastName"
-          >
-            <text
-                    id="lastName"
-                    v-model="user.lastname"
-            ></text>
+            <b-avatar id="avatar" size="100px" :text=this.user.name.charAt(0)+this.user.lastname.charAt(0)></b-avatar>
           </b-form-group>
           <b-form-group
                   id="input-group-3"
@@ -47,6 +28,8 @@
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                     locale="tr"
                     aria-required="true"
+                    :text=this.user.startDate
+                    disabled
             ></b-form-datepicker>
           </b-form-group>
 
@@ -70,6 +53,8 @@
                     :dateFormatOptions="{ year: 'numeric', month: 'numeric', day: 'numeric' }"
                     locale="tr"
                     required
+                    :text=this.user.endDate
+                    disabled
             ></b-form-datepicker>
           </b-form-group>
           <b-form-group
@@ -79,10 +64,12 @@
                   label="Şehir :"
                   label-for="city"
           >
-            <text
+            <b-form-input
                     id="city"
                     v-model="user.city"
-            ></text>
+                    :text=this.user.city
+                    disabled
+            ></b-form-input>
           </b-form-group>
           <b-form-group
                   id="input-group-6"
@@ -91,10 +78,12 @@
                   label="İlçe :"
                   label-for="district"
           >
-            <text
+            <b-form-input
                     id="district"
                     v-model="user.district"
-            ></text>
+                    :text=this.user.district
+                    disabled
+            ></b-form-input>
           </b-form-group>
           <b-form-group
                   id="input-group-7"
@@ -103,29 +92,31 @@
                   label="Adres :"
                   label-for="address"
           >
-            <text
+            <b-form-input
                     id="address"
                     v-model="user.address"
-            ></text>
+                    :text=this.user.address
+                    disabled
+            ></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
   </div>
 </template>
 <script>
-  import SubscriptionService from '../../service/SubscriptionService';
+ // import SubscriptionService from '../../service/SubscriptionService';
   export default {
     data() {
       return {
         user: {
-          id: this.$route.params.id,
-          name: this.$route.params.name,
-          lastname: this.$route.params.lastname,
-          startDate: this.$route.params.startDate,
-          endDate: this.$route.params.endDate,
-          city: this.$route.params.city,
-          district: this.$route.params.district,
-          address: this.$route.params.address,
+          id: '',
+          name: '',
+          lastname: '',
+          startDate: '',
+          endDate: '',
+          city: '',
+          district: '',
+          address: '',
         },
         userFromStorage: {
           username:'',
@@ -137,9 +128,14 @@
     },
     methods: {
       async getByUserName() {
-        const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))  : null;
-        this.user = await SubscriptionService.getByUserName(user);
-       // this.$router.push({ name: 'FilterList' });
+       // const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user'))  : null;
+        //this.user = await SubscriptionService.getByUserName(user);
+        this.user.name="beyza";
+        this.user.lastname="ekici";
+        this.user.address="mamak";
+        this.user.city="ankara";
+        this.user.district="mamak";
+        return this.user;
       },
     },
     beforeMount() {
