@@ -11,6 +11,7 @@
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item :to="{ name: 'AdminPanel'}" :active="$route.name == 'AdminPanel'">Admin Paneli</b-nav-item>
+                <b-nav-item :to="{ name: 'UserProfile'}" :active="$route.name == 'UserProfile'">Profil</b-nav-item>
                 <b-nav-item :to="{ name: 'Contact'}" :active="$route.name == 'Contact'">İletişim</b-nav-item>
             </b-navbar-nav>
         </b-collapse>

@@ -31,6 +31,7 @@ import endImage from "./assets/images/AdminPanelImages/end.png"
 import newspaperImage from "./assets/images/AdminPanelImages/newspaper.png"
 import messagesImage from "./assets/images/AdminPanelImages/messages.png"
 import parametersImage from "./assets/images/AdminPanelImages/parameters.png"
+import UserProfile from "./views/subscribers/UserProfile";
 
 
 Vue.component('nav-bar', NavBar);
@@ -133,6 +134,12 @@ const router = new Router({
           name: '401',
           component: Page401,
           meta: {title: 'Yetkisiz Erişim', isPublic: true }
+        },
+        {
+            path: '/profile',
+            name: 'UserProfile',
+            component: UserProfile,
+            meta: {title: 'Kullanıcı Profili', roles: ["ROLE_USER", "ROLE_ADMIN"] }
         }
     ]
 });

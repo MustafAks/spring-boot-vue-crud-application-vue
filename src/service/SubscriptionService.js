@@ -4,6 +4,8 @@ const SAVE_SUBSCRIBER_URL = '/subscription/';
 const DELETE_SUBSCRIBER_URL = '/subscription/';
 const LIST = '/subscription/list';
 const LISTEXPIRE = '/subscription/listSubscriptionExpiresViaDates';
+const GETBYUSERNAME = '/subscription/getByUserName';
+
 
 class SubscriptionService {
     async list(subscriber) {
@@ -20,6 +22,10 @@ class SubscriptionService {
 
     async listSubscriptionExpiresViaDates(subscriber){
         return await Vue.prototype.$axios.post(LISTEXPIRE,subscriber);
+    }
+
+    async getByUserName(userName){
+        return await Vue.prototype.$axios.post(GETBYUSERNAME,userName);
     }
 }
 
