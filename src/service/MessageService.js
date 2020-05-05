@@ -1,8 +1,8 @@
 import Vue from 'vue';
 
-const SAVE_MESSAGE_URL = '/messages/';
-const LIST_MESSAGES_URL = '/messages/';
-const DELETE_MESSAGE_URL = '/messages/';
+const SAVE_MESSAGE_URL = '/messages/save';
+const LIST_MESSAGES_URL = '/messages/list';
+const DELETE_MESSAGE_URL = '/messages/delete';
 const DELETE_ALL_URL = '/messages/deleteAll';
 
 class MessageService {

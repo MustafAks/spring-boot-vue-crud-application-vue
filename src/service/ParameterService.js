@@ -1,7 +1,7 @@
 import Vue from 'vue';
 
-const SAVE_PARAMETERS_URL = '/parameters/';
-const GET_PARAMETERS_URL = '/parameters/';
+const SAVE_PARAMETERS_URL = '/parameters/save';
+const GET_PARAMETERS_URL = '/parameters/list';
 
 class ParameterService {
     async saveParameters(data) {
