@@ -66,9 +66,9 @@
                 const result = await UserService.login(this.user);
                 if (result.authorities !== undefined) {
                     this.user.role = result.authorities[0].authority;
-                    this.$store.state.userRole = result.authorities[0].authority;
+                    this.$store.commit('setUserRole', result.authorities[0].authority);
                 }
-                this.$store.state.username = result.username;
+                this.$store.commit('setUsername', result.username);
                 localStorage.setItem('user', JSON.stringify(this.user));
                 this.$router.push({name: 'mainPage'});
             },

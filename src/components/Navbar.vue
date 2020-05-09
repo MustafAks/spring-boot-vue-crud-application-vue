@@ -35,8 +35,7 @@
 
             async logout() {
                 localStorage.removeItem("user");
-                this.$store.state.username = null;
-                this.$store.state.userRole = null;
+                this.$store.commit('logout');
                 this.redirectMainPage();
             }
 
