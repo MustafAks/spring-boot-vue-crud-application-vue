@@ -120,7 +120,7 @@ const router = new Router({
             path: '/embeddedFile',
             name: 'EmbeddedFile',
             component: EmbeddedFile,
-            meta: { title: 'Gazete Oku', roles: ["ROLE_USER", "ROLE_ADMIN"]  }
+            meta: { title: 'Gazete Oku', roles: ["ROLE_ADMIN"]  }
         },
         {
             path: '/subscriberEndDateControl',
@@ -149,7 +149,8 @@ router.beforeEach((to, from, next) => {
     }
     else if (!userRole) {
         return next({
-            path:'/login'
+            path:'/login',
+            query: {redirect: to.fullPath}
         });
     }
 

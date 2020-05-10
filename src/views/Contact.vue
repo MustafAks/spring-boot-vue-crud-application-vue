@@ -31,7 +31,7 @@
           <h1 class="contact-form_title">İletişim Formu</h1>
           <div class="separator"></div>
 
-          <form class="form" @submit="saveMessage">
+          <form class="form" @submit="saveMessage" onsubmit="return false;">
             <input required v-model='messages.name' placeholder="Ad Soyad" type="text" autocomplete="off">
             <input required v-model='messages.phone' placeholder="Telefon" type="text" autocomplete="off">
             <input v-model="messages.emailAddress" placeholder="E-mail" type="email" autocomplete="off">

@@ -3,7 +3,7 @@
         <b-row>
             <b-col></b-col>
             <b-col cols="6">
-                <b-form @submit="login" @reset="clear">
+                <b-form @submit="login" @reset="clear" onsubmit="return false;">
                     <h2>Giriş Yap</h2>
                     <div class="separator"></div>
                     <b-form-group
