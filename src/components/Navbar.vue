@@ -28,7 +28,7 @@
         },
         methods: {
             async redirectMainPage() {
-                if (this.$route.path !== '/mainPage') {
+                if (this.$route.name !== 'mainPage') {
                     this.$router.push({ name: 'mainPage'});
                 }
             },

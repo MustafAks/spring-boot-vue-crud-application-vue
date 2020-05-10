@@ -45,13 +45,13 @@ Vue.use(notificationUtils);
 const router = new Router({
     routes: [
         {
-            path: '/',
+            path: '/login',
             name: 'login',
             component: Login,
             meta: { title: 'Giriş Yap', isPublic: true }
         },
         {
-            path: '/mainPage',
+            path: '/',
             name: 'mainPage',
             component: MainPage,
             meta: { title: 'Hasret Gazetesi - Kemaliye', isPublic: true }
@@ -149,8 +149,7 @@ router.beforeEach((to, from, next) => {
     }
     else if (!userRole) {
         return next({
-            path:'/',
-            query: {redirect: to.fullPath}
+            path:'/login'
         });
     }
 
