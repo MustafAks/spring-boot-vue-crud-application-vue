@@ -63,6 +63,7 @@
         methods: {
             async login() {
                 localStorage.setItem('user', JSON.stringify(this.user));
+                //TODO exceptionları düzeltince loginde hata alınırsa localstorage dan user silinecek.
                 const result = await UserService.login(this.user);
                 if (result.authorities !== undefined) {
                     this.user.role = result.authorities[0].authority;
