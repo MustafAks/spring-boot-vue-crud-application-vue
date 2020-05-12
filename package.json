@@ -14,7 +14,6 @@
     "bootstrap-social": "^5.1.1",
     "bootstrap-vue": "^2.6.0",
     "core-js": "^3.6.4",
-    "js-cookie": "^2.2.1",
     "node-sass": "^4.13.1",
     "pdfmake": "^0.1.65",
     "sass-loader": "^8.0.2",
