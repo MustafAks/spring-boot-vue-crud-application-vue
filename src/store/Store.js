@@ -9,7 +9,9 @@ const store = new Vuex.Store({
         username: null,
         userRole: null
     },
-    plugins: [createPersistedState()],
+    plugins: [createPersistedState({
+        storage: window.sessionStorage,
+    })],
     mutations: {
         logout(state) {
             state.username = null;
