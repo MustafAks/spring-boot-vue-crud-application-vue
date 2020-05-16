@@ -1,34 +1,49 @@
 <template>
     <div class="container">
-        <div class="center">
-            <b-container fluid>
-                <b-row>
-                    <b-col sm="4">
-                        <label>Kullanıcı Adı:</label>
-                    </b-col>
-                    <b-col sm="7">
-                        <b-form-input v-model="user.username"></b-form-input>
-                    </b-col>
-                </b-row>
-                <b-row>
-                    <b-col sm="4">
-                        <label>Password:</label>
-                    </b-col>
-                    <b-col sm="7">
-                        <b-form-input v-model="user.password"></b-form-input>
-                    </b-col>
-                </b-row>
-
-                <b-container class="bv-example-row">
+        <b-row>
+            <b-col></b-col>
+            <b-col cols="6">
+                <b-form @submit="login" @reset="clear" onsubmit="return false;">
+                    <h2>Giriş Yap</h2>
+                    <div class="separator"></div>
+                    <b-form-group
+                            id="input-group-1"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Kullanıcı Adı"
+                            label-for="username"
+                    >
+                        <b-form-input
+                                id="username"
+                                v-model="user.username"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                            id="input-group-2"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Şifre"
+                            label-for="password"
+                    >
+                        <b-form-input
+                                id="password"
+                                type="password"
+                                v-model="user.password"
+                                required
+                        ></b-form-input>
+                    </b-form-group>
                     <b-row align-h="end">
-                        <b-col cols="3">
-                            <b-button type="submit" class="w-75" variant="primary" v-on:click.prevent="login">Giriş Yap
-                            </b-button>
-                        </b-col>
+                        <b-button type="submit" variant="primary">
+                            Giriş Yap
+                        </b-button>
+                        <b-button type="reset" variant="danger" style="margin-left: 5px">Temizle</b-button>
                     </b-row>
-                </b-container>
-            </b-container>
-        </div>
+                </b-form>
+            </b-col>
+            <b-col></b-col>
+        </b-row>
+
     </div>
 </template>
 
@@ -48,15 +63,29 @@
         methods: {
             async login() {
                 localStorage.setItem('user', JSON.stringify(this.user));
+                //TODO exceptionları düzeltince loginde hata alınırsa localstorage dan user silinecek.
                 const result = await UserService.login(this.user);
-                if(result.authorities !== undefined){
+                if (result.authorities !== undefined) {
                     this.user.role = result.authorities[0].authority;
+                    this.$store.commit('setUserRole', result.authorities[0].authority);
                 }
+                this.$store.commit('setUsername', result.username);
                 localStorage.setItem('user', JSON.stringify(this.user));
+                this.$router.push({name: 'mainPage'});
+            },
 
-                this.$router.push({name: 'latest'});
+            clear() {
+                // Reset our form values
+                this.user.username = '';
+                this.user.password = '';
             }
         }
     };
 
 </script>
+<style>
+    .separator {
+        border-bottom: solid 1px #ccc;
+        margin-bottom: 15px;
+    }
+</style>

@@ -12,7 +12,12 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   (error) => {
-      throw error;
+      switch (error.response.status) {
+          case 401:
+              throw new Error("Kullanıcı adınız veya şifreniz yanlış.");
+          default:
+              throw new Error(error.response.data.message);
+      }
   },
 );
 
@@ -53,8 +58,10 @@ axiosFileInstance.interceptors.request.use(
 
 function addBasicAuthenticationToHeader(config) {
   const user = JSON.parse(localStorage.getItem('user'));
-  const auth = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
-  config.headers['Authorization'] = auth;
+    if (user !== undefined && user !== null) {
+        const auth = 'Basic ' + new Buffer(user.username + ':' + user.password).toString('base64');
+        config.headers['Authorization'] = auth;
+    }
 }
 
 export default {

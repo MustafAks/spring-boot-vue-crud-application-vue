@@ -46,16 +46,16 @@ Vue.use(notificationUtils);
 const router = new Router({
     routes: [
         {
-            path: '/',
+            path: '/login',
             name: 'login',
             component: Login,
             meta: { title: 'Giriş Yap', isPublic: true }
         },
         {
-            path: '/mainPage',
+            path: '/',
             name: 'mainPage',
             component: MainPage,
-            meta: { title: 'Hasret Gazetesi - Kemaliye', roles: ["ROLE_USER", "ROLE_ADMIN"] }
+            meta: { title: 'Hasret Gazetesi - Kemaliye', isPublic: true }
         },
         {
             path: '/newspapers',
@@ -121,7 +121,7 @@ const router = new Router({
             path: '/embeddedFile',
             name: 'EmbeddedFile',
             component: EmbeddedFile,
-            meta: { title: 'Gazete Oku', roles: ["ROLE_USER", "ROLE_ADMIN"]  }
+            meta: { title: 'Gazete Oku', roles: ["ROLE_ADMIN"]  }
         },
         {
             path: '/subscriberEndDateControl',
@@ -156,7 +156,7 @@ router.beforeEach((to, from, next) => {
     }
     else if (!userRole) {
         return next({
-            path:'/',
+            path:'/login',
             query: {redirect: to.fullPath}
         });
     }

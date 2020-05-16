@@ -7,11 +7,13 @@
         <b-collapse is-nav id="nav_collapse">
             <b-navbar-nav>
                 <b-nav-item :to="{ name: 'mainPage'}" :active="$route.name == 'mainPage'">Anasayfa</b-nav-item>
-                <b-nav-item :to="{ name: 'Newspapers'}" :active="$route.name == 'Newspapers'">Gazeteler</b-nav-item>
+                <b-nav-item :hidden="this.$store.state.userRole !== 'ROLE_ADMIN' && this.$store.state.userRole !== 'ROLE_USER'" :to="{ name: 'Newspapers'}" :active="$route.name == 'Newspapers'">Gazeteler</b-nav-item>
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
-                <b-nav-item :to="{ name: 'AdminPanel'}" :active="$route.name == 'AdminPanel'">Admin Paneli</b-nav-item>
+                <b-nav-item :hidden="this.$store.state.userRole !== null" :to="{ name: 'login'}" :active="$route.name == 'login'">Giriş Yap</b-nav-item>
+                <b-nav-item :hidden="this.$store.state.userRole === null" @click="logout()">Çıkış Yap</b-nav-item>
                 <b-nav-item :to="{ name: 'UserProfile'}" :active="$route.name == 'UserProfile'">Profil</b-nav-item>
+                <b-nav-item :hidden="this.$store.state.userRole !== 'ROLE_ADMIN'" :to="{ name: 'AdminPanel'}" :active="$route.name == 'AdminPanel'">Admin Paneli</b-nav-item>
                 <b-nav-item :to="{ name: 'Contact'}" :active="$route.name == 'Contact'">İletişim</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
@@ -27,7 +29,15 @@
         },
         methods: {
             async redirectMainPage() {
-                this.$router.push({ name: 'mainPage'});
+                if (this.$route.name !== 'mainPage') {
+                    this.$router.push({ name: 'mainPage'});
+                }
+            },
+
+            async logout() {
+                localStorage.removeItem("user");
+                this.$store.commit('logout');
+                this.redirectMainPage();
             }
 
         },
