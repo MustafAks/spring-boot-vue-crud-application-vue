@@ -3,8 +3,8 @@ import Vue from 'vue';
 const SAVE_SUBSCRIBER_URL = '/subscription/';
 const DELETE_SUBSCRIBER_URL = '/subscription/';
 const LIST = '/subscription/list';
-const LISTEXPIRE = '/subscription/listSubscriptionExpiresViaDates';
-const GETBYUSERNAME = '/subscription/getByUserName';
+const LIST_EXPIRE = '/subscription/listSubscriptionExpiresViaDates';
+const GET_BY_USERNAME = '/subscription/getByUsername';
 
 
 class SubscriptionService {
@@ -21,11 +21,11 @@ class SubscriptionService {
     }
 
     async listSubscriptionExpiresViaDates(subscriber){
-        return await Vue.prototype.$axios.post(LISTEXPIRE,subscriber);
+        return await Vue.prototype.$axios.post(LIST_EXPIRE,subscriber);
     }
 
-    async getByUserName(userName){
-        return await Vue.prototype.$axios.post(GETBYUSERNAME,userName);
+    async getByUserName(username){
+        return await Vue.prototype.$axios.get(GET_BY_USERNAME, {params: {username: username}});
     }
 }
 

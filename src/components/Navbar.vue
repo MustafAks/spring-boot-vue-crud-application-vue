@@ -11,9 +11,11 @@
             </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item :hidden="this.$store.state.userRole !== null" :to="{ name: 'login'}" :active="$route.name == 'login'">Giriş Yap</b-nav-item>
-                <b-nav-item :hidden="this.$store.state.userRole === null" @click="logout()">Çıkış Yap</b-nav-item>
-                <b-nav-item :to="{ name: 'UserProfile'}" :active="$route.name == 'UserProfile'">Profil</b-nav-item>
-                <b-nav-item :hidden="this.$store.state.userRole !== 'ROLE_ADMIN'" :to="{ name: 'AdminPanel'}" :active="$route.name == 'AdminPanel'">Admin Paneli</b-nav-item>
+                <b-nav-item-dropdown text="Profil" :hidden="this.$store.state.userRole === null">
+                    <b-dropdown-item :hidden="this.$store.state.userRole !== 'ROLE_USER'" :to="{ name: 'UserProfile'}" :active="$route.name == 'UserProfile'">Profil</b-dropdown-item>
+                    <b-dropdown-item :hidden="this.$store.state.userRole !== 'ROLE_ADMIN'" :to="{ name: 'AdminPanel'}" :active="$route.name == 'AdminPanel'">Admin Paneli</b-dropdown-item>
+                    <b-dropdown-item :hidden="this.$store.state.userRole === null" @click="logout()">Çıkış Yap</b-dropdown-item>
+                </b-nav-item-dropdown>
                 <b-nav-item :to="{ name: 'Contact'}" :active="$route.name == 'Contact'">İletişim</b-nav-item>
             </b-navbar-nav>
         </b-collapse>
