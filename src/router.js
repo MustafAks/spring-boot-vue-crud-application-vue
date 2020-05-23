@@ -23,12 +23,17 @@ import AddNewspaper from "./views/newspapers/AddNewspaper";
 import AddPages from "./views/newspapers/AddPages";
 import Page401 from "./views/Page401";
 import Newspapers from "./views/newspapers/Newspapers";
+import AddNews from "./views/news/AddNews";
+import UpdateNews from "./views/news/UpdateNews";
+import NewsList from "./views/news/NewsList";
 import EmbeddedFile from "./views/newspapers/EmbeddedFile";
 import AdminPanel from "./views/adminPanel/AdminPanel";
 import addSubscriberImage from "./assets/images/AdminPanelImages/addSubscriber.png"
 import filterImage from "./assets/images/AdminPanelImages/filter.png"
 import endImage from "./assets/images/AdminPanelImages/end.png"
 import newspaperImage from "./assets/images/AdminPanelImages/newspaper.png"
+import newsImage from "./assets/images/AdminPanelImages/news.png"
+import newsListImage from "./assets/images/AdminPanelImages/newsList.png"
 import messagesImage from "./assets/images/AdminPanelImages/messages.png"
 import parametersImage from "./assets/images/AdminPanelImages/parameters.png"
 import UserProfile from "./views/subscribers/UserProfile";
@@ -74,6 +79,24 @@ const router = new Router({
             name: 'AddNewspaper',
             component: AddNewspaper,
             meta: { title: 'Gazete Ekle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newspaperImage }
+        },
+        {
+            path: '/addNews',
+            name: 'AddNews',
+            component: AddNews,
+            meta: { title: 'Haber Ekle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newsImage }
+        },
+        {
+            path: '/updateNews',
+            name: 'UpdateNews',
+            component: UpdateNews,
+            meta: { title: 'Haber Güncelle', roles: ["ROLE_ADMIN"] }
+        },
+        {
+            path: '/listNews',
+            name: 'NewsList',
+            component: NewsList,
+            meta: { title: 'Haber Düzenle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newsListImage }
         },
         {
             path: '/addPages',
