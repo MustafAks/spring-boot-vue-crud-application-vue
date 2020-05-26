@@ -43,6 +43,21 @@
                                 required
                         ></b-form-textarea>
                     </b-form-group>
+                    <b-form-group
+                            id="input-group-4"
+                            label-cols-sm="4"
+                            label-cols-lg="3"
+                            label="Fotoğraf Ekle :"
+                            label-for="image"
+                    >
+                        <b-form-file id="image"
+                                     v-model="news.image"
+                                     class="mt-3"
+                                     plain
+                                     required
+                        >
+                        </b-form-file>
+                    </b-form-group>
                     <b-row align-h="end">
                         <b-button type="submit" variant="success">
                             <b-icon icon="plus"></b-icon>
@@ -66,7 +81,8 @@
                 news: {
                     title: null,
                     description: null,
-                    news: null
+                    news: null,
+                    image: null
                 }
             }
         },
@@ -85,17 +101,29 @@
                     this.$errorNotification(this, 'Lütfen içerik değerini giriniz !');
                     return;
                 }
-                const data = JSON.parse(JSON.stringify(this.news));
-                await NewsService.saveNews(data);
+                if (this.news.image === undefined || this.news.image === null || this.news.image === '') {
+                    this.$errorNotification(this, 'Lütfen fotoğraf ekleyiniz !');
+                    return;
+                }
+                const fileFromPage = this.news.image;
+                let formData = new FormData();
+                formData.append('file', fileFromPage);
+                formData.append('id', null);
+                formData.append('title', this.news.title);
+                formData.append('description', this.news.description);
+                formData.append('news', this.news.news);
+                await NewsService.saveNews(formData);
                 this.$notification(this, 'Haber başarılı bir şekilde kayıt edildi.');
                 this.$router.push({name: 'NewsList'});
             },
 
             clear() {
                 // Reset our form values
-                this.news.title = '';
-                this.news.description = '';
-                this.news.news = '';
+                this.news.id = null;
+                this.news.title = null;
+                this.news.description = null;
+                this.news.news = null;
+                this.news.image = null;
             }
         },
         beforeMount() {
@@ -103,24 +131,4 @@
     }
 </script>
 <style>
-    img {
-        max-width: 100%;
-    }
-
-    .swatch__container {
-        margin: 0;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .swatch__wrapper {
-        padding: 10px 10px 10px 10px;
-        display: inline-block;
-        width: 25%;
-        list-style: none;
-        margin-top: 1.4em;
-        margin-bottom: 1.4em;
-        cursor: pointer;
-    }
 </style>

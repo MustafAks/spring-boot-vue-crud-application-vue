@@ -9,7 +9,7 @@ const GET_NEWS_URL = '/news/get';
 class NewsService {
 
     async saveNews(news) {
-        return await Vue.prototype.$axios.post(SAVE_NEWS_URL, news);
+        return await Vue.prototype.$axiosFile.post(SAVE_NEWS_URL, news, { headers: { 'Content-Type': 'image/jpg' } });
     }
 
     async deleteNews(id) {

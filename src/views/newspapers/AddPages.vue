@@ -132,7 +132,7 @@
         // Reset our form values
         this.page.id = '';
         this.page.pageNumber = '';
-        this.page.file = '';
+        this.page.file = null;
         this.page.newspapers = '';
       }
     },

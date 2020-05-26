@@ -39,6 +39,10 @@
             hidden: true
           },
           {
+            field: 'image',
+            hidden: true
+          },
+          {
             label: 'Başlık',
             field: 'title',
             filterOptions: {

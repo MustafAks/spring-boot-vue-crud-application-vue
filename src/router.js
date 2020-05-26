@@ -23,6 +23,7 @@ import AddNewspaper from "./views/newspapers/AddNewspaper";
 import AddPages from "./views/newspapers/AddPages";
 import Page401 from "./views/Page401";
 import Newspapers from "./views/newspapers/Newspapers";
+import News from "./views/news/News";
 import AddNews from "./views/news/AddNews";
 import UpdateNews from "./views/news/UpdateNews";
 import NewsList from "./views/news/NewsList";
@@ -61,6 +62,12 @@ const router = new Router({
             name: 'mainPage',
             component: MainPage,
             meta: { title: 'Hasret Gazetesi - Kemaliye', isPublic: true }
+        },
+        {
+            path: '/news',
+            name: 'News',
+            component: News,
+            meta: { title: 'Detay', isPublic: true }
         },
         {
             path: '/newspapers',

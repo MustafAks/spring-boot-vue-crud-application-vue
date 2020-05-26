@@ -66,7 +66,8 @@
                     id: this.$route.params.id,
                     title: this.$route.params.title,
                     description: this.$route.params.description,
-                    news: this.$route.params.news
+                    news: this.$route.params.news,
+                    image: this.$route.params.image
                 }
             };
         },
@@ -84,8 +85,19 @@
                     this.$errorNotification(this, 'Lütfen içerik değerini giriniz !');
                     return;
                 }
+                if (this.news.image === undefined || this.news.image === null || this.news.image === '') {
+                    this.$errorNotification(this, 'Lütfen fotoğraf ekleyiniz !');
+                    return;
+                }
 
-                await NewsService.saveNews(this.news);
+                const fileFromPage = this.news.image;
+                let formData = new FormData();
+                formData.append('file', fileFromPage);
+                formData.append('id', null);
+                formData.append('title', this.news.title);
+                formData.append('description', this.news.description);
+                formData.append('news', this.news.news);
+                await NewsService.saveNews(formData);
                 this.$notification(this, 'Haber başarılı bir şekilde güncellendi.');
                 // if success
                 this.$router.push({name: 'NewsList'});
@@ -99,7 +111,4 @@
     };
 </script>
 <style>
-    img {
-        max-width: 100%;
-    }
 </style>
