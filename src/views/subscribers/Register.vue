@@ -271,8 +271,8 @@
                 this.subscribers.address = '';
                 this.subscribers.phone = '';
                 this.subscribers.notes = '';
-                this.subscribers.user.username = '';
-                this.subscribers.user.password = '';
+                this.subscribers.user.username = null;
+                this.subscribers.user.password = null;
                 this.subscribers.payment = "Not Paid";
             }
         },
