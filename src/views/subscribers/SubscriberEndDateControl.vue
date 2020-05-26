@@ -79,10 +79,11 @@
                     {key: 'city', label: 'İl'},
                     {key: 'district', label: 'İlçe'},
                     {key: 'address', label: 'Adres'},
-                    {key: 'notes', label: 'Notlar'},
+                    {key: 'phone', label: 'Telefon'},
                     {key: 'startDate', label: 'Başlangıç Tarihi'},
                     {key: 'endDate', label: 'Bitiş Tarihi'},
-                    {key: 'payment', label: 'Ödeme Bilgisi'}
+                    {key: 'payment', label: 'Ödeme Bilgisi'},
+                    {key: 'notes', label: 'Notlar'}
                 ],
                 paymentArray : []
             };
@@ -117,8 +118,8 @@
             },
 
             downloadPdf () {
-                var headers = ['','Adı', 'Soyadı', 'İl', 'İlçe', 'Adres', 'Notlar', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'Ödeme'];
-                var columns = ['name', 'lastname', 'city', 'district', 'address', 'notes', 'startDate','endDate', 'payment'];
+                var headers = ['','Adı', 'Soyadı', 'İl', 'İlçe', 'Adres', 'Telefon', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'Ödeme', 'Notlar'];
+                var columns = ['name', 'lastname', 'city', 'district', 'address', 'phone', 'startDate','endDate', 'payment', 'notes'];
                 var content = {
                     pageOrientation: 'landscape',
                     content: [

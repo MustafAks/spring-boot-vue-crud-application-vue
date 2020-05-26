@@ -100,6 +100,17 @@
             }
           },
           {
+            label: 'Telefon',
+            field: 'phone',
+            filterOptions: {
+              enabled: true, // enable filter for this column
+              placeholder: 'Filter This Thing', // placeholder for filter input
+              filterDropdownItems: [], // dropdown (with selected values) instead of text input
+              // filterFn: this.columnFilterFn, //custom filter function that
+              trigger: 'enter', //only trigger on enter not on keyup
+            }
+          },
+          {
             label: 'Notlar',
             field: 'notes',
             filterOptions: {
@@ -141,9 +152,6 @@
             hidden: true
           },{
             field: 'endDate',
-            hidden: true
-          },{
-            field: 'phone',
             hidden: true
           },{
             field: 'username',
@@ -226,8 +234,8 @@
       },
 
       downloadPdf () {
-        var headers = ['','Adı', 'Soyadı', 'İl', 'İlçe', 'Adres', 'Notlar', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'Ödeme'];
-        var columns = ['name', 'lastname', 'city', 'district', 'address', 'notes', 'startDateString','endDateString', 'payment'];
+        var headers = ['','Adı', 'Soyadı', 'İl', 'İlçe', 'Adres', 'Telefon', 'Başlangıç Tarihi', 'Bitiş Tarihi', 'Ödeme','Notlar'];
+        var columns = ['name', 'lastname', 'city', 'district', 'address', 'phone', 'startDateString','endDateString', 'payment', 'notes'];
         var content = {
           pageOrientation: 'landscape',
           content: [
