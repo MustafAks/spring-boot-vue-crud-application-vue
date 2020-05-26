@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="center">
+        <div class="container">
             <b-container class="bv-example-row">
                 <b-row>
                     <b-col sm="4">
