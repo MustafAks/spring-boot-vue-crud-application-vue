@@ -282,6 +282,13 @@
           }
         }
 
+        if (this.subscribers.user.password !== undefined && this.subscribers.user.password !== null && this.subscribers.user.password !== '') {
+          if (this.subscribers.user.username === undefined || this.subscribers.user.username === null || this.subscribers.user.username === '') {
+            this.$errorNotification(this, 'Şifre giriyorsanız kullanıcı adı da girmelisiniz !');
+            return;
+          }
+        }
+
 
         if (this.$route.params.username !== undefined
                 && this.$route.params.username !== null

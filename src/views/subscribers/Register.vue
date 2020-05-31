@@ -252,6 +252,19 @@
                     this.$errorNotification(this, 'Lütfen telefon değerini giriniz !');
                     return;
                 }
+                if (this.subscribers.user.username !== undefined && this.subscribers.user.username !== null && this.subscribers.user.username !== '') {
+                    if (this.subscribers.user.password === undefined || this.subscribers.user.password === null || this.subscribers.user.password === '') {
+                        this.$errorNotification(this, 'Kullanıcı adı giriyorsanız şifre de girmelisiniz !');
+                        return;
+                    }
+                }
+                if (this.subscribers.user.password !== undefined && this.subscribers.user.password !== null && this.subscribers.user.password !== '') {
+                    if (this.subscribers.user.username === undefined || this.subscribers.user.username === null || this.subscribers.user.username === '') {
+                        this.$errorNotification(this, 'Şifre giriyorsanız kullanıcı adı da girmelisiniz !');
+                        return;
+                    }
+                }
+                console.log("CALLLLLL");
                 await SubscriptionService.saveSubscriber(data);
                 this.$notification(this, 'Abone başarılı bir şekilde kayıt edildi.');
                 this.clear();
@@ -262,15 +275,15 @@
             },
             clear() {
                 // Reset our form values
-                this.subscribers.name = '';
-                this.subscribers.lastname = '';
-                this.subscribers.startDate = '';
-                this.subscribers.endDate = '';
-                this.subscribers.city = '';
-                this.subscribers.district = '';
-                this.subscribers.address = '';
-                this.subscribers.phone = '';
-                this.subscribers.notes = '';
+                this.subscribers.name = null;
+                this.subscribers.lastname = null;
+                this.subscribers.startDate = null;
+                this.subscribers.endDate = null;
+                this.subscribers.city = null;
+                this.subscribers.district = null;
+                this.subscribers.address = null;
+                this.subscribers.phone = null;
+                this.subscribers.notes = null;
                 this.subscribers.user.username = null;
                 this.subscribers.user.password = null;
                 this.subscribers.payment = "Not Paid";
