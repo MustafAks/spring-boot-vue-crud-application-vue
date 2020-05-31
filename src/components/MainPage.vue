@@ -3,7 +3,7 @@
         <h1>Son Eklenenler</h1>
         <label v-if = "this.news === undefined || this.news === null || this.news.length === 0">Henüz Hiç Haber Eklenmemiş</label>
         <li v-for="newsContent in news" :key=newsContent.id>
-            <b-card>
+            <b-card style="margin-top: 10px;">
                 <b-row>
                     <b-col md="3">
                             <router-link :to="{ name: 'News', params: newsContent }">
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-    import image from "../assets/images/NavbarImages/hasretNavbarImage.jpeg"
     import NewsService from "../service/NewsService";
 
     const offset = 10;
@@ -42,7 +41,6 @@
     export default {
         data: function () {
             return {
-                image: image,
                 news: [],
                 newsCounter: 0,
                 buttonHidden : false

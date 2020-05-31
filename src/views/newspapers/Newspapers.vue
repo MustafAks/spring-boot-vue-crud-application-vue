@@ -72,22 +72,28 @@ export default {
 }
 </script>
 <style>
-  img {
-    max-width: 100%;
-  }
-  .swatch__container {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-wrap: wrap;
-  }
-  .swatch__wrapper {
-      padding: 10px 10px 10px 10px;
-      display: inline-block;
-      width: 25%;
-      list-style: none;
-      margin-top: 1.4em;
-      margin-bottom: 1.4em;
-      cursor: pointer;
-  }
+    body {
+        background: #F2F3F4;
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    .swatch__container {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .swatch__wrapper {
+        padding: 10px 10px 10px 10px;
+        display: inline-block;
+        width: 25%;
+        list-style: none;
+        margin-top: 1.4em;
+        margin-bottom: 1.4em;
+        cursor: pointer;
+    }
 </style>

@@ -32,10 +32,10 @@
           <div class="separator"></div>
 
           <form class="form" @submit="saveMessage" onsubmit="return false;">
-            <input required v-model='messages.name' placeholder="Ad Soyad" type="text" autocomplete="off">
-            <input required v-model='messages.phone' placeholder="Telefon" type="text" autocomplete="off">
-            <input v-model="messages.emailAddress" placeholder="E-mail" type="email" autocomplete="off">
-            <textarea required v-model="messages.message" v-on:keyup="textCounter()" rows="4" placeholder="Mesaj" maxlength="1000"></textarea>
+            <input required v-model='messages.name' placeholder="Ad Soyad" type="text" autocomplete="off" style="background-color: white">
+            <input required v-model='messages.phone' placeholder="Telefon" type="text" autocomplete="off" style="background-color: white">
+            <input v-model="messages.emailAddress" placeholder="E-mail" type="email" autocomplete="off" style="background-color: white">
+            <textarea required v-model="messages.message" v-on:keyup="textCounter()" rows="4" placeholder="Mesaj" maxlength="1000" style="background-color: white"></textarea>
             <input style="margin-bottom: 10px; text-align: right;" disabled v-model="counter">
             <button class="button">Gönder</button>
           </form>
@@ -111,14 +111,9 @@
     }
   };
 </script>
-<style>
-  body {
-    /*background: #f1f1f1;*/
-    font-family: 'Roboto', sans-serif;
-  }
+<style scoped>
 
   .contact-form {
-    /*font-family: 16px;*/
     margin: 0 auto;
     width: 100%;
   }
@@ -156,8 +151,8 @@
   }
 
   .contact-form .button {
-    background: #da552f;
-    border: solid 1px #da552f;
+    background: #007bff;
+    border: solid 1px #007bff;
     color: white;
     cursor: pointer;
     padding: 10px 50px;
@@ -166,8 +161,8 @@
   }
 
   .contact-form .button:hover {
-    background: #ea532a;
-    border: solid 1px #ea532a;
+    background: #1E80E3;
+    border: solid 1px #1E80E3;
   }
 
   .contact-form input[type="email"],
