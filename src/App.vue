@@ -52,7 +52,7 @@
 
     #footer-view {
         vertical-align: middle;
-        background: #263238;
+        background: #ec1b24;
         position:fixed;
         left: 0px;
         bottom:0;

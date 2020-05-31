@@ -1,5 +1,7 @@
 <template>
     <div class="center">
+        <h1>Son Eklenenler</h1>
+        <label v-if = "this.news === undefined || this.news === null || this.news.length === 0">Henüz Hiç Haber Eklenmemiş</label>
         <li v-for="newsContent in news" :key=newsContent.id>
             <b-card>
                 <b-row>
@@ -23,6 +25,11 @@
                 </b-row>
             </b-card>
         </li>
+
+        <b-button variant="outline-primary" style="margin-top: 10px; width: 100%" @click = getNews() :hidden = buttonHidden>
+            Daha Fazla
+        </b-button>
+
     </div>
 </template>
 
@@ -30,17 +37,46 @@
     import image from "../assets/images/NavbarImages/hasretNavbarImage.jpeg"
     import NewsService from "../service/NewsService";
 
+    const offset = 10;
+
     export default {
         data: function () {
             return {
                 image: image,
-                news: []
+                news: [],
+                newsCounter: 0,
+                buttonHidden : false
             }
         },
 
         methods: {
             async getInitialNews() {
-                this.news = await NewsService.list({});
+                var data = {
+                    firstIndex : 0,
+                    offset : offset
+                };
+                this.news = await NewsService.listNewsForPublic(data);
+                if (this.news !== undefined && this.news !== null) {
+                    this.newsCounter = this.news.length;
+                }
+                if (this.news === undefined || this.news === null || this.news.length === 0) {
+                    this.buttonHidden = true;
+                }
+            },
+
+            async getNews() {
+                var data = {
+                    firstIndex : this.newsCounter,
+                    offset : offset
+                };
+                let result = await NewsService.listNewsForPublic(data);
+                if (result === undefined || result === null || result.length === 0) {
+                    this.buttonHidden = true;
+                }
+                this.news = this.news.concat(result);
+                if (this.news !== undefined && this.news !== null) {
+                    this.newsCounter = this.news.length;
+                }
             }
         },
         beforeMount() {

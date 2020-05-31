@@ -1,5 +1,5 @@
 <template>
-    <b-navbar toggleable="md" type="dark" variant="dark">
+    <b-navbar toggleable="md" style="background-color: #ec1b24;" type="dark">
         <b-navbar-brand>
             <img :src="require('../assets/images/NavbarImages/hasretNavbarImage.jpeg')" id='logo'>
         </b-navbar-brand>

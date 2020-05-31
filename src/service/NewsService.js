@@ -3,6 +3,7 @@ import Vue from 'vue';
 const SAVE_NEWS_URL = '/news/save';
 const DELETE_NEWS_URL = '/news/delete';
 const LIST_NEWS_URL = '/news/list';
+const LIST_NEWS_FOR_PUBLIC_URL = '/news/listNews';
 const GET_NEWS_URL = '/news/get';
 
 
@@ -22,6 +23,10 @@ class NewsService {
 
     async list(data) {
         return await Vue.prototype.$axios.post(LIST_NEWS_URL, data);
+    }
+
+    async listNewsForPublic(data) {
+        return await Vue.prototype.$axios.post(LIST_NEWS_FOR_PUBLIC_URL, data);
     }
 }
 
