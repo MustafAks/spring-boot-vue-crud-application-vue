@@ -10,10 +10,10 @@
                       </b-card-header>
                       <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel" class="swatch__container">
                           <li v-for="page in pages" :key=page.id class="swatch__wrapper" style="text-align:center">
-                              <div @click="linkClick(page.id)">
+                              <a href="#/newspapers" @click="linkClick(page.id)">
                                   <img :src=image>
                                   <b-link>{{ page.pageNumber }}. Sayfa</b-link>
-                              </div>
+                              </a>
                           </li>
                       </b-collapse>
                   </b-card>
