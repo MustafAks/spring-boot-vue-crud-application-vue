@@ -2,7 +2,7 @@ import Vue from 'vue';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8085/api',
+  baseURL: 'http://37.148.212.19:8085/api',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -12,6 +12,8 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
   (response) => response.data,
   (error) => {
+      console.log("-------------ERROR----------------");
+      console.log(error);
       switch (error.response.status) {
           case 401:
               throw new Error("Kullanıcı adınız veya şifreniz yanlış.");
@@ -22,7 +24,7 @@ axiosInstance.interceptors.response.use(
 );
 
 const axiosFileInstance = axios.create({
-  baseURL: 'http://localhost:8085/api',
+  baseURL: 'http://37.148.212.19:8085/api',
   timeout: 30000,
   headers: {
     'Content-Type': 'multipart/form-data'
@@ -32,6 +34,8 @@ const axiosFileInstance = axios.create({
 axiosFileInstance.interceptors.response.use(
     (response) => response.data,
     (error) => {
+        console.log("-------------ERROR----------------");
+        console.log(error);
         switch (error.response.status) {
             case 401:
                 throw new Error("Kullanıcı adınız veya şifreniz yanlış.");
