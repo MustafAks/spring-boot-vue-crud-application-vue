@@ -1,25 +1,33 @@
 <template>
   <div class="container">
-      <b-tabs content-class="mt-3">
-          <b-tab v-for="year in years" :key=year :title=year.toString() @click="onChange(year)">
-              <b-col>
-                  <b-card no-body class="mb-1" v-for="newspaper in newspapers" :key=newspaper.id>
-                      <b-card-header header-tag="header" class="p-1" role="tab">
-                          <b-link href="#" v-b-toggle = "newspaper.id" @click="onClick(newspaper.id)">{{ newspaper.title }} Sayısı İçin Tıklayınız...</b-link>
-<!--                          <b-button block href="#" v-b-toggle = "newspaper.id" variant="outline-primary" @click="onClick(newspaper.id)">{{ newspaper.title }}</b-button>-->
-                      </b-card-header>
-                      <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel" class="swatch__container">
-                          <li v-for="page in pages" :key=page.id class="swatch__wrapper" style="text-align:center">
-                              <a href="#/newspapers" @click="linkClick(page.id)">
-                                  <img :src=image>
-                                  <b-link>{{ page.pageNumber }}. Sayfa</b-link>
-                              </a>
-                          </li>
-                      </b-collapse>
-                  </b-card>
-              </b-col>
-          </b-tab>
-      </b-tabs>
+      <b-overlay :show="show" rounded="sm">
+          <b-tabs content-class="mt-3">
+              <b-tab v-for="year in years" :key=year :title=year.toString() @click="onChange(year)">
+                  <b-col>
+                      <b-card no-body class="mb-1" v-for="newspaper in newspapers" :key=newspaper.id>
+                          <b-card-header header-tag="header" class="p-1" role="tab">
+                              <b-link href="#" v-b-toggle = "newspaper.id" @click="onClick(newspaper.id)">{{ newspaper.title }} Sayısı İçin Tıklayınız...</b-link>
+    <!--                          <b-button block href="#" v-b-toggle = "newspaper.id" variant="outline-primary" @click="onClick(newspaper.id)">{{ newspaper.title }}</b-button>-->
+                          </b-card-header>
+                          <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel" class="swatch__container">
+                              <li v-for="page in pages" :key=page.id class="swatch__wrapper" style="text-align:center">
+                                  <a href="#/newspapers" @click="linkClick(page.id)">
+                                      <img :src=image>
+                                      <b-link>{{ page.pageNumber }}. Sayfa</b-link>
+                                  </a>
+                              </li>
+                          </b-collapse>
+                      </b-card>
+                  </b-col>
+              </b-tab>
+          </b-tabs>
+          <template v-slot:overlay>
+              <div class="text-center">
+                  <b-icon icon="stopwatch" font-scale="3" animation="cylon"></b-icon>
+                  <p id="cancel-label">Lütfen Bekleyin...</p>
+              </div>
+          </template>
+      </b-overlay>
   </div>
 </template>
 
@@ -29,46 +37,51 @@ import image from "../../assets/images/NavbarImages/hasretNavbarImage.jpeg"
 import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
 
 export default {
-  data(){
-    return {
-      years: [],
-      newspapers: [],
-      pages: [],
-      image: image
+    data() {
+        return {
+            years: [],
+            newspapers: [],
+            pages: [],
+            image: image,
+            show: true
+        }
+    },
+
+    mounted() {
+        this.show = false;
+    },
+
+    methods: {
+        async getYears() {
+            this.years = await NewspaperService.getYears();
+            if (this.years !== undefined && this.years !== null && this.years.length > 0) {
+                this.getNewspapersByYear(this.years[0])
+            }
+        },
+
+        async getNewspapersByYear(year) {
+            this.newspapers = await NewspaperService.getNewspapersByYear(year);
+        },
+
+        async getPagesByNewspaperId(newspaperId) {
+            this.pages = await NewspaperService.getPagesByNewspaperId(newspaperId, 'Asc');
+        },
+
+        async onChange(year) {
+            this.getNewspapersByYear(year);
+        },
+
+        async onClick(newspaperId) {
+            this.getPagesByNewspaperId(newspaperId);
+        },
+
+        async linkClick(pageId) {
+            await GeneratePdfUtils.openWithPageId(pageId);
+        }
+    },
+    beforeMount() {
+        this.getYears();
     }
-  },
-
-  methods: {
-      async getYears() {
-          this.years = await NewspaperService.getYears();
-          if (this.years !== undefined && this.years !== null && this.years.length > 0) {
-              this.getNewspapersByYear(this.years[0])
-          }
-      },
-
-      async getNewspapersByYear(year) {
-          this.newspapers = await NewspaperService.getNewspapersByYear(year);
-      },
-
-      async getPagesByNewspaperId(newspaperId) {
-          this.pages = await NewspaperService.getPagesByNewspaperId(newspaperId, 'Asc');
-      },
-
-      async onChange(year) {
-          this.getNewspapersByYear(year);
-      },
-
-      async onClick(newspaperId) {
-          this.getPagesByNewspaperId(newspaperId);
-      },
-
-      async linkClick(pageId) {
-          await GeneratePdfUtils.openWithPageId(pageId);
-      }
-  },
-  beforeMount() {
-    this.getYears();
-  }
 }
 </script>
 <style>

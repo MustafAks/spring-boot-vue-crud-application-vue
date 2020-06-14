@@ -5,7 +5,7 @@ import store from './store/Store'
 import VueGoodTablePlugin from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css'
 import "vuetify/dist/vuetify.css";
-import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
+import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 
 Vue.use(VueGoodTablePlugin);
 Vue.use(BootstrapVue);

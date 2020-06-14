@@ -1,35 +1,43 @@
 <template>
     <div class="center">
-        <h1>Son Eklenenler</h1>
-        <label v-if = "this.news === undefined || this.news === null || this.news.length === 0">Henüz Hiç Haber Eklenmemiş</label>
-        <li v-for="newsContent in news" :key=newsContent.id>
-            <b-card style="margin-top: 10px;">
-                <b-row>
-                    <b-col md="3">
-                            <router-link :to="{ name: 'News', params: newsContent }">
-                                <b-card-img :src="'data:image/jpg;base64,'+newsContent.image" alt="Image" class="rounded-0"></b-card-img>
-                            </router-link>
-                    </b-col>
-                    <b-col md="9">
-                        <b-card-body>
-                            <router-link :to="{ name: 'News', params: newsContent }" style="text-decoration: none; color: black">
-                                <b-card-title>
-                                    {{ newsContent.title }}
-                                </b-card-title>
-                            </router-link>
-                            <b-card-text>
-                                {{ newsContent.description }}
-                            </b-card-text>
-                        </b-card-body>
-                    </b-col>
-                </b-row>
-            </b-card>
-        </li>
+        <b-overlay :show="show" rounded="sm">
+            <h1>Son Eklenenler</h1>
+            <label v-if = "this.news === undefined || this.news === null || this.news.length === 0">Henüz Hiç Haber Eklenmemiş</label>
+            <li v-for="newsContent in news" :key=newsContent.id>
+                <b-card style="margin-top: 10px;">
+                    <b-row>
+                        <b-col md="3">
+                                <router-link :to="{ name: 'News', params: newsContent }">
+                                    <b-card-img :src="'data:image/jpg;base64,'+newsContent.image" alt="Image" class="rounded-0"></b-card-img>
+                                </router-link>
+                        </b-col>
+                        <b-col md="9">
+                            <b-card-body>
+                                <router-link :to="{ name: 'News', params: newsContent }" style="text-decoration: none; color: black">
+                                    <b-card-title>
+                                        {{ newsContent.title }}
+                                    </b-card-title>
+                                </router-link>
+                                <b-card-text>
+                                    {{ newsContent.description }}
+                                </b-card-text>
+                            </b-card-body>
+                        </b-col>
+                    </b-row>
+                </b-card>
+            </li>
 
-        <b-button variant="outline-primary" style="margin-top: 10px; width: 100%" @click = getNews() :hidden = buttonHidden>
-            Daha Fazla
-        </b-button>
+            <b-button variant="outline-primary" style="margin-top: 10px; width: 100%" @click = getNews() :hidden = buttonHidden>
+                Daha Fazla
+            </b-button>
 
+            <template v-slot:overlay>
+                <div class="text-center">
+                    <b-icon icon="stopwatch" font-scale="3" animation="cylon"></b-icon>
+                    <p id="cancel-label">Lütfen Bekleyin...</p>
+                </div>
+            </template>
+        </b-overlay>
     </div>
 </template>
 
@@ -43,8 +51,13 @@
             return {
                 news: [],
                 newsCounter: 0,
-                buttonHidden : false
+                buttonHidden : false,
+                show : true
             }
+        },
+
+        mounted() {
+            this.show = false;
         },
 
         methods: {
