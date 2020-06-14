@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-navbar toggleable="md" style="background-color: #ec1b24;" type="dark">
-            <b-navbar-brand>
+            <b-navbar-brand to="/">
                 <img :src="require('../assets/images/NavbarImages/hasretNavbarImage.jpeg')" id='logo'>
             </b-navbar-brand>
 
@@ -37,9 +37,12 @@
         },
         methods: {
             async redirectMainPage() {
+                console.log("1111111111111");
                 if (this.$route.name !== 'mainPage') {
+                    console.log("222222222222222");
                     this.$router.push({ name: 'mainPage'});
                 }
+                console.log("333333333333333");
             },
 
             async logout() {
