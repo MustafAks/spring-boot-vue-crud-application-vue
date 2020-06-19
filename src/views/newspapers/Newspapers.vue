@@ -6,14 +6,14 @@
                   <b-col>
                       <b-card no-body class="mb-1" v-for="newspaper in newspapers" :key=newspaper.id>
                           <b-card-header header-tag="header" class="p-1" role="tab">
-                              <b-link href="#" v-b-toggle = "newspaper.id" @click="onClick(newspaper.id)">{{ newspaper.title }} Sayısı İçin Tıklayınız...</b-link>
+                              <b-link v-b-toggle = "newspaper.id" @click="onClick(newspaper.id)">{{ newspaper.title }} Sayısı İçin Tıklayınız...</b-link>
     <!--                          <b-button block href="#" v-b-toggle = "newspaper.id" variant="outline-primary" @click="onClick(newspaper.id)">{{ newspaper.title }}</b-button>-->
                           </b-card-header>
                           <b-collapse :id=newspaper.id accordion="my-accordion" role="tabpanel" class="swatch__container">
                               <li v-for="page in pages" :key=page.id class="swatch__wrapper" style="text-align:center">
-                                  <a href="#/newspapers" @click="linkClick(page.id)">
-                                      <img :src=image>
-                                      <b-link>{{ page.pageNumber }}. Sayfa</b-link>
+                                  <a :href="'#/embeddedFile?pageId=' + page.id">
+                                      <img :href="'#/embeddedFile?pageId=' + page.id" :src=image>
+                                      <b-link :href="'#/embeddedFile?pageId=' + page.id">{{ page.pageNumber }}. Sayfa</b-link>
                                   </a>
                               </li>
                           </b-collapse>
@@ -34,7 +34,6 @@
 <script>
 import NewspaperService from "../../service/NewspaperService";
 import image from "../../assets/images/NavbarImages/hasretNavbarImage.jpeg"
-import GeneratePdfUtils from "../../utils/GeneratePdfUtils";
 
 export default {
     data() {
@@ -74,10 +73,6 @@ export default {
         async onClick(newspaperId) {
             this.getPagesByNewspaperId(newspaperId);
         },
-
-        async linkClick(pageId) {
-            await GeneratePdfUtils.openWithPageId(pageId);
-        }
     },
     beforeMount() {
         this.getYears();
