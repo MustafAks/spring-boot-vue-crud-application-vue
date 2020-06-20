@@ -3,7 +3,9 @@
         <nav-bar></nav-bar>
         <div id='router-view'>
             <notifications></notifications>
-            <router-view/>
+            <keep-alive :include=this.isCached>
+                <router-view/>
+            </keep-alive>
         </div>
         <div id='footer-view' class="text-center">
             <b-img-lazy v-bind="mainProps" style="margin: 0 2.5px 0 0; cursor: pointer;"
@@ -33,7 +35,8 @@
                     blank: true,
                     width:30,
                     height:30
-                }
+                },
+                isCached : ["MainPage" ,"Newspapers"]
             }
         }
     };

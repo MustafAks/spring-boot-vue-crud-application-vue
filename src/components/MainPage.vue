@@ -49,6 +49,7 @@
     const offset = 10;
 
     export default {
+        name : 'MainPage',
         data: function () {
             return {
                 news: [],

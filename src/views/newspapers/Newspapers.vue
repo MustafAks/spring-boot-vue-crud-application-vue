@@ -36,6 +36,7 @@ import NewspaperService from "../../service/NewspaperService";
 import image from "../../assets/images/NavbarImages/hasretNavbarImage.jpeg"
 
 export default {
+    name : 'Newspapers',
     data() {
         return {
             years: [],
