@@ -7,20 +7,22 @@
                 <b-card style="margin-top: 10px;">
                     <b-row>
                         <b-col md="3">
-                                <router-link :to="{ name: 'News', params: newsContent }">
-                                    <b-card-img :src="'data:image/jpg;base64,'+newsContent.image" alt="Image" class="rounded-0"></b-card-img>
-                                </router-link>
+                            <a :href="'#/news?newsId=' + newsContent.id">
+                                <b-card-img :src="'data:image/jpg;base64,'+newsContent.image" alt="Image" class="rounded-0"></b-card-img>
+                            </a>
                         </b-col>
                         <b-col md="9">
                             <b-card-body>
-                                <router-link :to="{ name: 'News', params: newsContent }" style="text-decoration: none; color: black">
+                                <a :href="'#/news?newsId=' + newsContent.id" style="text-decoration: none; color: black">
                                     <b-card-title>
                                         {{ newsContent.title }}
                                     </b-card-title>
-                                </router-link>
-                                <b-card-text>
-                                    {{ newsContent.description }}
-                                </b-card-text>
+                                </a>
+                                <a :href="'#/news?newsId=' + newsContent.id" style="text-decoration: none; color: black">
+                                    <b-card-text>
+                                        {{ newsContent.description }}
+                                    </b-card-text>
+                                </a>
                             </b-card-body>
                         </b-col>
                     </b-row>

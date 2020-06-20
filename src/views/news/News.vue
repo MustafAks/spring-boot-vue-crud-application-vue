@@ -11,23 +11,29 @@
 
 <script>
 
+    import NewsService from "../../service/NewsService";
+
     export default {
         data: function () {
             return {
+                id: this.$route.query.newsId,
                 news: {
-                    id: this.$route.params.id,
-                    title: this.$route.params.title,
-                    description: this.$route.params.description,
-                    news: this.$route.params.news,
-                    image: this.$route.params.image
+                    id: null,
+                    title: null,
+                    description: null,
+                    news: null,
+                    image: null
                 }
             }
         },
 
         methods: {
-
+            async loadNews() {
+                this.news = await NewsService.getNews(this.id);
+            }
         },
         beforeMount() {
+            this.loadNews();
         }
     }
 </script>
