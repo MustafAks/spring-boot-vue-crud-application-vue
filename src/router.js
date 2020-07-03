@@ -27,6 +27,8 @@ import News from "./views/news/News";
 import AddNews from "./views/news/AddNews";
 import UpdateNews from "./views/news/UpdateNews";
 import NewsList from "./views/news/NewsList";
+import AddAdvertisement from "./views/advertisements/AddAdvertisement";
+import AdvertisementsList from "./views/advertisements/AdvertisementsList";
 import EmbeddedFile from "./views/newspapers/EmbeddedFile";
 import AdminPanel from "./views/adminPanel/AdminPanel";
 import addSubscriberImage from "./assets/images/AdminPanelImages/addSubscriber.png"
@@ -37,6 +39,8 @@ import newsImage from "./assets/images/AdminPanelImages/news.png"
 import newsListImage from "./assets/images/AdminPanelImages/newsList.png"
 import messagesImage from "./assets/images/AdminPanelImages/messages.png"
 import parametersImage from "./assets/images/AdminPanelImages/parameters.png"
+import advertisementImage from "./assets/images/AdminPanelImages/advertisement.png"
+import listAdvertisementImage from "./assets/images/AdminPanelImages/listAdvertisement.png"
 import UserProfile from "./views/subscribers/UserProfile";
 
 
@@ -104,6 +108,18 @@ const router = new Router({
             name: 'NewsList',
             component: NewsList,
             meta: { title: 'Haber Düzenle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newsListImage }
+        },
+        {
+            path: '/addAdvertisement',
+            name: 'AddAdvertisement',
+            component: AddAdvertisement,
+            meta: { title: 'Reklam Ekle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: advertisementImage }
+        },
+        {
+            path: '/listAdvertisementImage',
+            name: 'AdvertisementsList',
+            component: AdvertisementsList,
+            meta: { title: 'Reklam Düzenle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: listAdvertisementImage }
         },
         {
             path: '/addPages',
