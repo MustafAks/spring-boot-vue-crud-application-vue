@@ -54,7 +54,7 @@
                         background="#ababab"
                         img-width="1024"
                         img-height="480"
-                        style="text-shadow: 1px 1px 2px #333; position: fixed; margin-top: 100px"
+                        style="text-shadow: 1px 1px 2px #333; position: fixed; margin-top: 50px"
                 >
                     <li v-for="advertisement in advertisements" :key=advertisement.id>
                         <b-carousel-slide :img-src= "'data:image/jpg;base64,'+advertisement.image"></b-carousel-slide>
