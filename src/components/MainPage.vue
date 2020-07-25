@@ -46,7 +46,7 @@
 
             <b-col class="col-4">
                 <b-carousel
-                        id="advertisement"
+                        id="myCarousel"
                         v-model="slide"
                         :interval="4000"
                         controls
@@ -54,7 +54,7 @@
                         background="#ababab"
                         img-width="1024"
                         img-height="480"
-                        style="text-shadow: 1px 1px 2px #333; position: fixed; margin-top: 50px"
+                        style="position: fixed; margin-top: 50px"
                 >
                     <li v-for="advertisement in advertisements" :key=advertisement.id>
                         <b-carousel-slide :img-src= "'data:image/jpg;base64,'+advertisement.image"></b-carousel-slide>
@@ -141,5 +141,38 @@
 
     #advertisement {
         margin: 0 40px 0 40px;
+    }
+
+    #myCarousel{
+        height: auto;
+    }
+
+    #myCarousel> .carousel-inner > .carousel-item > img {
+        object-fit: none;
+        position:absolute;
+        height:100%;
+    }
+
+    #myCarousel> .carousel-inner > .carousel-item > .carousel-caption {
+        position: relative;
+        right: auto;
+        left: auto;
+    }
+
+    @media only screen and (max-width: 568px) {
+        #myCarousel> .carousel-inner > .carousel-item > .carousel-caption {
+            margin-bottom: 10%;
+            position: fixed;
+        }
+
+        #myCarousel> .carousel-inner{
+            overflow: visible;
+        }
+
+        #myCarousel> .carousel-inner>.item>img {
+            height: auto;
+            width: 100%;
+            margin: auto;
+        }
     }
 </style>
