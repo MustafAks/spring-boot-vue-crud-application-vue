@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <b-form @submit="createSubscriber" @reset="clear">
+        <b-form @submit="createSubscriber" @reset="clear" onsubmit="return false;">
             <b-row>
                 <b-col class="col-6">
                     <b-form-group
@@ -177,7 +177,7 @@
                         ></b-form-select>
                     </b-form-group>
                     <b-row align-h="end">
-                        <b-button type="submit" variant="success" onsubmit="return false;">
+                        <b-button type="submit" variant="success">
                             <b-icon icon="plus"></b-icon>
                             Kaydet
                         </b-button>
