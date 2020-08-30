@@ -177,7 +177,7 @@
                         ></b-form-select>
                     </b-form-group>
                     <b-row align-h="end">
-                        <b-button type="submit" variant="success">
+                        <b-button type="submit" variant="success" onsubmit="return false;">
                             <b-icon icon="plus"></b-icon>
                             Kaydet
                         </b-button>

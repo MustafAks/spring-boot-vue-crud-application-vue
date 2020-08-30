@@ -61,4 +61,10 @@
         height: 80px;
         margin-top: -3px;
     }
+    .navbar-dark .navbar-nav .nav-link{
+        color:white!important
+    }
+    ::v-deep .dropdown .nav-link {
+        color: white!important;
+    }
 </style>
