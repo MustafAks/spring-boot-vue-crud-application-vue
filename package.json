@@ -14,8 +14,8 @@
     "bootstrap-social": "^5.1.1",
     "bootstrap-vue": "^2.6.0",
     "core-js": "^3.6.4",
-    "node-sass": "^4.13.1",
     "pdfmake": "^0.1.65",
+    "sass": "^1.32.0",
     "sass-loader": "^8.0.2",
     "superagent": "^5.2.2",
     "vee-validate": "^3.2.5",
@@ -23,6 +23,7 @@
     "vue-analytics": "^5.22.1",
     "vue-good-table": "^2.18.1",
     "vue-notifyjs": "^0.3.0",
+    "vue-pdf": "^4.3.0",
     "vue-router": "^3.1.5",
     "vue-social-sharing": "^2.4.7",
     "vuelidate": "^0.7.5",
@@ -36,6 +37,7 @@
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-service": "~4.2.0",
     "babel-eslint": "^10.0.3",
+    "chokidar": "^3.6.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
     "vue-template-compiler": "^2.6.11"
@@ -53,6 +55,9 @@
       "parser": "babel-eslint"
     },
     "rules": {}
+  },
+  "overrides": {
+    "fsevents": "2.3.3"
   },
   "browserslist": [
     "> 1%",

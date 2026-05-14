@@ -1,178 +1,146 @@
 <template>
-    <div class="container">
-        <b-row>
-            <b-col class="col-8">
-                <b-overlay :show="show" rounded="sm">
-                    <h1>Son Eklenenler</h1>
-                    <label v-if = "this.news === undefined || this.news === null || this.news.length === 0">Henüz Hiç Haber Eklenmemiş</label>
-                    <li v-for="newsContent in news" :key=newsContent.id>
-                        <b-card style="margin-top: 10px;">
-                            <b-row>
-                                <b-col md="3">
-                                    <a :href="'#/news?newsId=' + newsContent.id">
-                                        <b-card-img :src="'data:image/jpg;base64,'+newsContent.image" alt="Image" class="rounded-0"></b-card-img>
-                                    </a>
-                                </b-col>
-                                <b-col md="9">
-                                    <b-card-body>
-                                        <a :href="'#/news?newsId=' + newsContent.id" style="text-decoration: none; color: black">
-                                            <b-card-title>
-                                                {{ newsContent.title }}
-                                            </b-card-title>
-                                        </a>
-                                        <a :href="'#/news?newsId=' + newsContent.id" style="text-decoration: none; color: black">
-                                            <b-card-text>
-                                                {{ newsContent.description }}
-                                            </b-card-text>
-                                        </a>
-                                    </b-card-body>
-                                </b-col>
-                            </b-row>
-                        </b-card>
-                    </li>
+    <div class="container-fluid">
+        <!-- Loading Overlay -->
+        <loading-overlay :show="loading" />
 
-                    <b-button variant="outline-primary" style="margin-top: 10px; width: 100%" @click = getNews() :hidden = buttonHidden>
-                        Daha Fazla
-                    </b-button>
-
-                    <template v-slot:overlay>
-                        <div class="text-center">
-                            <b-icon icon="stopwatch" font-scale="3" animation="cylon"></b-icon>
-                            <p id="cancel-label">Lütfen Bekleyin...</p>
-                        </div>
-                    </template>
-                </b-overlay>
-            </b-col>
-
-            <b-col class="col-4">
-                <b-carousel
-                        id="myCarousel"
-                        v-model="slide"
-                        :interval="4000"
-                        controls
-                        indicators
-                        background="#ababab"
-                        img-width="1024"
-                        img-height="480"
-                        style="position: fixed; margin-top: 50px"
-                >
-                    <li v-for="advertisement in advertisements" :key=advertisement.id>
-                        <b-carousel-slide :img-src= "'data:image/jpg;base64,'+advertisement.image"></b-carousel-slide>
-                    </li>
-                </b-carousel>
-            </b-col>
-        </b-row>
-
+        <div v-if="!loading" class="mainpage-content">
+            <div class="ad-col">
+                <div v-if="advertisements.length > 0" class="ad-carousel-wrapper">
+                    <b-carousel
+                            id="myCarousel"
+                            v-model="slide"
+                            :interval="4000"
+                            controls
+                            indicators
+                            background="#f5f5f5"
+                    >
+                        <b-carousel-slide
+                                v-for="advertisement in advertisements"
+                                :key="advertisement.id"
+                        >
+                            <template v-slot:img>
+                                <div class="ad-slide">
+                                    <img
+                                            :src="'data:image/jpg;base64,' + advertisement.image"
+                                            alt="Reklam"
+                                            class="ad-image"
+                                    />
+                                </div>
+                            </template>
+                        </b-carousel-slide>
+                    </b-carousel>
+                </div>
+                <div v-else class="ad-placeholder text-center text-muted">
+                    <b-icon icon="image" font-scale="3"></b-icon>
+                    <p>Reklam bulunmamaktadır</p>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
-    import NewsService from "../service/NewsService";
     import AdvertisementService from "../service/AdvertisementService";
-
-    const offset = 10;
+    import LoadingOverlay from "../components/LoadingOverlay";
 
     export default {
         name : 'MainPage',
+        components: { LoadingOverlay },
         data: function () {
             return {
-                news: [],
-                newsCounter: 0,
-                buttonHidden : false,
-                show : true,
                 slide: 0,
-                advertisements: []
+                advertisements: [],
+                loading: true
             }
         },
 
-        mounted() {
-            this.show = false;
-        },
 
         methods: {
-            async getInitialNews() {
-                var data = {
-                    firstIndex : 0,
-                    offset : offset
-                };
-                this.news = await NewsService.listNewsForPublic(data);
-                if (this.news !== undefined && this.news !== null) {
-                    this.newsCounter = this.news.length;
-                }
-                if (this.news === undefined || this.news === null || this.news.length === 0) {
-                    this.buttonHidden = true;
-                }
-            },
-
-            async getNews() {
-                var data = {
-                    firstIndex : this.newsCounter,
-                    offset : offset
-                };
-                let result = await NewsService.listNewsForPublic(data);
-                if (result === undefined || result === null || result.length === 0) {
-                    this.buttonHidden = true;
-                }
-                this.news = this.news.concat(result);
-                if (this.news !== undefined && this.news !== null) {
-                    this.newsCounter = this.news.length;
-                }
-            },
-
             async listAdvertisements() {
-                this.advertisements = await AdvertisementService.list();
+                try {
+                    this.loading = true;
+                    this.advertisements = await AdvertisementService.list();
+                } finally {
+                    this.loading = false;
+                }
             }
         },
         beforeMount() {
-            this.getInitialNews();
             this.listAdvertisements();
         }
     }
 </script>
 
 
-<style>
-    .container {
+<style scoped>
+    .container-fluid {
         display: block;
-        margin-left: auto;
-        margin-right: auto;
-        list-style: none
-    }
-
-    #advertisement {
-        margin: 0 40px 0 40px;
-    }
-
-    #myCarousel{
-        height: auto;
-    }
-
-    #myCarousel> .carousel-inner > .carousel-item > img {
-        object-fit: none;
-        position:absolute;
-        height:100%;
-    }
-
-    #myCarousel> .carousel-inner > .carousel-item > .carousel-caption {
+        padding-right: 15px;
+        padding-left: 15px;
+        list-style: none;
         position: relative;
-        right: auto;
-        left: auto;
     }
 
-    @media only screen and (max-width: 568px) {
-        #myCarousel> .carousel-inner > .carousel-item > .carousel-caption {
-            margin-bottom: 10%;
-            position: fixed;
+    .mainpage-content {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .ad-col {
+        width: 50%;
+        padding-top: 10px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .ad-carousel-wrapper {
+        position: sticky;
+        top: 130px;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 500px;
+    }
+
+    .ad-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5f5;
+        width: 100%;
+        min-height: 480px;
+        padding: 15px;
+    }
+
+    .ad-image {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .ad-placeholder {
+        margin-top: 80px;
+        padding: 40px 20px;
+        background: #f9f9f9;
+        border-radius: 8px;
+        width: 80%;
+        max-width: 420px;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .mainpage-content {
+            flex-direction: column;
         }
 
-        #myCarousel> .carousel-inner{
-            overflow: visible;
-        }
-
-        #myCarousel> .carousel-inner>.item>img {
-            height: auto;
+        .ad-col {
             width: 100%;
-            margin: auto;
+            margin-top: 20px;
+        }
+
+        .ad-carousel-wrapper {
+            position: static;
         }
     }
 </style>
