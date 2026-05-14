@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve --port 8080",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dev": "npm run serve"
+    "dev": "npm run serve",
+    "postinstall": "node scripts/patch-vue-pdf.js"
   },
   "dependencies": {
     "axios": "^0.19.2",

@@ -50,13 +50,13 @@
                     <span class="pdf-title">{{ selectedNewspaperTitle }}</span>
                 </div>
                 <div class="pdf-toolbar-center" v-if="pages.length > 0">
-                    <b-button variant="light" size="sm" :disabled="currentPageIndex <= 0" @click="prevPage" class="pdf-nav-btn">
+                    <b-button variant="light" size="sm" :disabled="pdfLoading || currentPageIndex <= 0" @click="prevPage" class="pdf-nav-btn">
                         <b-icon icon="chevron-left"></b-icon>
                     </b-button>
                     <span class="pdf-page-info">
                         {{ pages[currentPageIndex].pageNumber }}. Sayfa / {{ pages.length }} Sayfa
                     </span>
-                    <b-button variant="light" size="sm" :disabled="currentPageIndex >= pages.length - 1" @click="nextPage" class="pdf-nav-btn">
+                    <b-button variant="light" size="sm" :disabled="pdfLoading || currentPageIndex >= pages.length - 1" @click="nextPage" class="pdf-nav-btn">
                         <b-icon icon="chevron-right"></b-icon>
                     </b-button>
                 </div>
@@ -66,8 +66,13 @@
                     </b-button>
                 </div>
             </div>
-            <div class="pdf-content" @contextmenu.prevent>
-                <loading-overlay :show="pdfLoading" :fullscreen="false" message="PDF yükleniyor..." />
+            <div class="pdf-content"
+                 ref="pdfContent"
+                 @contextmenu.prevent
+                 @touchstart="onTouchStart"
+                 @touchend="onTouchEnd"
+            >
+                <loading-overlay :show="pdfLoading" :fullscreen="false" message="Sayfa yükleniyor..." />
                 <div v-if="!pdfLoading && pdfData" class="pdf-scroll-container">
                     <pdf
                         v-for="i in pdfNumPages"
@@ -103,7 +108,9 @@ export default {
             pdfLoading: false,
             pdfData: null,
             pdfNumPages: 0,
-            currentPageIndex: 0
+            currentPageIndex: 0,
+            touchStartX: 0,
+            touchStartY: 0
         }
     },
 
@@ -154,16 +161,22 @@ export default {
         },
 
         closePdfViewer() {
-            this.pdfViewerOpen = false;
-            this.clearPdf();
-            this.pages = [];
-            document.body.style.overflow = '';
-            this.hideFooter(false);
+            // Önce pdfData'yı temizle ki vue-pdf componentleri güvenle kaldırılsın
+            this.pdfData = null;
+            this.pdfNumPages = 0;
+            this.$nextTick(() => {
+                this.pdfViewerOpen = false;
+                this.pages = [];
+                document.body.style.overflow = '';
+                this.hideFooter(false);
+            });
         },
 
         async loadPdf(pageId) {
             this.pdfLoading = true;
-            this.clearPdf();
+            this.pdfData = null;
+            this.pdfNumPages = 0;
+            await this.$nextTick();
             try {
                 const data = await NewspaperService.getFile(pageId);
                 const binaryString = window.atob(data);
@@ -174,6 +187,10 @@ export default {
                 const loadingTask = pdf.createLoadingTask({ data: bytes });
                 const pdfDoc = await loadingTask.promise;
                 this.pdfNumPages = pdfDoc.numPages;
+                // vue-pdf destroy sırasında cancel().catch() çağırıyor - güvenli hale getir
+                loadingTask.cancel = function() {
+                    return Promise.resolve();
+                };
                 this.pdfData = loadingTask;
             } finally {
                 this.pdfLoading = false;
@@ -219,6 +236,28 @@ export default {
             }
             if (miniPlayer) {
                 miniPlayer.style.bottom = hide ? '0' : '80px';
+            }
+        },
+
+        onTouchStart(e) {
+            if (e.touches.length === 1) {
+                this.touchStartX = e.touches[0].clientX;
+                this.touchStartY = e.touches[0].clientY;
+            }
+        },
+
+        onTouchEnd(e) {
+            if (e.changedTouches.length === 1) {
+                const deltaX = e.changedTouches[0].clientX - this.touchStartX;
+                const deltaY = e.changedTouches[0].clientY - this.touchStartY;
+                // Sadece yatay hareket yeterince büyükse ve dikey hareketten fazlaysa
+                if (Math.abs(deltaX) > 60 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+                    if (deltaX < 0) {
+                        this.nextPage();
+                    } else {
+                        this.prevPage();
+                    }
+                }
             }
         }
     },
@@ -413,16 +452,46 @@ export default {
     }
 
     .pdf-nav-btn {
-        color: #ec1b24;
-        border-color: #fff;
-        background: #fff;
+        color: #ec1b24 !important;
+        border-color: #fff !important;
+        background: #fff !important;
         font-weight: 600;
+        opacity: 1 !important;
+        -webkit-appearance: none !important;
+        outline: none !important;
+        box-shadow: none !important;
     }
 
-    .pdf-nav-btn:hover {
-        background: #c0151d;
-        color: #fff;
-        border-color: #c0151d;
+    .pdf-nav-btn:focus,
+    .pdf-nav-btn:active,
+    .pdf-nav-btn:focus:active,
+    .pdf-nav-btn.focus {
+        color: #ec1b24 !important;
+        border-color: #fff !important;
+        background: #fff !important;
+        opacity: 1 !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    .pdf-nav-btn:disabled,
+    .pdf-nav-btn[disabled],
+    .pdf-nav-btn:disabled:focus,
+    .pdf-nav-btn:disabled:active {
+        opacity: 0.35 !important;
+        background: #ccc !important;
+        border-color: #ccc !important;
+        color: #777 !important;
+        pointer-events: none;
+        box-shadow: none !important;
+    }
+
+    @media (hover: hover) {
+        .pdf-nav-btn:not(:disabled):hover {
+            background: #c0151d !important;
+            color: #fff !important;
+            border-color: #c0151d !important;
+        }
     }
 
     @media only screen and (max-width: 768px) {
