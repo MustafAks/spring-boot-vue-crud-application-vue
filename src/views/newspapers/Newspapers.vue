@@ -54,7 +54,7 @@
                         <b-icon icon="chevron-left"></b-icon>
                     </b-button>
                     <span class="pdf-page-info">
-                        {{ pages[currentPageIndex].pageNumber }}. Sayfa / {{ pages.length }} Sayfa
+                        {{ currentPageNumber }}. Sayfa / {{ pages.length }} Sayfa
                     </span>
                     <b-button variant="light" size="sm" :disabled="pdfLoading || currentPageIndex >= pages.length - 1" @click="nextPage" class="pdf-nav-btn">
                         <b-icon icon="chevron-right"></b-icon>
@@ -74,10 +74,13 @@
             >
                 <loading-overlay :show="pdfLoading" :fullscreen="false" message="Sayfa yükleniyor..." />
                 <iframe
-                    v-if="!pdfLoading && pdfUrl"
-                    :src="pdfUrl + '#toolbar=0&navpanes=0'"
+                    v-if="pdfUrl"
+                    v-show="!pdfLoading"
+                    :key="pdfUrl"
+                    :src="pdfUrl + '#toolbar=0'"
                     class="pdf-iframe"
                     frameborder="0"
+                    @load="onIframeLoad"
                 ></iframe>
             </div>
         </div>
@@ -106,6 +109,15 @@ export default {
             currentPageIndex: 0,
             touchStartX: 0,
             touchStartY: 0
+        }
+    },
+
+    computed: {
+        currentPageNumber() {
+            if (this.pages.length > 0 && this.currentPageIndex < this.pages.length) {
+                return this.pages[this.currentPageIndex].pageNumber;
+            }
+            return 1;
         }
     },
 
@@ -149,8 +161,10 @@ export default {
                 this.pages = await NewspaperService.getPagesByNewspaperId(newspaper.id, 'Asc');
                 if (this.pages.length > 0) {
                     this.loadPdf(this.pages[0].filePath);
+                } else {
+                    this.pdfLoading = false;
                 }
-            } finally {
+            } catch (e) {
                 this.pdfLoading = false;
             }
         },
@@ -167,7 +181,14 @@ export default {
 
         loadPdf(filePath) {
             const baseURL = 'https://hasretkemaliye.com';
-            this.pdfUrl = baseURL + filePath;
+            this.pdfLoading = true;
+            // Cache-buster ile tarayıcı cache sorununu önle
+            const cacheBuster = '?t=' + Date.now();
+            this.pdfUrl = baseURL + filePath + cacheBuster;
+        },
+
+        onIframeLoad() {
+            this.pdfLoading = false;
         },
 
         prevPage() {
