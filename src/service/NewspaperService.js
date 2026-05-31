@@ -3,7 +3,7 @@ import Vue from 'vue';
 const SAVE_NEWSPAPER_URL = '/newspaper/';
 const DELETE_NEWSPAPER_URL = '/newspaper/';
 const LIST_NEWSPAPER_URL = '/newspaper/list';
-const SAVE_PAGE_URL = '/newspaper/pages/';
+const UPLOAD_PAGES_URL = '/newspaper/pages/';
 const GET_PAGES_BY_NEWSPAPER_ID_URL = '/newspaper/pages/getPagesByNewspaperId';
 const DELETE_PAGE_URL = '/newspaper/pages/';
 const GET_FILE_URL = '/newspaper/pages/getFile';
@@ -21,10 +21,6 @@ class NewspaperService {
 
     async list() {
         return await Vue.prototype.$axios.get(LIST_NEWSPAPER_URL);
-    }
-
-    async savePage(data) {
-        return await Vue.prototype.$axiosFile.post(SAVE_PAGE_URL, data, { headers: { 'Content-Type': 'multipart/form-data' } });
     }
 
     async deletePage(id) {
@@ -49,6 +45,10 @@ class NewspaperService {
 
     async getNewspapersByYear(year) {
         return await Vue.prototype.$axios.get(GET_NEWSPAPER_BY_YEAR_URL, { params: { year: year } });
+    }
+
+    async uploadPages(formData) {
+        return await Vue.prototype.$axiosFile.post(UPLOAD_PAGES_URL, formData);
     }
 }
 

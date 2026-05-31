@@ -2,7 +2,8 @@ import Vue from 'vue';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://hasretkemaliye.com:8443',
+  baseURL: 'https://hasretkemaliye.com/api',
+  //baseURL: 'http://localhost:8080/api',
   timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
@@ -24,7 +25,8 @@ axiosInstance.interceptors.response.use(
 );
 
 const axiosFileInstance = axios.create({
-  baseURL: 'https://hasretkemaliye.com:8443',
+  baseURL: 'https://hasretkemaliye.com/api',
+  //baseURL: 'http://localhost:8080/api',
   timeout: 30000,
   headers: {
     'Content-Type': 'multipart/form-data'

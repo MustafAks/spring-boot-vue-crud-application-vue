@@ -33,12 +33,12 @@
                                 required
                         ></b-form-input>
                     </b-form-group>
-                    <b-row align-h="end">
-                        <b-button type="submit" variant="primary">
+                    <div class="d-flex justify-content-end">
+                        <b-button type="submit" variant="primary" class="text-white">
                             Giriş Yap
                         </b-button>
-                        <b-button type="reset" variant="danger" style="margin-left: 5px">Temizle</b-button>
-                    </b-row>
+                        <b-button type="reset" variant="danger" class="ml-1 text-white">Temizle</b-button>
+                    </div>
                 </b-form>
             </b-col>
             <b-col></b-col>
