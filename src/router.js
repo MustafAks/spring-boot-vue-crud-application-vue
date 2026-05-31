@@ -17,7 +17,6 @@ import FilterList from "./views/subscribers/FilterList";
 import Contact from "./views/Contact";
 import Messages from "./views/Messages";
 import Parameters from "./views/Parameters";
-import SubscriberEndDateControl from "./views/subscribers/SubscriberEndDateControl";
 import Login from "./views/user/Login";
 import NewspaperUpload from "./views/newspapers/NewspaperUpload";
 import Page401 from "./views/Page401";
@@ -28,7 +27,6 @@ import EmbeddedFile from "./views/newspapers/EmbeddedFile";
 import AdminPanel from "./views/adminPanel/AdminPanel";
 import addSubscriberImage from "./assets/images/AdminPanelImages/addSubscriber.png"
 import filterImage from "./assets/images/AdminPanelImages/filter.png"
-import endImage from "./assets/images/AdminPanelImages/end.png"
 import newspaperImage from "./assets/images/AdminPanelImages/newspaper.png"
 import messagesImage from "./assets/images/AdminPanelImages/messages.png"
 import parametersImage from "./assets/images/AdminPanelImages/parameters.png"
@@ -131,12 +129,6 @@ const router = new Router({
             name: 'EmbeddedFile',
             component: EmbeddedFile,
             meta: { title: 'Gazete Oku', roles: ["ROLE_USER", "ROLE_ADMIN"] }
-        },
-        {
-            path: '/subscriberEndDateControl',
-            name: 'SubscriberEndDateControl',
-            component: SubscriberEndDateControl,
-            meta: {title: 'Abonelik Bitiş', roles: ["ROLE_ADMIN"], operations: "subscriptions", image: endImage }
         },
         {
           path: '/401',
