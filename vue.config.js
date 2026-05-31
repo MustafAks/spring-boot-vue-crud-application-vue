@@ -4,7 +4,11 @@ module.exports = {
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        target: 'http://localhost:8085',
+        changeOrigin: true
+      },
+      '/apps/pdf': {
+        target: 'https://hasretkemaliye.com',
         changeOrigin: true
       }
     }

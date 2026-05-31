@@ -19,8 +19,7 @@ import Messages from "./views/Messages";
 import Parameters from "./views/Parameters";
 import SubscriberEndDateControl from "./views/subscribers/SubscriberEndDateControl";
 import Login from "./views/user/Login";
-import AddNewspaper from "./views/newspapers/AddNewspaper";
-import AddPages from "./views/newspapers/AddPages";
+import NewspaperUpload from "./views/newspapers/NewspaperUpload";
 import Page401 from "./views/Page401";
 import Newspapers from "./views/newspapers/Newspapers";
 import AddAdvertisement from "./views/advertisements/AddAdvertisement";
@@ -74,10 +73,10 @@ const router = new Router({
             meta: { title: 'Abone Ekle', roles: ["ROLE_ADMIN"], operations: "subscriptions", image: addSubscriberImage }
         },
         {
-            path: '/addNewspaper',
-            name: 'AddNewspaper',
-            component: AddNewspaper,
-            meta: { title: 'Gazete Ekle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newspaperImage }
+            path: '/uploadNewspaper',
+            name: 'UploadNewspaper',
+            component: NewspaperUpload,
+            meta: { title: 'Gazete Yükle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: newspaperImage }
         },
         {
             path: '/addAdvertisement',
@@ -90,12 +89,6 @@ const router = new Router({
             name: 'AdvertisementsList',
             component: AdvertisementsList,
             meta: { title: 'Reklam Düzenle', roles: ["ROLE_ADMIN"], operations: "newspapers", image: listAdvertisementImage }
-        },
-        {
-            path: '/addPages',
-            name: 'AddPages',
-            component: AddPages,
-            meta: { title: 'Sayfa Ekle', roles: ["ROLE_ADMIN"] }
         },
         {
             path: '/filter',

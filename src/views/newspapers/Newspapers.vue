@@ -54,7 +54,7 @@
                         <b-icon icon="chevron-left"></b-icon>
                     </b-button>
                     <span class="pdf-page-info">
-                        {{ pages[currentPageIndex].pageNumber }}. Sayfa / {{ pages.length }} Sayfa
+                        {{ currentPageNumber }}. Sayfa / {{ pages.length }} Sayfa
                     </span>
                     <b-button variant="light" size="sm" :disabled="pdfLoading || currentPageIndex >= pages.length - 1" @click="nextPage" class="pdf-nav-btn">
                         <b-icon icon="chevron-right"></b-icon>
@@ -73,15 +73,15 @@
                  @touchend="onTouchEnd"
             >
                 <loading-overlay :show="pdfLoading" :fullscreen="false" message="Sayfa yükleniyor..." />
-                <div v-if="!pdfLoading && pdfData" class="pdf-scroll-container">
-                    <pdf
-                        v-for="i in pdfNumPages"
-                        :key="i"
-                        :src="pdfData"
-                        :page="i"
-                        class="pdf-page-render"
-                    ></pdf>
-                </div>
+                <iframe
+                    v-if="pdfUrl"
+                    v-show="!pdfLoading"
+                    :key="pdfUrl"
+                    :src="pdfUrl + '#toolbar=0'"
+                    class="pdf-iframe"
+                    frameborder="0"
+                    @load="onIframeLoad"
+                ></iframe>
             </div>
         </div>
     </div>
@@ -90,11 +90,10 @@
 <script>
 import NewspaperService from "../../service/NewspaperService";
 import LoadingOverlay from "../../components/LoadingOverlay";
-import pdf from "vue-pdf";
 
 export default {
     name: 'Newspapers',
-    components: { LoadingOverlay, pdf },
+    components: { LoadingOverlay },
     data() {
         return {
             years: [],
@@ -106,11 +105,19 @@ export default {
             selectedNewspaperTitle: '',
             pdfViewerOpen: false,
             pdfLoading: false,
-            pdfData: null,
-            pdfNumPages: 0,
+            pdfUrl: null,
             currentPageIndex: 0,
             touchStartX: 0,
             touchStartY: 0
+        }
+    },
+
+    computed: {
+        currentPageNumber() {
+            if (this.pages.length > 0 && this.currentPageIndex < this.pages.length) {
+                return this.pages[this.currentPageIndex].pageNumber;
+            }
+            return 1;
         }
     },
 
@@ -153,17 +160,17 @@ export default {
             try {
                 this.pages = await NewspaperService.getPagesByNewspaperId(newspaper.id, 'Asc');
                 if (this.pages.length > 0) {
-                    await this.loadPdf(this.pages[0].id);
+                    this.loadPdf(this.pages[0].filePath);
+                } else {
+                    this.pdfLoading = false;
                 }
-            } finally {
+            } catch (e) {
                 this.pdfLoading = false;
             }
         },
 
         closePdfViewer() {
-            // Önce pdfData'yı temizle ki vue-pdf componentleri güvenle kaldırılsın
-            this.pdfData = null;
-            this.pdfNumPages = 0;
+            this.pdfUrl = null;
             this.$nextTick(() => {
                 this.pdfViewerOpen = false;
                 this.pages = [];
@@ -172,47 +179,29 @@ export default {
             });
         },
 
-        async loadPdf(pageId) {
+        loadPdf(filePath) {
+            const baseURL = 'https://hasretkemaliye.com';
             this.pdfLoading = true;
-            this.pdfData = null;
-            this.pdfNumPages = 0;
-            await this.$nextTick();
-            try {
-                const data = await NewspaperService.getFile(pageId);
-                const binaryString = window.atob(data);
-                const bytes = new Uint8Array(binaryString.length);
-                for (let i = 0; i < binaryString.length; i++) {
-                    bytes[i] = binaryString.charCodeAt(i);
-                }
-                const loadingTask = pdf.createLoadingTask({ data: bytes });
-                const pdfDoc = await loadingTask.promise;
-                this.pdfNumPages = pdfDoc.numPages;
-                // vue-pdf destroy sırasında cancel().catch() çağırıyor - güvenli hale getir
-                loadingTask.cancel = function() {
-                    return Promise.resolve();
-                };
-                this.pdfData = loadingTask;
-            } finally {
-                this.pdfLoading = false;
-            }
+            // Cache-buster ile tarayıcı cache sorununu önle
+            const cacheBuster = '?t=' + Date.now();
+            this.pdfUrl = baseURL + filePath + cacheBuster;
         },
 
-        clearPdf() {
-            this.pdfData = null;
-            this.pdfNumPages = 0;
+        onIframeLoad() {
+            this.pdfLoading = false;
         },
 
-        async prevPage() {
+        prevPage() {
             if (this.currentPageIndex > 0) {
                 this.currentPageIndex--;
-                await this.loadPdf(this.pages[this.currentPageIndex].id);
+                this.loadPdf(this.pages[this.currentPageIndex].filePath);
             }
         },
 
-        async nextPage() {
+        nextPage() {
             if (this.currentPageIndex < this.pages.length - 1) {
                 this.currentPageIndex++;
-                await this.loadPdf(this.pages[this.currentPageIndex].id);
+                this.loadPdf(this.pages[this.currentPageIndex].filePath);
             }
         },
 
@@ -272,7 +261,7 @@ export default {
 
     beforeDestroy() {
         window.removeEventListener('keydown', this.handleKeydown);
-        this.clearPdf();
+        this.pdfUrl = null;
         this.hideFooter(false);
         document.body.style.overflow = '';
     }
@@ -426,29 +415,16 @@ export default {
     .pdf-content {
         flex: 1;
         display: flex;
-        align-items: flex-start;
+        align-items: stretch;
         justify-content: center;
-        overflow: auto;
-        background: #f2f3f4;
-        padding: 20px;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .pdf-scroll-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-        width: 100%;
-        max-width: 900px;
-    }
-
-    .pdf-page-render {
-        width: 100%;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-        border-radius: 4px;
         overflow: hidden;
-        background: #fff;
+        background: #f2f3f4;
+    }
+
+    .pdf-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
     }
 
     .pdf-nav-btn {
